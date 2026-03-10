@@ -58,10 +58,10 @@ M004D      EQU     $004D
 M0071      EQU     $0071
 M0072      EQU     $0072
 M0080      EQU     $0080
-M0088      EQU     $0088
-M008A      EQU     $008A
-M008C      EQU     $008C
-M008D      EQU     $008D
+CURPOS     EQU     $0088
+ZERO       EQU     $008A
+SNDTON     EQU     $008C
+SNDDUR     EQU     $008D
 M0090      EQU     $0090
 M0092      EQU     $0092
 M0094      EQU     $0094
@@ -174,7 +174,7 @@ MFF02      EQU     $FF02
 MFF03      EQU     $FF03
 SNDOUT     EQU     $FF20	; PIA1 data port A: 6bit Dac address for sound output/input
 VDGSET     EQU     $FF22	; PIA1 data port B: VDG Configuration 
-SNDSET     EQU     $FF23	; PIA1 control port B: FIRQ Address 
+SNDSET     EQU     $FF23	; PIA1 control port B: Turn on sound
 DSKCTL     EQU     $FF40	; PIA2 bit
 V0CLR      EQU     $FFC0	; Clear SAM V0 bit 
 V1CLR      EQU     $FFC2	; Clear SAM V2 bit
@@ -1505,8 +1505,8 @@ Z2CF5      LDB     RBUTTN                   ;2CF5: F6 FF 00       '...'
            ASRA                             ;2D00: 
            ASRA                             ;2D01: 
            ASRA                             ;2D02: 
-           BSR     Z2D52                    ;2D03: Branch to game loop (?)
-           CMPA    M0000                    ;2D05: Back from game loop: Check lives (?)
+           BSR     Z2D52                    ;2D03: Branch to (?)
+           CMPA    M0000                    ;2D05: Back from (?): Check lives (?)
            LBEQ    Z2CF2                    ;2D07: 10 27 FF E7    '.'..'
            LEAX    -$20,X                   ;2D0B: 30 88 E0       '0..'
            TFR     X,U                      ;2D0E: 1F 13          '..'
@@ -1602,7 +1602,7 @@ POLJOY1    PSHS    U,Y,X,DP,D,CC            ;2DBB:
            INC     M003F                    ;2DC6: Increment evaluation variable ? 
            RTS                              ;2DC8: 
 ; --------------------------------------------------------------------------------
-; Subroutine 
+; Subroutine for playing sound 
 ; --------------------------------------------------------------------------------
            PSHS    X,D                      ;2DC9: 34 16          '4.'
            STA     M000D                    ;2DCB: 97 0D          '..'
@@ -1742,7 +1742,10 @@ Z2EB3      STX     M003E                    ;2EB3: 9F 3E          '.>'
            STA     M003D                    ;2EBA: 97 3D          '.='
            PULS    X,A                      ;2EBC: 35 12          '5.'
            RTS                              ;2EBE: 39             '9'
-           LDA     #$F7                     ;2EBF: 86 F7          '..'
+; --------------------------------------------------------------------------------
+; Subroutine 
+; --------------------------------------------------------------------------------           
+S2EBF      LDA     #$F7                     ;2EBF: 86 F7          '..'
            BSR     Z2ECC                    ;2EC1: 8D 09          '..'
            BEQ     Z2ED5                    ;2EC3: 27 10          ''.'
            LDA     #$EF                     ;2EC5: 86 EF          '..'
@@ -1760,11 +1763,11 @@ Z2ED9      LDA     #$DF                     ;2ED9: 86 DF          '..'
            RTS                              ;2EDF: 39             '9'
            PSHS    X,DP,D                   ;2EE0: 34 1E          '4.'
            LDD     #DDJ_WRITE               ;2EE2: CC DE 03       '...'
-Z2EE5      STA     >M008C                   ;2EE5: B7 00 8C       '...'
+Z2EE5      STA     >SNDTON                   ;2EE5: B7 00 8C       '...'
            CLRA                             ;2EE8: 4F             'O'
            TFR     A,DP                     ;2EE9: 1F 8B          '..'
            ANDCC   #$AF                     ;3D66: Enable interrupts (Clear F&I bits)
-           JSR     ZA951                    ;2EED: BD A9 51       '..Q'
+           JSR     ZA951                    ;2EED: Jump to Basic SOUND subroutine 
            ORCC    #$50                     ;3A05: Disable interrupts
            PULS    X,DP,D                   ;2EF2: 35 1E          '5.'
            RTS                              ;2EF4: 39             '9'
@@ -2419,11 +2422,11 @@ Z3434      STY     ,X                       ;3434: 10 AF 84       '...'
            LDX     #M0350                   ;345D: 8E 03 50       '..P'
            STX     M009A                    ;3460: 9F 9A          '..'
            LDX     #M18B0                   ;3462: 8E 18 B0       '...'
-           STX     M0088                    ;3465: 9F 88          '..'
+           STX     CURPOS                   ;3465: 9F 88          '..'
            LDX     #M0590                   ;3467: 8E 05 90       '...'
-           STX     M008A                    ;346A: 9F 8A          '..'
+           STX     ZERO                     ;346A: 9F 8A          '..'
            LDA     #$0C                     ;346C: 86 0C          '..'
-           STA     M008D                    ;346E: 97 8D          '..'
+           STA     SNDDUR                   ;346E: 97 8D          '..'
            INC     M0094                    ;3470: 0C 94          '..'
            CLR     M00BF                    ;3472: 0F BF          '..'
            CLR     M00BE                    ;3474: 0F BE          '..'
@@ -3179,9 +3182,9 @@ Z3A44      CLR     ,X+                      ;3A44: 6F 80          '
            STA     M0020                    ;3A53: Set variable to 18 (?)
            STA     M0040                    ;3A55: Set variable to 18 (?)
            JSR     [VPMODE4]                ;3A57: Switch to graphics mode PMODE 4 
-           JMP     [Z1F42]                  ;3A5B: Jump to 3A5F (game preparation?)
-           ; Game preparation?  --------------------------------------------- ----------------------------
-GMPREP     LDS     #M3FFE                   ;3A5F: Move stack pointer to 3FFFE
+           JMP     [Z1F42]                  ;3A5B: Jump to 3A5F (game loop?)
+           ; Game loop?  --------------------------------------------- ----------------------------
+GMLOOP     LDS     #M3FFE                   ;3A5F: Move stack pointer to 3FFFE
            JSR     [Z1F6E]                  ;3A63: Subroutine at 3325 for setting up ???
            LDA     #$03                     ;3A67: Value 3
            STA     LIVES                    ;3A69: Set number of lives at 3
@@ -3241,13 +3244,13 @@ Z3AE3      CLR     ,X+                      ;3AE3: 6F 80          'o.'
            CLR     M0012                    ;3AF0: 0F 12          '..'
            JMP     [Z1F46]                  ;3AF2: 6E 9F 1F 46    'n..F'
            LDS     #M3FFE                   ;3AF6: 10 CE 3F FE    '..?.'
-Z3AFA      JSR     [Z1F24]                  ;3AFA: AD 9F 1F 24    '...$'
-           JSR     [Z1F62]                  ;3AFE: AD 9F 1F 62    '...b'
-           JSR     [Z1F5E]                  ;3B02: AD 9F 1F 5E    '...^'
-           JSR     [Z1F2A]                  ;3B06: AD 9F 1F 2A    '...;'
-           JSR     [Z1F48]                  ;3B0A: AD 9F 1F 48    '...H'
-           JSR     [Z1F60]                  ;3B0E: AD 9F 1F 60    '...`'
-           JSR     [Z1F36]                  ;3B12: AD 9F 1F 36    '...6'
+Z3AFA      JSR     [Z1F24]                  ;3AFA: Jump to 2EBF
+           JSR     [Z1F62]                  ;3AFE: Jump to 3C09
+           JSR     [Z1F5E]                  ;3B02: Jump to 3B80
+           JSR     [Z1F2A]                  ;3B06: Jump to 306A
+           JSR     [Z1F48]                  ;3B0A: Jump to 3738
+           JSR     [Z1F60]                  ;3B0E: Jump to 3BC2
+           JSR     [Z1F36]                  ;3B12: Jump to 3337
            TST     M004C                    ;3B16: 0D 4C          '.L'
            BNE     Z3B5A                    ;3B18: 26 40          '&@'
            LDX     M0039                    ;3B1A: 9E 39          '.9'
@@ -3387,12 +3390,12 @@ Z3C3D      PULS    X,A                      ;3C3D: 35 12          '5.'
            CLRA                             ;3C42: 4F             'O'
            TFR     A,DP                     ;3C43: 1F 8B          '..'
            LDD     #M3C04                   ;3C45: CC 3C 04       '.<.'
-           STA     M008C                    ;3C48: 97 8C          '..'
+           STA     SNDTON                    ;3C48: 97 8C          '..'
            ANDCC   #$AF                     ;3D66: Enable interrupts (Clear F&I bits)
-           JSR     ZA951                    ;3C4C: BD A9 51       '..Q'
+           JSR     ZA951                    ;3C4C: Jump to Basic SOUND subroutine 
            LDD     #M0A04                   ;3C4F: CC 0A 04       '...'
-           STA     M008C                    ;3C52: 97 8C          '..'
-           JSR     ZA951                    ;3C54: BD A9 51       '..Q'
+           STA     SNDTON                    ;3C52: 97 8C          '..'
+           JSR     ZA951                    ;3C54: Jump to Basic SOUND subroutine 
            ORCC    #$50                     ;3A05: Disable interrupts
            LDX     #M7FFE                   ;3C59: 8E 7F FE       '...'
 Z3C5C      DEX                              ;3C5C: 30 1F          '0.'
@@ -3531,9 +3534,9 @@ S3D64      PSHS    Y,X,DP,D                 ;3D64:
            LEAY    B,X                      ;3D6B: 
            PSHY                             ;3D6D: 34 20          '4 '
 Z3D6F      LDD     ,X++                     ;3D6F: EC 81          '..'
-           STA     M008C                    ;3D71: 97 8C          '..'
+           STA     SNDTON                    ;3D71: 97 8C          '..'
            PSHX                             ;3D73: 34 10          '4.'
-           JSR     ZA951                    ;3D75: BD A9 51       '..Q'
+           JSR     ZA951                    ;3D75: Jump to Basic SOUND subroutine 
            PULX                             ;3D78: 35 10          '5.'
            CMPX    ,S                       ;3D7A: AC E4          '..'
            BLT     Z3D6F                    ;3D7C: 2D F1          '-.'
@@ -3596,10 +3599,10 @@ Z3DDE      BSR     DRWTEETH                 ;3DDE: Jump to "Draw teeth rows" sub
            BLT     Z3DDE                    ;3DE5: Loop until done 
            ;  -----------------------------------------------
            LDX     #M0AC5                   ;3DE7: Point to screen location (?)
-           LDY     #M2845                   ;3DEA: Point to sprite (?)
+           LDY     #M2845                   ;3DEA: Point to data (?)
            LDA     #$16                     ;3DEE: Load counter value = 16
            BSR     Z3E2E                    ;3DF0: 8D 3C          '.<'
-           LDX     #M10CA                   ;3DF2: 8E 10 CA       '...'
+           LDX     #M10CA                   ;3DF2: Point to screen location (?)
            LDA     #$0A                     ;3DF5: 86 0A          '..'
            BSR     Z3E2E                    ;3DF7: 8D 35          '.5'
            LDA     #$18                     ;3DF9: 86 18          '..'
