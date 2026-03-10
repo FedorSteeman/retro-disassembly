@@ -1,0 +1,1 @@
+f9dasm -out asm\fangman.asm -offset 1F0E -begin -1F0E -info bin\fangman.info bin\FANGMAN_stripped.BIN
