@@ -154,13 +154,13 @@ M7FFE      EQU     $7FFE
 M8080      EQU     $8080
 M9999      EQU     $9999
 M99C3      EQU     $99C3
-ZA000      EQU     $A000
+POLCAT     EQU     $A000
 JOYIN      EQU     $A00A
-MA133      EQU     $A133
+RNDSD      EQU     $A133
 MA85C      EQU     $A85C
-MA880      EQU     $A880
-ZA951      EQU     $A951
-MA9B3      EQU     $A9B3
+SETCHR     EQU     $A880
+SOUND      EQU     $A951
+BIRQSV     EQU     $A9B3
 MBFFF      EQU     $BFFF
 DDJWRT     EQU     $DE03
 ME603      EQU     $E603
@@ -195,14 +195,14 @@ RESET      EQU     $FFFF        ;       Reset Vector Address
 
         ORG     $1F0E
 
-        JMP     [Z1F40]                  ;Jump to game initialization at 3A04
+        JMP     [VINIT]                  ;Jump to game initialization at 3A04
 ; -----------------------------------------------------------------------------------------------------------------------------------
 ; Start Data Block
 ; -----------------------------------------------------------------------------------------------------------------------------------        
 ; 1. Vector Table 
 ; -----------------------------------------------------------------------------
 V1F12      FDB     $2B1B
-Z1F14      FDB     $2C4C
+VMENU      FDB     $2C4C
 VPMODE4    FDB     $2E70
 Z1F18      FDB     $2EE0
 Z1F20      FDB     $2EF5
@@ -224,8 +224,8 @@ Z1F38      FDB     $3367
 Z1F3A      FDB     $3D9A
 Z1F3C      FDB     $347B
 Z1F3E      FDB     $3DB7
-Z1F40      FDB     $3A04
-Z1F42      FDB     $3A5F
+VINIT      FDB     $3A04
+VMAIN      FDB     $3A5F
 Z1F44      FDB     $3A93
 Z1F46      FDB     $3AF6
 Z1F48      FDB     $3738
@@ -844,7 +844,7 @@ M24F4      FCB     $FF,$FF,$FF,$FF,$FF,$FF  ;24F4: FF FF FF FF FF FF '......'
 M2600      FCB     $99,$C3                  ;2600: 99 C3          '..'
 M2602      FCB     $99,$99,$C3,$C3,$99,$99  ;2602: 99 99 C3 C3 99 99 '......'
            FCB     $C1,$F9,$99,$C3          ;2608: C1 F9 99 C3    '....'
-M260C      FCB     $80,$80,$80,$80,$80,$80  ;260C: 80 80 80 80 80 80 '......'
+TITLE      FCB     $80,$80,$80,$80,$80,$80  ;260C: 80 80 80 80 80 80 '......'
            FCB     $80,$80,$80,$80,$80,$80  ;2612: 80 80 80 80 80 80 '......'
            FCB     $80,$80,$80,$80,$80,$80  ;2618: 80 80 80 80 80 80 '......'
            FCB     $80,$80,$80,$80,$80,$80  ;261E: 80 80 80 80 80 80 '......'
@@ -899,12 +899,12 @@ M2700      FCB     $80,$80,$80,$80,$80,$80  ;2700: 80 80 80 80 80 80 '......'
            FCB     $10,$12,$05,$13,$13      ;2720: 10 12 05 13 13 '.....'
            FCC     " "                      ;2725: 20             ' '
            FCB     $02,$15,$14,$14,$0F,$0E  ;2726: 02 15 14 14 0F 0E '......'
-M272C      FCC     "``````````ImV`LEAGUER"  ;272C: 60 60 60 60 60 60 60 60 60 60 49 6D 56 60 4C 45 41 47 55 45 52 '``````````ImV`LEAGUER'
-           FCC     "`````````````````````"  ;2741: 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 '`````````````````````'
-           FCC     "NECK`PECKER``````````"  ;2756: 4E 45 43 4B 60 50 45 43 4B 45 52 60 60 60 60 60 60 60 60 60 60 'NECK`PECKER``````````'
-           FCC     "`````````LIVING`DEADH"  ;276B: 60 60 60 60 60 60 60 60 60 4C 49 56 49 4E 47 60 44 45 41 44 48 '`````````LIVING`DEADH'
-           FCC     "EAD``````````````````"  ;2780: 45 41 44 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 'EAD``````````````````'
-           FCC     "```SUCKERa```````````"  ;2795: 60 60 60 53 55 43 4B 45 52 61 60 60 60 60 60 60 60 60 60 60 60 '```SUCKERa```````````'
+LVLSEL     FCC     "``````````ImV`LEAGUER"  ;272C: 60 60 60 60 60 60 60 60 60 60 49 6D 56 60 4C 45 41 47 55 45 52
+           FCC     "`````````````````````"  ;2741: 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60
+           FCC     "NECK`PECKER``````````"  ;2756: 4E 45 43 4B 60 50 45 43 4B 45 52 60 60 60 60 60 60 60 60 60 60
+           FCC     "`````````LIVING`DEADH"  ;276B: 60 60 60 60 60 60 60 60 60 4C 49 56 49 4E 47 60 44 45 41 44 48
+           FCC     "EAD``````````````````"  ;2780: 45 41 44 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60
+           FCC     "```SUCKERa```````````"  ;2795: 60 60 60 53 55 43 4B 45 52 61 60 60 60 60 60 60 60 60 60 60 60
            FCC     "``"                     ;27AA: 60 60          '``'
 M27AC      FCB     $F0,$80,$90,$A0,$B0,$C0  ;27AC: F0 80 90 A0 B0 C0 '......'
            FCB     $D0,$E0,$F0,$80,$90,$A0  ;27B2: D0 E0 F0 80 90 A0 '......'
@@ -1421,13 +1421,13 @@ Z2C47      JSR     [Z1F1A]                  ;2C47: AD 9F 1F 1A    '....'
 ; --------------------------------------------------------------------------------
 ; Subroutine 2 (Main menu screen?)
 ; --------------------------------------------------------------------------------
-S2C4C      PSHS    U,Y,X,D                  ;2C4C: Save registers on stack 
+MMENU      PSHS    U,Y,X,D                  ;2C4C: Save registers on stack 
            ; Clear text screen ---------------------------------------------------
            LDX     #M0800                   ;2C4E: Point to text screen start (?) 
            LDY     #M0200                   ;2C51: Load screen size (32x16=512)
-           LDU     #M8080                   ;2C55: Load empty word 
+           LDU     #M8080                   ;2C55: Load empty word ($80 = space character)
            LBSR    WIPESCR1                 ;2C58: Call wipe screen routine 
-           ; Switch to ? screen mode ------------------------------------
+           ; Switch to text screen mode ------------------------------------
            CLRA                             ;2C5B: 
            STA     VDGSET                   ;2C5C: Clear VDG mode register (text mode)
            STA     V0CLR                    ;2C5F: Clear V0
@@ -1436,30 +1436,30 @@ S2C4C      PSHS    U,Y,X,D                  ;2C4C: Save registers on stack
            STA     F0CLR                    ;2C68: Display offset - Subtract $0200
            STA     F1CLR                    ;2C6B: Display offset - Subtract $0400
            STA     F2SET                    ;2C6E: Display offset - Add $0800 = $0800
-           ;  ------------------------------------
+           ; Draw black top row ------------------------------------
            LDX     #M0720                   ;2C71: Point to 9th row ?
            LDY     #M0020                   ;2C74: Prepare to fill single row
-           LDU     #M8080                   ;2C78: Load ???  
+           LDU     #M8080                   ;2C78: Load black block characters ($80)  
            LBSR    WIPESCR1                 ;2C7B: Call wipe screen routine 
-           ;  ------------------------------------
+           ; Draw FANGMAN title ---------------------------------------------------------
            LDX     #M0600                   ;2C7E: Point to text screen start (?) 
            LDY     #M0120                   ;2C81: Prepare to fill 6 rows
-           LDU     #M260C                   ;2C85: Load 
+           LDU     #TITLE                   ;2C85: Point to title name data  
            LBSR    FILLSCR1                 ;2C88: Call fill screen routine 
-           ;  ------------------------------------
-           LDX     #M0740                   ;2C8B: Point to text row 10
+           ; Draw empty line above menu -------------------------------------------------
+           LDX     #M0740                   ;2C8B: Point to text row 10 
            LDY     #M0020                   ;2C8E: Prepare to fill single row 
-           LDU     #M6060                   ;2C92: Load 
+           LDU     #M6060                   ;2C92: Load blank space characters ($60)
            LBSR    WIPESCR1                 ;2C95: Call wipe screen routine 
-           ;  ------------------------------------
-           LDX     #M07E0                   ;2C98: Point to text row 15
+           ; Draw empty line above menu -------------------------------------------------
+           LDX     #M07E0                   ;2C98: Point to last row
            LDY     #M0020                   ;2C9B: Prepare to fill single row
-           LDU     #M6060                   ;2C9F: Load 
+           LDU     #M6060                   ;2C9F: Load blank space characters ($60) 
            BSR     WIPESCR1                 ;2CA2: Call wipe screen routine 
-           ;  ------------------------------------
+           ; Draw level select menu -----------------------------------------------------
            LDX     #M0760                   ;2CA4: Point to text row 11
            LDY     #M0080                   ;2CA7: Prepare to fill four rows
-           LDU     #M272C                   ;2CAB: Load 
+           LDU     #LVLSEL                  ;2CAB: Point to level select menu data 
            BSR     FILLSCR1                 ;2CAE: Call fill screen routine 
            ;  ------------------------------------
            CLR     M0001                    ;2CB0: Clear variable 1 
@@ -1481,7 +1481,7 @@ Z2CCD      TFR     A,B                      ;2CCD: 1F 89          '..'
            ANDB    #$E0                     ;2CD0: C4 E0          '..'
            LDX     #M0760                   ;2CD2: 8E 07 60       '..`'
            LEAX    B,X                      ;2CD5: 30 85          '0.'
-           LDU     #M272C                   ;2CD7: CE 27 2C       '.','
+           LDU     #LVLSEL                  ;2CD7: CE 27 2C       '.','
            LEAU    B,U                      ;2CDA: 33 C5          '3.'
            ASRA                             ;2CDC: 47             'G'
            ASRA                             ;2CDD: 47             'G'
@@ -1720,7 +1720,7 @@ SPMODE4    PSHA                             ;2E70: Save register A
            JSR     [JOYIN]                  ;2E88: AD 9F A0 0A    '....'
            PULS    U,Y,X,DP,D,CC            ;2E8C: 35 7F          '5.'
            PSHS    X,B                      ;2E8E: 34 14          '4.'
-           LDX     #MA133                   ;2E90: 8E A1 33       '..3'
+           LDX     #RNDSD                   ;2E90: 8E A1 33       '..3'
            LDB     RJOYUD                    ;2E93: F6 01 5B       '..['
            ABX                              ;2E96: 3A             ':'
            LDB     LJOYLR                   ;2E97: F6 01 5C       '..\'
@@ -1760,7 +1760,7 @@ Z2ECC      STA     MFF02                    ;2ECC: B7 FF 02       '...'
            LDA     RBUTTN                   ;2ECF: B6 FF 00       '...'
            BITA    #$04                     ;2ED2: 85 04          '..'
            RTS                              ;2ED4: 39             '9'
-Z2ED5      JMP     [Z1F42]                  ;2ED5: Jump to 3A5F (game loop?)
+Z2ED5      JMP     [VMAIN]                  ;2ED5: Jump to main loop
 Z2ED9      LDA     #$DF                     ;2ED9: 86 DF          '..'
            BSR     Z2ECC                    ;2EDB: 8D EF          '..'
            BNE     Z2ED9                    ;2EDD: 26 FA          '&.'
@@ -1771,7 +1771,7 @@ Z2EE5      STA     >SNDTON                   ;2EE5: B7 00 8C       '...'
            CLRA                             ;2EE8: 4F             'O'
            TFR     A,DP                     ;2EE9: 1F 8B          '..'
            ANDCC   #$AF                     ;3D66: Enable interrupts (Clear F&I bits)
-           JSR     ZA951                    ;2EED: Jump to Basic SOUND subroutine 
+           JSR     SOUND                    ;2EED: Jump to Basic SOUND subroutine 
            ORCC    #$50                     ;3A05: Disable interrupts
            PULS    X,DP,D                   ;2EF2: 35 1E          '5.'
            RTS                              ;2EF4: 39             '9'
@@ -2309,16 +2309,16 @@ Z3357      LEAX    $08,X                    ;3357: 30 08          '0.'
 ; Subroutine 3 
 ; --------------------------------------------------------------------------------
 S3367      PSHS    U,Y,X,D                  ;3367: Save registers 
-Z3369      JSR     [Z1F22]                  ;3369: Jump to subroutine at 2DC9
+Z3369      JSR     [Z1F22]                  ;3369: Jump to subroutine at 2DC9 (Play sound)
            LDX     M003E                    ;336D: 9E 3E          '.>'
            LDA     ,X                       ;336F: A6 84          '..'
            ADDA    -$1B,X                   ;3371: AB 88 E5       '...'
            ANDA    #$1F                     ;3374: 84 1F          '..'
            ASLA                             ;3376: 48             'H'
-           LDY     #M287A                   ;3377: 10 8E 28 7A    '..(z'
-           LEAY    A,Y                      ;337B: 31 A6          '1.'
-           CMPY    M0028                    ;337D: 10 9C 28       '..('
-           BEQ     Z3369                    ;3380: 27 E7          ''.'
+           LDY     #M287A                   ;3377: Point to data table
+           LEAY    A,Y                      ;337B: 
+           CMPY    M0028                    ;337D: Compare to 40 ?
+           BEQ     Z3369                    ;3380: Loop until done 
            STY     M0028                    ;3382: 10 9F 28       '..('
            LDX     ,Y                       ;3385: AE A4          '..'
            CLRB                             ;3387: 5F             '_'
@@ -2327,15 +2327,16 @@ Z338A      LDA     ,X+                      ;338A: A6 80          '..'
            INCB                             ;338C: 5C             '\'
            BITA    #$80                     ;338D: 85 80          '..'
            BEQ     Z338A                    ;338F: 27 F9          ''.'
-           ; ??? screen? ------------------------------
+           ;   ? ------------------------------
            LDX     #M0600                   ;3391: Point to screen start
            LDU     #M0000                   ;3394: CE 00 00       '...'
 Z3397      STU     ,X++                     ;3397: EF 81          '..'
            STU     ,X++                     ;3399: EF 81          '..'
            STU     ,X++                     ;339B: EF 81          '..'
            STU     ,X++                     ;339D: EF 81          '..'
-           CMPX    #M1E00                   ;339F: 8C 1E 00       '...'
-           BLT     Z3397                    ;33A2: 2D F3          '-.'
+           CMPX    #M1E00                   ;339F: Check for end of screen 
+           BLT     Z3397                    ;33A2: Loop 
+           ;  ? ------------------------------
            STB     M0000                    ;33A4: D7 00          '..'
            LDB     #$20                     ;33A6: C6 20          '. '
            SUBB    M0000                    ;33A8: D0 00          '..'
@@ -2359,6 +2360,7 @@ Z33BC      STA     ,X+                      ;33BC: A7 80          '..'
            LEAX    B,X                      ;33CC: 30 85          '0.'
            DEC     M0002                    ;33CE: 0A 02          '..'
            BNE     Z33BC                    ;33D0: 26 EA          '&.'
+           ;   ? ------------------------------
            LDX     #M27F4                   ;33D2: 8E 27 F4       '.'.'
            LDY     #M0F2C                   ;33D5: 10 8E 0F 2C    '...,'
            BSR     Z3402                    ;33D9: 8D 27          '.''
@@ -2374,10 +2376,11 @@ Z33BC      STA     ,X+                      ;33BC: A7 80          '..'
            BSR     Z3402                    ;33F0: 8D 10          '..'
            JSR     [Z1F3A]                  ;33F2: AD 9F 1F 3A    '...:'
            LDX     #M7FFE                   ;33F6: 8E 7F FE       '...'
-Z33F9      DEX                              ;33F9: 30 1F          '0.'
-           BNE     Z33F9                    ;33FB: 26 FC          '&.'
-           PULS    U,Y,X,D                  ;33FD: 35 76          '5v'
-           RTS                              ;33FF: 39             '9'
+           ;   ? ------------------------------
+Z33F9      DEX                              ;33F9: Pause loop? 
+           BNE     Z33F9                    ;33FB: 
+           PULS    U,Y,X,D                  ;33FD: 
+           RTS                              ;33FF: 
 M3400      SUBA    #$99                     ;3400: 80 99          '..'
            ;----------------------------------------------------------------
 Z3402      LDA     ,X                       ;3402: A6 84          '..'
@@ -3150,7 +3153,7 @@ Z39EB      LDB     ,X                       ;39EB: E6 84          '..'
 ; Game startup
 ; --------------------------------------------------------------------------------
            ; Initialization ----------------------------------------------------
-GMINIT     NOP                              ;3A04: Placeholder
+INIT       NOP                              ;3A04: Placeholder
            ORCC    #$50                     ;3A05: Disable interrupts
            CLR     DSKCTL                   ;3A07: Disable floppy drive
            LDX     #$99C3                   ;3A0A:  
@@ -3158,7 +3161,7 @@ GMINIT     NOP                              ;3A04: Placeholder
            LDX     #$9999                   ;3A10: 
            STX     M2602                    ;3A13: Set ? variable 
            LDD     #M551E                   ;3A16: Prepare warm start & direct page
-           LDX     Z1F40                    ;3A19: Get execution start address
+           LDX     VINIT                    ;3A19: Get execution start address
            STA     M0071                    ;3A1C: Ensure warm start ($55)
            STX     M0072                    ;3A1E: Set restart vector to exec start
            LDS     #$3FFE                   ;3A20: Stack pointer placed right after program code
@@ -3170,29 +3173,30 @@ GMINIT     NOP                              ;3A04: Placeholder
            JSR     [VTITLE]                 ;3A31: Jump to title screen 
            ; Clear top of text screen ($0600-$06FF) -------------------------------------------
            LDX     #$0600                   ;3A35: 8E 06 00       ' 
-Z3A38      CLR     ,X                       ;3A38: 6F 84          ' 
+WPTXT1     CLR     ,X                       ;3A38: 6F 84          ' 
            DEC     ,X+                      ;3A3A: 6A 80          ' 
            CMPX    #M0700                   ;3A3C: 8C 07 00       ' 
-           BLT     Z3A38                    ;3A3F: 2D F7          ' 
+           BLT     WPTXT1                   ;3A3F: 2D F7          ' 
            ; Clear PMODE 4 video page ($1E00-$1EFF) -----------------------------------
            LDX     #M1E00                   ;3A41: 8E 1E 00       ' 
-Z3A44      CLR     ,X+                      ;3A44: 6F 80          ' 
+WPSCR1     CLR     ,X+                      ;3A44: 6F 80          ' 
            CLR     ,X+                      ;3A46: 6F 80          ' 
            CMPX    #M1F00                   ;3A48: 8C 1F 00       ' 
-           BLT     Z3A44                    ;3A4B: 2D F7          ' 
+           BLT     WPSCR1                    ;3A4B: 2D F7          ' 
            ; ??? ---------------------------------------------
            JSR     [Z1F20]                  ;3A4D: Jump to subroutine at 2E86
-           LDA     #$12                     ;3A51:  
-           STA     M0020                    ;3A53: Set variable to 18 (?)
-           STA     M0040                    ;3A55: Set variable to 18 (?)
+           LDA     #$12                     ;3A51: Load value 18  
+           STA     M0020                    ;3A53: Set (?) variable to 18 
+           STA     M0040                    ;3A55: Set (?) variable to 18 
            JSR     [VPMODE4]                ;3A57: Switch to graphics mode PMODE 4 
-           JMP     [Z1F42]                  ;3A5B: Jump to 3A5F (game loop?)
-           ; Game loop?  --------------------------------------------- ----------------------------
-GMLOOP     LDS     #M3FFE                   ;3A5F: Move stack pointer to 3FFFE
-           JSR     [Z1F6E]                  ;3A63: Subroutine at 3325 for setting up ???
+           JMP     [VMAIN]                  ;3A5B: Jump to start 
+           ; Main start --------------------------------------------- ----------------------------
+MAIN       LDS     #M3FFE                   ;3A5F: Move stack pointer to address 3FFE
+           JSR     [Z1F6E]                  ;3A63: Jump to subroutine at 3325 for setting up ???
            LDA     #$03                     ;3A67: Value 3
            STA     LIVES                    ;3A69: Set number of lives at 3
-           JSR     [Z1F14]                  ;3A6B: Subroutine @ 2C4C
+           JSR     [VMENU]                  ;3A6B: Jump to game menu
+           ; ? -------------------------------------------------------------------------
            LDA     M0047                    ;3A6F: Get value of ? variable 
            ADDA    #$03                     ;3A71: Add 3 to ? variable 
 Z3A73      DECA                             ;3A73: Decrement ? variable
@@ -3294,11 +3298,11 @@ Z3B6A      DECA                             ;3B6A: 4A             'J'
            DEX                              ;3B6D: 30 1F          '0.'
            BNE     Z3B69                    ;3B6F: 26 F8          '&.'
 Z3B71      PSHS    U,Y,X,DP,B,CC            ;3B71: 34 7D          '4}'
-           JSR     [ZA000]                  ;3B73: AD 9F A0 00    '....'
+           JSR     [POLCAT]                  ;3B73: AD 9F A0 00    '....'
            PULS    U,Y,X,DP,B,CC            ;3B77: 35 7D          '5}'
            TSTA                             ;3B79: 4D             'M'
            BEQ     Z3B71                    ;3B7A: 27 F5          ''.'
-           JMP     [Z1F42]                  ;3B7C: Jump to 3A5F (game loop?)
+           JMP     [VMAIN]                  ;3B7C: Jump to 3A5F main loop
            PSHS    U,Y,X,D                  ;3B80: 34 76          '4v'
            LDA     M004D                    ;3B82: 96 4D          '.M'
            BITA    #$0F                     ;3B84: 85 0F          '..'
@@ -3396,10 +3400,10 @@ Z3C3D      PULS    X,A                      ;3C3D: 35 12          '5.'
            LDD     #M3C04                   ;3C45: CC 3C 04       '.<.'
            STA     SNDTON                    ;3C48: 97 8C          '..'
            ANDCC   #$AF                     ;3D66: Enable interrupts (Clear F&I bits)
-           JSR     ZA951                    ;3C4C: Jump to Basic SOUND subroutine 
+           JSR     SOUND                    ;3C4C: Jump to Basic SOUND subroutine 
            LDD     #M0A04                   ;3C4F: CC 0A 04       '...'
            STA     SNDTON                    ;3C52: 97 8C          '..'
-           JSR     ZA951                    ;3C54: Jump to Basic SOUND subroutine 
+           JSR     SOUND                    ;3C54: Jump to Basic SOUND subroutine 
            ORCC    #$50                     ;3A05: Disable interrupts
            LDX     #M7FFE                   ;3C59: 8E 7F FE       '...'
 Z3C5C      DEX                              ;3C5C: 30 1F          '0.'
@@ -3446,7 +3450,7 @@ Z3CA8      LDA     ,X+                      ;3CA8: A6 80          '..'
            LDB     #$16                     ;3CAF: C6 16          '..'
 Z3CB1      DECB                             ;3CB1: 5A             'Z'
            BNE     Z3CB1                    ;3CB2: 26 FD          '&.'
-           CMPX    #MA880                   ;3CB4: 8C A8 80       '...'
+           CMPX    #SETCHR                  ;3CB4: 8C A8 80       '...'
            BCS     Z3CA8                    ;3CB7: 25 EF          '%.'
            LDX     #MFE80                   ;3CB9: 8E FE 80       '...'
            STX     M003B                    ;3CBC: 9F 3B          '.;'
@@ -3540,7 +3544,7 @@ S3D64      PSHS    Y,X,DP,D                 ;3D64:
 Z3D6F      LDD     ,X++                     ;3D6F: EC 81          '..'
            STA     SNDTON                    ;3D71: 97 8C          '..'
            PSHX                             ;3D73: 34 10          '4.'
-           JSR     ZA951                    ;3D75: Jump to Basic SOUND subroutine 
+           JSR     SOUND                    ;3D75: Jump to Basic SOUND subroutine 
            PULX                             ;3D78: 35 10          '5.'
            CMPX    ,S                       ;3D7A: AC E4          '..'
            BLT     Z3D6F                    ;3D7C: 2D F1          '-.'
@@ -3700,7 +3704,7 @@ Z3EBB      LDA     ,X+                      ;3EBB: A6 80          '..'
            LDB     #$06                     ;3EC2: C6 06          '..'
 Z3EC4      DECB                             ;3EC4: 5A             'Z'
            BNE     Z3EC4                    ;3EC5: 26 FD          '&.'
-           CMPX    #MA880                   ;3EC7: 8C A8 80       '...'
+           CMPX    #SETCHR                  ;3EC7: 8C A8 80       '...'
            BCS     Z3EBB                    ;3ECA: 25 EF          '%.'
            LDX     #V0CLR                   ;3ECC: 8E FF C0       '...'
            STX     M003B                    ;3ECF: 9F 3B          '.;'
