@@ -181,13 +181,13 @@ V1CLR      EQU     $FFC2	; Clear SAM V2 bit
 V1SET      EQU     $FFC3	; Set SAM V1 bit 
 V2CLR      EQU     $FFC4	; Clear SAM V2 bit 
 V2SET      EQU     $FFC5	; Set SAM V2 bit (Graphics mode)
-F0CLR      EQU     $FFC6	; Clear SAM F0 bit (Display Offset) 
-F0SET      EQU     $FFC7
-F1CLR      EQU     $FFC8
-F1SET      EQU     $FFC9
-F2CLR      EQU     $FFCA
-F2SET      EQU     $FFCB
-RESET      EQU     $FFFF
+F0CLR      EQU     $FFC6	; Clear SAM F0 bit: Display offset - Subtract $0020
+F0SET      EQU     $FFC7        ; Set SAM F0 bit: Display offset - Add $0200
+F1CLR      EQU     $FFC8        ; Clear SAM F1 bit: Display offset - Subtract $0400
+F1SET      EQU     $FFC9        ; Set SAM F1 bit: Display offset - Add $0400
+F2CLR      EQU     $FFCA        ; Clear SAM F2 bit: Display offset - Subtract $0800
+F2SET      EQU     $FFCB        ; Set SAM F2 bit: Display offset - Add $0800    
+RESET      EQU     $FFFF        ;       Reset Vector Address
 
 ;----------------------------------------------------
 ; Program Code / Data Areas                          
@@ -1427,49 +1427,49 @@ S2C4C      PSHS    U,Y,X,D                  ;2C4C: Save registers on stack
            LDY     #M0200                   ;2C51: Load screen size (32x16=512)
            LDU     #M8080                   ;2C55: Load empty word 
            LBSR    WIPESCR1                 ;2C58: Call wipe screen routine 
-           ; Switch to graphics mode (PMODE4) ------------------------------------
+           ; Switch to ? screen mode ------------------------------------
            CLRA                             ;2C5B: 
-           STA     VDGSET                   ;2C5C: 
+           STA     VDGSET                   ;2C5C: Clear VDG mode register (text mode)
            STA     V0CLR                    ;2C5F: Clear V0
            STA     V1CLR                    ;2C62: Clear V1
            STA     V2CLR                    ;2C65: Clear V2
-           STA     F0CLR                    ;2C68: Bit pattern 001000
-           STA     F1CLR                    ;2C6B:    = ???
-           STA     F2SET                    ;2C6E:  Graphics page at $???? 
+           STA     F0CLR                    ;2C68: Display offset - Subtract $0200
+           STA     F1CLR                    ;2C6B: Display offset - Subtract $0400
+           STA     F2SET                    ;2C6E: Display offset - Add $0800 = $0800
            ;  ------------------------------------
            LDX     #M0720                   ;2C71: Point to 9th row ?
-           LDY     #M0020                   ;2C74: Load screen width
-           LDU     #M8080                   ;2C78: Load empty word 
+           LDY     #M0020                   ;2C74: Prepare to fill single row
+           LDU     #M8080                   ;2C78: Load ???  
            LBSR    WIPESCR1                 ;2C7B: Call wipe screen routine 
            ;  ------------------------------------
            LDX     #M0600                   ;2C7E: Point to text screen start (?) 
            LDY     #M0120                   ;2C81: Prepare to fill 6 rows
-           LDU     #M260C                   ;2C85: Load bit pattern word
+           LDU     #M260C                   ;2C85: Load 
            LBSR    FILLSCR1                 ;2C88: Call fill screen routine 
            ;  ------------------------------------
            LDX     #M0740                   ;2C8B: Point to text row 10
-           LDY     #M0020                   ;2C8E: 10 8E 00 20    '... '
-           LDU     #M6060                   ;2C92: CE 60 60       '.``'
+           LDY     #M0020                   ;2C8E: Prepare to fill single row 
+           LDU     #M6060                   ;2C92: Load 
            LBSR    WIPESCR1                 ;2C95: Call wipe screen routine 
            ;  ------------------------------------
            LDX     #M07E0                   ;2C98: Point to text row 15
-           LDY     #M0020                   ;2C9B: Prepare to fill one row
-           LDU     #M6060                   ;2C9F: Load empty word
+           LDY     #M0020                   ;2C9B: Prepare to fill single row
+           LDU     #M6060                   ;2C9F: Load 
            BSR     WIPESCR1                 ;2CA2: Call wipe screen routine 
            ;  ------------------------------------
            LDX     #M0760                   ;2CA4: Point to text row 11
            LDY     #M0080                   ;2CA7: Prepare to fill four rows
-           LDU     #M272C                   ;2CAB: Load bit pattern word 
+           LDU     #M272C                   ;2CAB: Load 
            BSR     FILLSCR1                 ;2CAE: Call fill screen routine 
            ;  ------------------------------------
            CLR     M0001                    ;2CB0: Clear variable 1 
            LBSR    Z2D52                    ;2CB2: Jump to subroutine ? 
            ; Switch to text screen mode ------------------------------------------
            CLRA                             ;2CB5: 
-           STA     VDGSET                   ;2CB6: 
-           STA     F2CLR                    ;2CB9: Bit pattern 110000
-           STA     F0SET                    ;2CBC:    = $30 x $200 
-           STA     F1SET                    ;2CBF: Graphics page at $C000 ???
+           STA     VDGSET                   ;2CB6: Clear VDG mode register (text mode)
+           STA     F2CLR                    ;2CB9: Display offset - Subtract $0800
+           STA     F0SET                    ;2CBC: Display offset - Add $0200
+           STA     F1SET                    ;2CBF: Display offset - Add $0400 = $0600
            ; Check joystick button -----------------------------------------------
 Z2CC2      LDB     RBUTTN                   ;2CC2: Get joystick button value 
            COMB                             ;2CC5: Invert value 
@@ -1498,7 +1498,7 @@ Z2CCD      TFR     A,B                      ;2CCD: 1F 89          '..'
 Z2CF2      LBSR    POLJOY1                  ;2CF2: 17 00 C6       '...'
 Z2CF5      LDB     RBUTTN                   ;2CF5: F6 FF 00       '...'
            BITB    #$01                     ;2CF8: C5 01          '..'
-           BEQ     Z2D28                    ;2CFA: 27 2C          '','
+           BEQ     GMSTRT                   ;2CFA: 27 2C          '','
            ; Button pressed ---------------------------------------------------------------
            LDA     RJOYUD                   ;2CFC: Read joystick y position
            ASRA                             ;2CFF: Divide y pos by four
@@ -1514,28 +1514,32 @@ Z2CF5      LDB     RBUTTN                   ;2CF5: F6 FF 00       '...'
            LDA     RJOYUD                   ;2D13: B6 01 5B       '..['
            BRA     Z2CCD                    ;2D16: 20 B5          ' .'
            ; Wipe screen routine--------------------------------------------------
-WIPESCR1   STU     ,X++                     ;2D18: EF 81          '..'
+WIPESCR1   STU     ,X++                     ;2D18: EF 81          Wipe screen location with data word and move pointer 
            LEAY    -$02,Y                   ;2D1A: 31 3E          Decrement counter by 2
            BNE     WIPESCR1                 ;2D1C: 26 FA          Repeat until counter = 0
-           RTS                              ;2D1E: 39             '9'
+           RTS                              ;2D1E: 39             
            ; Fill screen routine ---------------------------------------------------------------
 FILLSCR1   LDD     ,U++                     ;2D1F: EC C1          Get word and move pointer 
            STD     ,X++                     ;2D21: ED 81          Store word at screen pointer 
            LEAY    -$02,Y                   ;2D23: 31 3E          Decrement counter by 2
            BNE     FILLSCR1                 ;2D25: 26 F8          Repeat until counter = 0
-           RTS                              ;2D27: 39             '9'
+           RTS                              ;2D27: 39       
+
+; --------------------------------------------------------------------------------
+; Subroutine 3 (Game start?)
+; --------------------------------------------------------------------------------      
+           ; Wipe Graphics screen ---------------------------------------------------------------
+GMSTRT     LDX     #M0600                   ;2D28: Point to screen start
+           LDU     #M0000                   ;2D2B: Load empty bit pattern word 
+Z2D2E      STU     ,X++                     ;2D2E: Wipe screen location with data word and move pointer
+           STU     ,X++                     ;2D30: Repeat to wipe two words at a time
+           CMPX    #M0B00                   ;2D32: Check for end of screen
+           BLT     Z2D2E                    ;2D35: Loop until end of screen reached
            ; ---------------------------------------------------------------
-Z2D28      LDX     #M0600                   ;2D28: 8E 06 00       '...'
-           LDU     #M0000                   ;2D2B: CE 00 00       '...'
-Z2D2E      STU     ,X++                     ;2D2E: EF 81          '..'
-           STU     ,X++                     ;2D30: EF 81          '..'
-           CMPX    #M0B00                   ;2D32: 8C 0B 00       '...'
-           BLT     Z2D2E                    ;2D35: 2D F7          '-.'
-           ; ---------------------------------------------------------------
-           LDA     #$01                     ;2D37: 86 01          '..'
-           STA     F0CLR                    ;2D39: B7 FF C6       '...'
-           LDX     #M0600                   ;2D3C: 8E 06 00       '...'
-           LDU     #M0000                   ;2D3F: CE 00 00       '...'
+           LDA     #$01                     ;2D37: 
+           STA     F0CLR                    ;2D39: Display offset - Subtract $0200
+           LDX     #M0600                   ;2D3C: 
+           LDU     #M0000                   ;2D3F: 
 Z2D42      STU     ,X++                     ;2D42: EF 81          '..'
            STU     ,X++                     ;2D44: EF 81          '..'
            CMPX    #M1E00                   ;2D46: 8C 1E 00       '...'
