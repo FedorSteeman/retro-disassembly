@@ -1463,9 +1463,9 @@ MMENU      PSHS    U,Y,X,D                  ;2C4C: Save registers on stack
            BSR     FILLSCR1                 ;2CAE: Call fill screen routine 
            ;  ------------------------------------
            CLR     M0001                    ;2CB0: Clear variable 1 
-           LBSR    Z2D52                    ;2CB2: Jump to subroutine ? 
+           LBSR    GMSTRT                   ;2CB2: Start game
            ; Switch to text screen mode ------------------------------------------
-           CLRA                             ;2CB5: 
+           CLRA                             ;2CB5: Back from game 
            STA     VDGSET                   ;2CB6: Clear VDG mode register (text mode)
            STA     F2CLR                    ;2CB9: Display offset - Subtract $0800
            STA     F0SET                    ;2CBC: Display offset - Add $0200
@@ -1498,15 +1498,16 @@ Z2CCD      TFR     A,B                      ;2CCD: 1F 89          '..'
 Z2CF2      LBSR    POLJOY1                  ;2CF2: 17 00 C6       '...'
 Z2CF5      LDB     RBUTTN                   ;2CF5: F6 FF 00       '...'
            BITB    #$01                     ;2CF8: C5 01          '..'
-           BEQ     GMSTRT                   ;2CFA: 27 2C          '','
+           BEQ     SCRINIT                  ;2CFA: 27 2C          '','
            ; Button pressed ---------------------------------------------------------------
            LDA     RJOYUD                   ;2CFC: Read joystick y position
            ASRA                             ;2CFF: Divide y pos by four
-           ASRA                             ;2D00: 
-           ASRA                             ;2D01: 
-           ASRA                             ;2D02: 
-           BSR     Z2D52                    ;2D03: Branch to (?)
-           CMPA    M0000                    ;2D05: Back from (?): Check lives (?)
+           ASRA                             ;2D00:  |
+           ASRA                             ;2D01:  |
+           ASRA                             ;2D02:  |
+           BSR     GMSTRT                   ;2D03: Branch to game start
+           ; Back from game ---------------------------------------------------------------
+           CMPA    M0000                    ;2D05: Check lives
            LBEQ    Z2CF2                    ;2D07: 10 27 FF E7    '.'..'
            LEAX    -$20,X                   ;2D0B: 30 88 E0       '0..'
            TFR     X,U                      ;2D0E: 1F 13          '..'
@@ -1526,29 +1527,30 @@ FILLSCR1   LDD     ,U++                     ;2D1F: EC C1          Get word and m
            RTS                              ;2D27: 39       
 
 ; --------------------------------------------------------------------------------
-; Subroutine 3 (Game start?)
+; Initialize screen for game start
 ; --------------------------------------------------------------------------------      
            ; Wipe Graphics screen ---------------------------------------------------------------
-GMSTRT     LDX     #M0600                   ;2D28: Point to screen start
+SCRINIT    LDX     #M0600                   ;2D28: Point to screen start
            LDU     #M0000                   ;2D2B: Load empty bit pattern word 
 Z2D2E      STU     ,X++                     ;2D2E: Wipe screen location with data word and move pointer
            STU     ,X++                     ;2D30: Repeat to wipe two words at a time
            CMPX    #M0B00                   ;2D32: Check for end of screen
            BLT     Z2D2E                    ;2D35: Loop until end of screen reached
-           ; ---------------------------------------------------------------
            LDA     #$01                     ;2D37: 
            STA     F0CLR                    ;2D39: Display offset - Subtract $0200
-           LDX     #M0600                   ;2D3C: 
-           LDU     #M0000                   ;2D3F: 
-Z2D42      STU     ,X++                     ;2D42: EF 81          '..'
-           STU     ,X++                     ;2D44: EF 81          '..'
-           CMPX    #M1E00                   ;2D46: 8C 1E 00       '...'
-           BLT     Z2D42                    ;2D49: 2D F7          '-.'
+           LDX     #M0600                   ;2D3C: Point to screen start
+           LDU     #M0000                   ;2D3F: Load empty bit pattern word 
+Z2D42      STU     ,X++                     ;2D42: Wipe screen location with data word and move pointer
+           STU     ,X++                     ;2D44: Repeat to wipe two words at a time
+           CMPX    #M1E00                   ;2D46: Check for end of screen
+           BLT     Z2D42                    ;2D49: Loop until end of screen reached
            JSR     [VPMODE4]                ;2D4B: Switch to graphics mode PMODE 4 
-           PULS    U,Y,X,D                  ;2D4F: 35 76          '5v'
-           RTS                              ;2D51: 39             '9'
-           ; ---------------------------------------------------------------
-Z2D52      PSHS    U,X,D                    ;2D52: 34 56          '4V'
+           PULS    U,Y,X,D                  ;2D4F: 
+           RTS                              ;2D51: 
+; --------------------------------------------------------------------------------
+; Game start
+; --------------------------------------------------------------------------------
+GMSTRT     PSHS    U,X,D                    ;2D52: 
            LDA     M0001                    ;2D54: 96 01          '..'
            LDU     #M27AC                   ;2D56: CE 27 AC       '.'.'
            ANDA    #$07                     ;2D59: 84 07          '..'
@@ -1590,7 +1592,7 @@ Z2DA4      DEX                              ;2DA4: 30 1F          '0.'
            BNE     Z2DA4                    ;2DA6: 26 FC          '&.'
            PULS    U,X,D                    ;2DA8: 35 56          '5V'
            RTS                              ;2DAA: 39             '9'
-Z2DAB      LDA     #$20                     ;2DAB: 86 20          '. '
+Z2DAB      LDA     #$20                     ;2DAB: New game? 
 Z2DAD      LDB     ,U+                      ;2DAD: E6 C0          '..'
            CMPB    #$60                     ;2DAF: C1 60          '.`'
            BEQ     Z2DB5                    ;2DB1: 27 02          ''.'
@@ -3199,9 +3201,9 @@ MAIN       LDS     #M3FFE                   ;3A5F: Move stack pointer to address
            ; ? -------------------------------------------------------------------------
            LDA     M0047                    ;3A6F: Get value of ? variable 
            ADDA    #$03                     ;3A71: Add 3 to ? variable 
-Z3A73      DECA                             ;3A73: Decrement ? variable
+LOOP01     DECA                             ;3A73: Decrement ? variable
            CMPA    #$08                     ;3A74: 
-           BGT     Z3A73                    ;3A76: Loop until value = 8
+           BGT     LOOP01                   ;3A76: Loop until value = 8
            STA     M0036                    ;3A78: Store value in ? variable 
            JSR     [Z1F38]                  ;3A7A: Jump to subroutine at 3367
            LDU     #M0000                   ;3A7E: CE 00 00       '...'
@@ -3213,10 +3215,10 @@ Z3A73      DECA                             ;3A73: Decrement ? variable
            JMP     [Z1F44]                  ;3A8F: 6E 9F 1F 44    'n..D'
            LDS     #M3FFE                   ;3A93: 10 CE 3F FE    '..?.'
            LDX     #M0600                   ;3A97: 8E 06 00       '...'
-Z3A9A      CLR     ,X                       ;3A9A: 6F 84          'o.'
+LOOP02     CLR     ,X                       ;3A9A: 6F 84          'o.'
            DEC     ,X+                      ;3A9C: 6A 80          'j.'
            CMPX    #M0700                   ;3A9E: 8C 07 00       '...'
-           BLT     Z3A9A                    ;3AA1: 2D F7          '-.'
+           BLT     LOOP02                   ;3AA1: 2D F7          '-.'
            JSR     [Z1F34]                  ;3AA3: AD 9F 1F 34    '...4'
            LDU     #M0000                   ;3AA7: CE 00 00       '...'
            LDY     #M0000                   ;3AAA: 10 8E 00 00    '....'
@@ -3243,16 +3245,16 @@ Z3A9A      CLR     ,X                       ;3A9A: 6F 84          'o.'
            STX     M0039                    ;3ADA: 9F 39          '.9'
            JSR     [Z1F5E]                  ;3ADC: AD 9F 1F 5E    '...^'
            LDX     #M1EA0                   ;3AE0: 8E 1E A0       '...'
-Z3AE3      CLR     ,X+                      ;3AE3: 6F 80          'o.'
+LOOP03     CLR     ,X+                      ;3AE3: 6F 80          'o.'
            CMPX    #M1EBE                   ;3AE5: 8C 1E BE       '...'
-           BLT     Z3AE3                    ;3AE8: 2D F9          '-.'
+           BLT     LOOP03                   ;3AE8: 2D F9          '-.'
            LDA     #$03                     ;3AEA: 86 03          '..'
            STA     M0010                    ;3AEC: 97 10          '..'
            CLR     M0011                    ;3AEE: 0F 11          '..'
            CLR     M0012                    ;3AF0: 0F 12          '..'
            JMP     [Z1F46]                  ;3AF2: 6E 9F 1F 46    'n..F'
            LDS     #M3FFE                   ;3AF6: 10 CE 3F FE    '..?.'
-Z3AFA      JSR     [Z1F24]                  ;3AFA: Jump to 2EBF
+LOOP04     JSR     [Z1F24]                  ;3AFA: Jump to 2EBF
            JSR     [Z1F62]                  ;3AFE: Jump to 3C09
            JSR     [Z1F5E]                  ;3B02: Jump to 3B80
            JSR     [Z1F2A]                  ;3B06: Jump to 306A
@@ -3264,7 +3266,7 @@ Z3AFA      JSR     [Z1F24]                  ;3AFA: Jump to 2EBF
            LDX     M0039                    ;3B1A: 9E 39          '.9'
            BEQ     Z3B47                    ;3B1C: 27 29          '')'
            TST     M004B                    ;3B1E: 0D 4B          '.K'
-           BNE     Z3AFA                    ;3B20: 26 D8          '&.'
+           BNE     LOOP04                   ;3B20: 26 D8          '&.'
            LDA     LIVES                    ;3B22: 96 38          '.8'
            CMPA    #$0F                     ;3B24: 81 0F          '..'
            BGT     Z3B2E                    ;3B26: 2E 06          '..'
@@ -3285,20 +3287,20 @@ Z3B4B      LDA     M0047                    ;3B4B: 96 47          '.G'
            INCA                             ;3B4D: 4C             'L'
            ANDA    #$07                     ;3B4E: 84 07          '..'
            STA     M0047                    ;3B50: 97 47          '.G'
-Z3B52      JSR     [Z1F38]                  ;3B52: AD 9F 1F 38    '...8'
+LOOP05     JSR     [Z1F38]                  ;3B52: AD 9F 1F 38    '...8'
            JMP     [Z1F44]                  ;3B56: 6E 9F 1F 44    'n..D'
 Z3B5A      JSR     [Z1F3E]                  ;3B5A: AD 9F 1F 3E    '...>'
            DEC     LIVES                    ;3B5E: 0A 38          '.8'
-           BNE     Z3B52                    ;3B60: 26 F0          '&.'
+           BNE     LOOP05                   ;3B60: 26 F0          '&.'
            JSR     [V1F12]                  ;3B62: AD 9F 1F 12    '....'
            LDX     #M0100                   ;3B66: 8E 01 00       '...'
-Z3B69      CLRA                             ;3B69: 4F             'O'
-Z3B6A      DECA                             ;3B6A: 4A             'J'
-           BNE     Z3B6A                    ;3B6B: 26 FD          '&.'
+LOOP06     CLRA                             ;3B69: 4F             'O'
+LOOP07     DECA                             ;3B6A: 4A             'J'
+           BNE     LOOP07                   ;3B6B: 26 FD          '&.'
            DEX                              ;3B6D: 30 1F          '0.'
-           BNE     Z3B69                    ;3B6F: 26 F8          '&.'
+           BNE     LOOP06                   ;3B6F: 26 F8          '&.'
 Z3B71      PSHS    U,Y,X,DP,B,CC            ;3B71: 34 7D          '4}'
-           JSR     [POLCAT]                  ;3B73: AD 9F A0 00    '....'
+           JSR     [POLCAT]                 ;3B73: AD 9F A0 00    '....'
            PULS    U,Y,X,DP,B,CC            ;3B77: 35 7D          '5}'
            TSTA                             ;3B79: 4D             'M'
            BEQ     Z3B71                    ;3B7A: 27 F5          ''.'
