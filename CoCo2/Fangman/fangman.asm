@@ -169,7 +169,7 @@ MFB00      EQU     $FB00
 MFC00      EQU     $FC00
 MFE80      EQU     $FE80
 RBUTTN     EQU     $FF00	; PIA0 data port A: Address for Keyboard row 1 & Right Joystick Switch 1 
-MFF01      EQU     $FF01
+MFF01      EQU     $FF01        ; PIA0 
 MFF02      EQU     $FF02
 MFF03      EQU     $FF03
 SNDOUT     EQU     $FF20	; PIA1 data port A: 6bit Dac address for sound output/input
@@ -328,90 +328,110 @@ M1FE4      FCB     $FF,$E0                  ;1FE4: FF E0          '1111 1111 111
            FCB     $27,$6C                  ;1FFA: 27 6C          '0010 0111 0110 1100
            FCB     $20,$27                  ;1FFC: 20 27          '0010 0000 0010 0111
            FCB     $8C,$20                  ;1FFE: 8C 20          '1000 1100 0010 0000
-FMBACK     FCB     $FF,$FF                  ;2000: FF FF          '1111 1111 1111 1111
-           FCB     $F0,$07                  ;2002: F0 07          '1111 0000 0000 0111
-           FCB     $E0,$03                  ;2004: E0 03          '1110 0000 0000 0011
-           FCB     $E0,$03                  ;2006: E0 03          '1110 0000 0000 0011
-           FCB     $EF,$FB                  ;2008: EF FB          '1110 1111 1111 1011
-           FCB     $D0,$05                  ;200A: D0 05          '1101 0000 0000 0101
-           FCB     $A0,$02                  ;200C: A0 02          '1010 0000 0000 0010
-           FCB     $84,$10                  ;200E: 84 10          '1000 0100 0001 0000
-           FCB     $C2,$21                  ;2010: C2 21          '1100 0010 0010 0001
-           FCB     $E2,$23                  ;2012: E2 23          '1110 0010 0010 0011
-           FCB     $E4,$13                  ;2014: E4 13          '1110 0100 0001 0011
-           FCB     $88,$08                  ;2016: 88 08          '1000 1000 0000 1000
-           FCB     $80,$00                  ;2018: 80 00          '1000 0000 0000 0000
-FMFRNT     FCB     $FF,$FF                  ;201A: FF FF          '1111 1111 1111 1111
-           FCB     $F0,$07                  ;201C: F0 07          '1111 0000 0000 0111
-           FCB     $E0,$03                  ;201E: E0 03          '1110 0000 0000 0011
-           FCB     $E6,$33                  ;2020: E6 33          '1110 0110 0011 0011
-           FCB     $E7,$73                  ;2022: E7 73          '1110 0111 0111 0011
-           FCB     $D1,$C4                  ;2024: D1 C4          '1101 0001 1100 0100
-           FCB     $96,$B4                  ;2026: 96 B4          '1001 0110 1011 0100
-           FCB     $8D,$D8                  ;2028: 8D D8          '1000 1101 1101 1000
-           FCB     $8F,$78                  ;202A: 8F 78          '1000 1111 0111 1000
-           FCB     $C7,$F1                  ;202C: C7 F1          '1100 0111 1111 0001
-           FCB     $E5,$53                  ;202E: E5 53          '1110 0101 0101 0011
-           FCB     $E6,$33                  ;2030: E6 33          '1110 0110 0011 0011
-           FCB     $83,$E0                  ;2032: 83 E0          '1000 0011 1110 0000
-           FCB     $80,$00                  ;2034: 80 00          '1000 0000 0000 0000
-           FCB     $80,$00                  ;2036: 80 00          '1000 0000 0000 0000
-FMLEFT     FCB     $FF,$FF                  ;2038: FF FF          '1111 1111 1111 1111
-           FCB     $F0,$0F                  ;203A: F0 0F          '1111 0000 0000 1111
-           FCB     $E0,$07                  ;203C: E0 07          '1110 0000 0000 0111
-           FCB     $E6,$07                  ;203E: E6 07          '1110 0110 0000 0111
-           FCB     $EF,$23                  ;2040: EF 23          '1110 1111 0010 0011
-           FCB     $F3,$63                  ;2042: F3 63          '1111 0011 0110 0011
-           FCB     $EF,$63                  ;2044: EF 63          '1110 1111 0110 0011
-           FCB     $D6,$41                  ;2046: D6 41          '1101 0110 0100 0001
-           FCB     $BF,$E1                  ;2048: BF E1          '1011 1111 1110 0001
-           FCB     $DF,$C1                  ;204A: DF C1          '1101 1111 1100 0001
-           FCB     $D3,$83                  ;204C: D3 83          '1101 0011 1000 0011
-           FCB     $C7,$07                  ;204E: C7 07          '1100 0111 0000 0111
-M2050      FCB     $DE,$01                  ;2050: DE 01          '1101 1110 0000 0001
-           FCB     $E0,$00                  ;2052: E0 00          '1110 0000 0000 0000
+FMBACK     FCB     $FF,$FF                  ;2000: FF FF          '1111111111111111
+           FCB     $F0,$07                  ;2002: F0 07          '1111000000000111
+           FCB     $E0,$03                  ;2004: E0 03          '1110000000000011
+           FCB     $E0,$03                  ;2006: E0 03          '1110000000000011
+           FCB     $EF,$FB                  ;2008: EF FB          '1110111111111011
+           FCB     $D0,$05                  ;200A: D0 05          '1101000000000101
+           FCB     $A0,$02                  ;200C: A0 02          '1010000000000010
+           FCB     $84,$10                  ;200E: 84 10          '1000010000010000
+           FCB     $C2,$21                  ;2010: C2 21          '1100001000100001
+           FCB     $E2,$23                  ;2012: E2 23          '1110001000100011
+           FCB     $E4,$13                  ;2014: E4 13          '1110010000010011
+           FCB     $88,$08                  ;2016: 88 08          '1000100000001000
+           FCB     $80,$00                  ;2018: 80 00          '1000000000000000
+FMFRNT     FCB     $FF,$FF                  ;201A: FF FF          '1111111111111111
+           FCB     $F0,$07                  ;201C: F0 07          '1111000000000111
+           FCB     $E0,$03                  ;201E: E0 03          '1110000000000011
+           FCB     $E6,$33                  ;2020: E6 33          '1110011000110011
+           FCB     $E7,$73                  ;2022: E7 73          '1110011101110011
+           FCB     $D1,$C4                  ;2024: D1 C4          '1101000111000100
+           FCB     $96,$B4                  ;2026: 96 B4          '1001011010110100
+           FCB     $8D,$D8                  ;2028: 8D D8          '1000110111011000
+           FCB     $8F,$78                  ;202A: 8F 78          '1000111101111000
+           FCB     $C7,$F1                  ;202C: C7 F1          '1100011111110001
+           FCB     $E5,$53                  ;202E: E5 53          '1110010101010011
+           FCB     $E6,$33                  ;2030: E6 33          '1110011000110011
+           FCB     $83,$E0                  ;2032: 83 E0          '1000001111100000
+           FCB     $80,$00                  ;2034: 80 00          '1000000000000000
+           FCB     $80,$00                  ;2036: 80 00          '1000000000000000
+FMLEFT     FCB     $FF,$FF                  ;2038: FF FF          '1111111111111111
+           FCB     $F0,$0F                  ;203A: F0 0F          '1111000000001111
+           FCB     $E0,$07                  ;203C: E0 07          '1110000000000111
+           FCB     $E6,$07                  ;203E: E6 07          '1110011000000111
+           FCB     $EF,$23                  ;2040: EF 23          '1110111100100011
+           FCB     $F3,$63                  ;2042: F3 63          '1111001101100011
+           FCB     $EF,$63                  ;2044: EF 63          '1110111101100011
+           FCB     $D6,$41                  ;2046: D6 41          '1101011001000001
+           FCB     $BF,$E1                  ;2048: BF E1          '1011111111100001
+           FCB     $DF,$C1                  ;204A: DF C1          '1101111111000001
+           FCB     $D3,$83                  ;204C: D3 83          '1101001110000011
+           FCB     $C7,$07                  ;204E: C7 07          '1100011100000111
+M2050      FCB     $DE,$01                  ;2050: DE 01          '1101111000000001
+           FCB     $E0,$00                  ;2052: E0 00          '1110000000000000
+FMRITE     FCB     $FF,$FF                  ;2054: FF FF          '1111111111111111
+           FCB     $F8,$07                  ;2056: F8 07          '1111100000000111
+           FCB     $F0,$03                  ;2058: F0 03          '1111000000000011
+           FCB     $F0,$03                  ;205A: F0 03          '1111000000000011
+           FCB     $E2,$7B                  ;205C: E2 7B          '1110001001111011
+           FCB     $E3,$67                  ;205E: E3 67          '1110001101100111
+           FCB     $E3,$7B                  ;2060: E3 7B          '1110001101111011
+           FCB     $7B,$C1                  ;2062: 7B C1          '???
+           FCB     $3B,$C3
+           FCB     $FE,$C1
+           FCB     $FD,$E0
+           FCB     $E5,$F0
+           FCB     $71,$C0
+           FCB     $3D
+           FCB     $80,$03
 
-FMRITE     FCB     $FF,$FF                  ;2054: FF FF          '1111 1111 1111 1111
-           FCB     $F8,$07                  ;2056: F8 07          '1111 1000 0000 0111
-           FCB     $F0,$03                  ;2058: F0 03          '1111 0000 0000 0011
-           FCB     $F0,$03                  ;205A: F0 03          '1111 0000 0000 0011
-           FCB     $E2,$7B                  ;205C: E2 7B          '1110 0010 0111 1011
-           FCB     $E3,$67                  ;205E: E3 67          '1110 0011 0110 0111
-           FCB     $E3,$7B                  ;2060: E3 7B          '1110 0011 0111 1011
-           FCB     $7B,$C1                  ;2062: 7B C1          '0111 1011 1100 0001
-           FCB     $3B,$C3,$FE,$C1,$FD,$E0,$E5  ;2064: C3 FE C1 FD E0 E5 '......'
-           FCB     $F0                      ;206A: F0             '.'
-           FCC     "q"                      ;206B: 71             'q'
-           FCB     $C0                      ;206C: C0             '.'
-           FCC     "="                      ;206D: 3D             '='
-           FCB     $80,$03,$FF,$FF,$FE      ;206E: 80 03 FF FF FE '.....'
-           FCC     "?"                      ;2073: 3F             '?'
-           FCB     $FC,$1F,$FC,$1F,$FE      ;2074: FC 1F FC 1F FE '.....'
-           FCC     "7"                      ;2079: 37             '7'
-           FCB     $F8,$17,$F4,$0F,$F4,$1F  ;207A: F8 17 F4 0F F4 1F '......'
-           FCB     $FC,$1F,$F4,$1F,$F9,$9F  ;2080: FC 1F F4 1F F9 9F '......'
-           FCB     $FF,$D7,$FF,$CF,$FF,$FF  ;2086: FF D7 FF CF FF FF '......'
-           FCB     $FF,$FF,$FE              ;208C: FF FF FE       '...'
-           FCC     "?"                      ;208F: 3F             '?'
-           FCB     $FD                      ;2090: FD             '.'
-           FCC     "_"                      ;2091: 5F             '_'
-           FCB     $FC,$1F,$F6              ;2092: FC 1F F6       '...'
-           FCC     "?"                      ;2095: 3F             '?'
-           FCB     $F4,$0F,$F8,$17,$FC,$17  ;2096: F4 0F F8 17 FC 17 '......'
-           FCB     $FC,$1F,$FC,$1F,$F9,$9F  ;209C: FC 1F FC 1F F9 9F '......'
-           FCB     $FB,$DF,$FF,$C7,$FF,$FF  ;20A2: FB DF FF C7 FF FF '......'
-           FCB     $FF,$FF,$FE              ;20A8: FF FF FE       '...'
-           FCC     "?"                      ;20AB: 3F             '?'
-           FCB     $F9,$1F,$FC,$1F,$FE      ;20AC: F9 1F FC 1F FE '.....'
-           FCC     "?"                      ;20B1: 3F             '?'
-           FCB     $FC,$1F,$EA              ;20B2: FC 1F EA       '...'
-           FCC     "/"                      ;20B5: 2F             '/'
-           FCB     $F6                      ;20B6: F6             '.'
-           FCC     "/"                      ;20B7: 2F             '/'
-           FCB     $FE,$1F,$FE              ;20B8: FE 1F FE       '...'
-           FCC     "7"                      ;20BB: 37             '7'
-           FCB     $EE,$AB,$F5,$DD,$FB,$FF  ;20BC: EE AB F5 DD FB FF '......'
-           FCB     $FF,$FF,$FF,$FF,$FE      ;20C2: FF FF FF FF FE '.....'
+HMRITE     FCB     $FF,$FF                  ;2070: FF FF          '1111111111111111
+           FCB     $FE,$3F                  ;2072: FE 3F          '1111111000111111
+           FCB     $FC,$1F                  ;2074: FC 1F          '1111110000011111
+           FCB     $FC,$1F                  ;2076: FC 1F          '1111110000011111
+           FCB     $FE,$37                  ;2078: FE 37          '1111111000110111
+           FCB     $F8,$17                  ;207A: F8 17          '1111100000010111
+           FCB     $F4,$0F                  ;207C: F4 0F          '1111010000001111
+           FCB     $F4,$1F                  ;207E: F4 1F          '1111010000011111         
+           FCB     $FC,$1F                  ;2080: FC 1F          '1111110000011111
+           FCB     $F4,$1F                  ;2082: F4 1F          '1111010000011111
+           FCB     $F9,$9F                  ;2084: F9 9F          '1111100110011111
+           FCB     $FF,$D7                  ;2086: FF D7          '1111111111010111
+           FCB     $FF,$CF                  ;2088: FF CF          '1111111111001111
+           FCB     $FF,$FF                  ;208A: FF FF          '1111111111111111
+
+HMFRNT     FCB     $FF,$FF                  ;208C: FF FF          '1111111111111111
+           FCB     $FE,$3F                  ;208E: FE 3F          '1111111000111111
+           FCB     $FD,$5F                  ;2090: FD 5F          '1111110101011111
+           FCB     $FC,$1F                  ;2092: FC 1F          '1111110000011111
+           FCB     $F6,$3F                  ;2094: F6 3F          '1111011000111111
+           FCB     $F4,$0F                  ;2096: F4 0F          '1111010000001111
+           FCB     $F8,$17                  ;2098: F8 17          '1111100000010111
+           FCB     $FC,$17                  ;209A: FC 17          '1111110000010111
+           FCB     $FC,$1F                  ;209C: FC 1F          '1111110000011111
+           FCB     $FC,$1F                  ;209E: FC 1F          '1111110000011111
+           FCB     $F9,$9F                  ;20A0: F9 9F          '1111100110011111
+           FCB     $FB,$DF                  ;20A2: FB DF          '1111101101111111   
+           FCB     $FF,$C7                  ;20A4: FF C7          '1111111111000111
+           FCB     $FF,$FF                  ;20A6: FF FF          '1111111111111111
+
+HMLEFT     FCB     $FF,$FF                  ;20A8: FF FF          '1111111111111111
+           FCB     $FE,$3F                  ;20AA: FE 3F          '1111111000111111
+           FCB     $F9,$1F                  ;20AC: F9 1F          '1111100111111111
+           FCB     $FC,$1F                  ;20AE: FC 1F          '1111110000011111
+           FCB     $FE,$3F                  ;20B0: FE 3F          '1111111000111111
+           FCB     $FC,$1F                  ;20B2: FC 1F          '1111110000011111
+           FCB     $EA,$2F                  ;20B4: EA 2F          '1110101000101111
+           FCB     $F6,$2F                  ;20B6: F6 2F          '1111011000101111
+           FCB     $FE,$1F                  ;20B8: FE 1F          '1111111000011111
+           FCB     $FE,$37                  ;20BA: FE 37          '1111111000110111
+           FCB     $EE,$AB                  ;20BC: EE AB          '1110111010101011
+           FCB     $F5,$DD                  ;20BE: F5 DD          '1111010101011101
+           FCB     $FB,$FF                  ;20C0: FB FF          '1111101101111111
+           FCB     $FF,$FF                  ;20C2: FF FF          '1111111111111111
+
+           FCB     $FF,$FF,$FE      ;20C2: FF FF FF FF FE '.....'
            FCC     "?"                      ;20C7: 3F             '?'
            FCB     $FC                      ;20C8: FC             '.'
            FCC     "O"                      ;20C9: 4F             'O'
@@ -2306,7 +2326,7 @@ Z332C      LDU     ,Y++                     ;332C: EE A1          '..'
 ; --------------------------------------------------------------------------------
 ; Subroutine 
 ; --------------------------------------------------------------------------------
-           PSHS    X,D                      ;3337: 34 16          '4.'
+S3416      PSHS    X,D                      ;3337: 34 16          '4.'
            INC     M004D                    ;3339: 0C 4D          '.M'
            LDX     #M1E50                   ;333B: 8E 1E 50       '..P'
            LDA     #$08                     ;333E: 86 08          '..'
@@ -3287,34 +3307,34 @@ LOOP04     JSR     [Z1F24]                  ;3AFA: Jump to 2EBF
            JSR     [Z1F60]                  ;3B0E: Jump to 3BC2
            JSR     [Z1F36]                  ;3B12: Jump to 3337
            TST     M004C                    ;3B16: 0D 4C          '.L'
-           BNE     Z3B5A                    ;3B18: 26 40          '&@'
+           BNE     SKIP01                   ;3B18: 26 40          '&@'
            LDX     M0039                    ;3B1A: 9E 39          '.9'
-           BEQ     Z3B47                    ;3B1C: 27 29          '')'
+           BEQ     SKIP02                   ;3B1C: 27 29          '')'
            TST     M004B                    ;3B1E: 0D 4B          '.K'
            BNE     LOOP04                   ;3B20: 26 D8          '&.'
            LDA     LIVES                    ;3B22: 96 38          '.8'
            CMPA    #$0F                     ;3B24: 81 0F          '..'
-           BGT     Z3B2E                    ;3B26: 2E 06          '..'
+           BGT     SKIP03                   ;3B26: 2E 06          '..'
            INC     LIVES                    ;3B28: 0C 38          '.8'
            JSR     [Z1F76]                  ;3B2A: AD 9F 1F 76    '...v'
-Z3B2E      LDU     M0039                    ;3B2E: DE 39          '.9'
+SKIP03     LDU     M0039                    ;3B2E: DE 39          '.9'
            LDY     #M0000                   ;3B30: 10 8E 00 00    '....'
            JSR     [Z1F1E]                  ;3B34: AD 9F 1F 1E    '....'
            JSR     [Z1F72]                  ;3B38: AD 9F 1F 72    '...r'
            LDA     M0036                    ;3B3C: 96 36          '.6'
            INCA                             ;3B3E: 4C             'L'
            CMPA    #$08                     ;3B3F: 81 08          '..'
-           BGT     Z3B47                    ;3B41: 2E 04          '..'
+           BGT     SKIP02                   ;3B41: 2E 04          '..'
            STA     M0036                    ;3B43: 97 36          '.6'
-           BRA     Z3B4B                    ;3B45: 20 04          ' .'
-Z3B47      JSR     [Z1F76]                  ;3B47: AD 9F 1F 76    '...v'
-Z3B4B      LDA     M0047                    ;3B4B: 96 47          '.G'
+           BRA     SKIP04                   ;3B45: 20 04          ' .'
+SKIP02     JSR     [Z1F76]                  ;3B47: AD 9F 1F 76    '...v'
+SKIP04     LDA     M0047                    ;3B4B: 96 47          '.G'
            INCA                             ;3B4D: 4C             'L'
            ANDA    #$07                     ;3B4E: 84 07          '..'
            STA     M0047                    ;3B50: 97 47          '.G'
 LOOP05     JSR     [Z1F38]                  ;3B52: AD 9F 1F 38    '...8'
            JMP     [Z1F44]                  ;3B56: 6E 9F 1F 44    'n..D'
-Z3B5A      JSR     [Z1F3E]                  ;3B5A: AD 9F 1F 3E    '...>'
+SKIP01     JSR     [Z1F3E]                  ;3B5A: AD 9F 1F 3E    '...>'
            DEC     LIVES                    ;3B5E: 0A 38          '.8'
            BNE     LOOP05                   ;3B60: 26 F0          '&.'
            JSR     [V1F12]                  ;3B62: AD 9F 1F 12    '....'
@@ -3324,30 +3344,31 @@ LOOP07     DECA                             ;3B6A: 4A             'J'
            BNE     LOOP07                   ;3B6B: 26 FD          '&.'
            DEX                              ;3B6D: 30 1F          '0.'
            BNE     LOOP06                   ;3B6F: 26 F8          '&.'
-Z3B71      PSHS    U,Y,X,DP,B,CC            ;3B71: 34 7D          '4}'
+LOOP08     PSHS    U,Y,X,DP,B,CC            ;3B71: 34 7D          '4}'
            JSR     [POLCAT]                 ;3B73: AD 9F A0 00    '....'
            PULS    U,Y,X,DP,B,CC            ;3B77: 35 7D          '5}'
            TSTA                             ;3B79: 4D             'M'
-           BEQ     Z3B71                    ;3B7A: 27 F5          ''.'
+           BEQ     LOOP08                   ;3B7A: 27 F5          ''.'
            JMP     [VMAIN]                  ;3B7C: Jump to 3A5F main loop
            PSHS    U,Y,X,D                  ;3B80: 34 76          '4v'
            LDA     M004D                    ;3B82: 96 4D          '.M'
            BITA    #$0F                     ;3B84: 85 0F          '..'
-           BNE     Z3BA0                    ;3B86: 26 18          '&.'
+           BNE     SKIP06                   ;3B86: 26 18          '&.'
            LDD     M0039                    ;3B88: DC 39          '.9'
            SUBB    #$10                     ;3B8A: C0 10          '..'
            CMPB    #$F0                     ;3B8C: C1 F0          '..'
-           BNE     Z3B94                    ;3B8E: 26 04          '&.'
+           BNE     SKIP05                   ;3B8E: 26 04          '&.'
            LDB     #$90                     ;3B90: C6 90          '..'
            SUBA    #$10                     ;3B92: 80 10          '..'
-Z3B94      STD     M0039                    ;3B94: DD 39          '.9'
+SKIP05     STD     M0039                    ;3B94: DD 39          '.9'
            LDU     #M1E39                   ;3B96: CE 1E 39       '..9'
            LDX     #M0611                   ;3B99: 8E 06 11       '...'
-           BSR     Z3BA3                    ;3B9C: 8D 05          '..'
-           BSR     Z3BA3                    ;3B9E: 8D 03          '..'
-Z3BA0      PULS    U,Y,X,D                  ;3BA0: 35 76          '5v'
+           BSR     SKIP07                   ;3B9C: 8D 05          '..'
+           BSR     SKIP07                   ;3B9E: 8D 03          '..'
+SKIP06     PULS    U,Y,X,D                  ;3BA0: 35 76          '5v'
            RTS                              ;3BA2: 39             '9'
-Z3BA3      LDA     ,U+                      ;3BA3: A6 C0          '..'
+           ; ? -------------------------------------------------------------------------
+SKIP07     LDA     ,U+                      ;3BA3: A6 C0          '..'
            LDY     M001C                    ;3BA5: 10 9E 1C       '...'
            LDB     #$07                     ;3BA8: C6 07          '..'
            LSRA                             ;3BAA: 44             'D'
@@ -3357,42 +3378,43 @@ Z3BA3      LDA     ,U+                      ;3BA3: A6 C0          '..'
            MUL                              ;3BAE: 3D             '='
            LEAY    D,Y                      ;3BAF: 31 AB          '1.'
            LDB     #$07                     ;3BB1: C6 07          '..'
-Z3BB3      LDA     ,Y+                      ;3BB3: A6 A0          '..'
+LOOP09     LDA     ,Y+                      ;3BB3: A6 A0          '..'
            STA     ,X                       ;3BB5: A7 84          '..'
            LEAX    $20,X                    ;3BB7: 30 88 20       '0. '
            DECB                             ;3BBA: 5A             'Z'
-           BNE     Z3BB3                    ;3BBB: 26 F6          '&.'
+           BNE     LOOP09                   ;3BBB: 26 F6          '&.'
            LEAX    $FF21,X                  ;3BBD: 30 89 FF 21    '0..!'
            RTS                              ;3BC1: 39             '9'
            TST     M002D                    ;3BC2: 0D 2D          '.-'
-           BEQ     Z3BCE                    ;3BC4: 27 08          ''.'
+           BEQ     SKIP08                   ;3BC4: 27 08          ''.'
            JSR     [Z1F64]                  ;3BC6: AD 9F 1F 64    '...d'
            CLR     M002D                    ;3BCA: 0F 2D          '.-'
-           BRA     Z3C06                    ;3BCC: 20 38          ' 8'
-Z3BCE      TST     M0031                    ;3BCE: 0D 31          '.1'
-           BEQ     Z3BDA                    ;3BD0: 27 08          ''.'
+           BRA     SKIP13                   ;3BCC: 20 38          ' 8'
+SKIP08     TST     M0031                    ;3BCE: 0D 31          '.1'
+           BEQ     SKIP09                   ;3BD0: 27 08          ''.'
            JSR     [Z1F6A]                  ;3BD2: AD 9F 1F 6A    '...j'
            CLR     M0031                    ;3BD6: 0F 31          '.1'
-           BRA     Z3C06                    ;3BD8: 20 2C          ' ,'
-Z3BDA      TST     M0032                    ;3BDA: 0D 32          '.2'
-           BEQ     Z3BE6                    ;3BDC: 27 08          ''.'
+           BRA     SKIP13                   ;3BD8: 20 2C          ' ,'
+SKIP09     TST     M0032                    ;3BDA: 0D 32          '.2'
+           BEQ     SKIP10                   ;3BDC: 27 08          ''.'
            JSR     [Z1F6C]                  ;3BDE: AD 9F 1F 6C    '...l'
            DEC     M0032                    ;3BE2: 0A 32          '.2'
-           BRA     Z3C06                    ;3BE4: 20 20          '  '
-Z3BE6      TST     M0030                    ;3BE6: 0D 30          '.0'
-           BEQ     Z3BF2                    ;3BE8: 27 08          ''.'
+           BRA     SKIP13                   ;3BE4: 20 20          '  '
+SKIP10     TST     M0030                    ;3BE6: 0D 30          '.0'
+           BEQ     SKIP11                   ;3BE8: 27 08          ''.'
            JSR     [Z1F68]                  ;3BEA: AD 9F 1F 68    '...h'
            DEC     M0030                    ;3BEE: 0A 30          '.0'
-           BRA     Z3C06                    ;3BF0: 20 14          ' .'
-Z3BF2      TST     M002F                    ;3BF2: 0D 2F          './'
-           BEQ     Z3BFE                    ;3BF4: 27 08          ''.'
+           BRA     SKIP13                   ;3BF0: 20 14          ' .'
+SKIP11     TST     M002F                    ;3BF2: 0D 2F          './'
+           BEQ     SKIP12                   ;3BF4: 27 08          ''.'
            JSR     [Z1F66]                  ;3BF6: AD 9F 1F 66    '...f'
            CLR     M002F                    ;3BFA: 0F 2F          './'
-           BRA     Z3C06                    ;3BFC: 20 08          ' .'
-Z3BFE      TST     M002E                    ;3BFE: 0D 2E          '..'
-           BEQ     Z3C06                    ;3C00: 27 04          ''.'
-           JSR     [Z1F7C]                  ;3C02: AD 9F 1F 7C    '...|'
-Z3C06      CLR     M002E                    ;3C06: 0F 2E          '..'
+           BRA     SKIP13                   ;3BFC: 20 08          ' .'
+SKIP12     TST     M002E                    ;3BFE: 0D 2E          '..'
+           BEQ     SKIP13                   ;3C00: 27 04          ''.'
+           JSR     [Z1F7C]                  ;3C02: Jump to subroutine at 3E9E
+           ; Play sound ? -------------------------------------------------------------------------
+SKIP13     CLR     M002E                    ;3C06: 0F 2E          '..'
            RTS                              ;3C08: 39             '9'
            PSHS    X,D                      ;3C09: 34 16          '4.'
            LDX     #M21CE                   ;3C0B: 8E 21 CE       '.!.'
@@ -3403,8 +3425,8 @@ Z3C06      CLR     M002E                    ;3C06: 0F 2E          '..'
            LEAX    $2200,X                  ;3C14: 30 89 22 00    '0.".'
            LDD     M003B                    ;3C18: DC 3B          '.;'
            LEAX    D,X                      ;3C1A: 30 8B          '0.'
-Z3C1C      DEX                              ;3C1C: 30 1F          '0.'
-           BNE     Z3C1C                    ;3C1E: 26 FC          '&.'
+LOOP10     DEX                              ;3C1C: 30 1F          '0.'
+           BNE     LOOP10                   ;3C1E: 26 FC          '&.'
            CLR     M003B                    ;3C20: 0F 3B          '.;'
            CLR     M003C                    ;3C22: 0F 3C          '.<'
            PULS    X,D                      ;3C24: 35 16          '5.'
@@ -3414,51 +3436,51 @@ Z3C1C      DEX                              ;3C1C: 30 1F          '0.'
            LDX     #M1E50                   ;3C2D: 8E 1E 50       '..P'
            LDA     #$08                     ;3C30: 86 08          '..'
            SUBA    M0036                    ;3C32: 90 36          '.6'
-           BEQ     Z3C3D                    ;3C34: 27 07          ''.'
-Z3C36      CLR     ,X                       ;3C36: 6F 84          'o.'
+           BEQ     SKIP14                   ;3C34: 27 07          ''.'
+LOOP11     CLR     ,X                       ;3C36: 6F 84          'o.'
            LEAX    $08,X                    ;3C38: 30 08          '0.'
            DECA                             ;3C3A: 4A             'J'
-           BNE     Z3C36                    ;3C3B: 26 F9          '&.'
-Z3C3D      PULS    X,A                      ;3C3D: 35 12          '5.'
+           BNE     LOOP11                   ;3C3B: 26 F9          '&.'
+SKIP14     PULS    X,A                      ;3C3D: 35 12          '5.'
            RTS                              ;3C3F: 39             '9'
            PSHS    X,DP,D                   ;3C40: 34 1E          '4.'
            CLRA                             ;3C42: 4F             'O'
            TFR     A,DP                     ;3C43: 1F 8B          '..'
            LDD     #M3C04                   ;3C45: CC 3C 04       '.<.'
-           STA     SNDTON                    ;3C48: 97 8C          '..'
+           STA     SNDTON                   ;3C48: 97 8C          '..'
            ANDCC   #$AF                     ;3D66: Enable interrupts (Clear F&I bits)
            JSR     SOUND                    ;3C4C: Jump to Basic SOUND subroutine 
            LDD     #M0A04                   ;3C4F: CC 0A 04       '...'
-           STA     SNDTON                    ;3C52: 97 8C          '..'
+           STA     SNDTON                   ;3C52: 97 8C          '..'
            JSR     SOUND                    ;3C54: Jump to Basic SOUND subroutine 
            ORCC    #$50                     ;3A05: Disable interrupts
            LDX     #M7FFE                   ;3C59: 8E 7F FE       '...'
-Z3C5C      DEX                              ;3C5C: 30 1F          '0.'
-           BNE     Z3C5C                    ;3C5E: 26 FC          '&.'
+LOOP12     DEX                              ;3C5C: 30 1F          '0.'
+           BNE     LOOP12                   ;3C5E: 26 FC          '&.'
            PULS    X,DP,D                   ;3C60: 35 1E          '5.'
            RTS                              ;3C62: 39             '9'
            PSHS    X,D                      ;3C63: 34 16          '4.'
            TST     M0011                    ;3C65: 0D 11          '..'
-           BEQ     Z3C6B                    ;3C67: 27 02          ''.'
+           BEQ     SKIP15                   ;3C67: 27 02          ''.'
            CLR     M0010                    ;3C69: 0F 10          '..'
-Z3C6B      LDA     #$3F                     ;3C6B: 86 3F          '.?'
+SKIP15     LDA     #$3F                     ;3C6B: 86 3F          '.?'
            STA     SNDSET                   ;3C6D: B7 FF 23       '..#'
            LDA     #$10                     ;3C70: 86 10          '..'
-Z3C72      ASLA                             ;3C72: 48             'H'
+RPT01      ASLA                             ;3C72: 48             'H'
            TFR     A,B                      ;3C73: 1F 89          '..'
-Z3C75      STB     SNDOUT                   ;3C75: F7 FF 20       '.. '
+LOOP13     STB     SNDOUT                   ;3C75: F7 FF 20       '.. '
            INCB                             ;3C78: 5C             '\'
            INCB                             ;3C79: 5C             '\'
            INCB                             ;3C7A: 5C             '\'
-           BNE     Z3C75                    ;3C7B: 26 F8          '&.'
+           BNE     LOOP13                   ;3C7B: 26 F8          '&.'
            INCA                             ;3C7D: 4C             'L'
-           BPL     Z3C89                    ;3C7E: 2A 09          ';.'
+           BPL     SKIP16                   ;3C7E: 2A 09          ';.'
            LDX     #MFC00                   ;3C80: 8E FC 00       '...'
            STX     M003B                    ;3C83: 9F 3B          '.;'
            NOP                              ;3C85: 12             '.'
            PULS    X,D                      ;3C86: 35 16          '5.'
            RTS                              ;3C88: 39             '9'
-Z3C89      BRA     Z3C72                    ;3C89: 20 E7          ' .'
+SKIP16     BRA     RPT01                    ;3C89: 20 E7          ' .'
            PSHS    X,D                      ;3C8B: 34 16          '4.'
            LDX     #MA85C                   ;3C8D: 8E A8 5C       '..\'
            LDA     MFF01                    ;3C90: B6 FF 01       '...'
