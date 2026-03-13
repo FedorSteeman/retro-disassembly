@@ -288,11 +288,19 @@ Z1F8A      FDB     $2B59
            FCB     $04                      ;1FA9: 04             '.'
            FCC     "Y"                      ;1FAA: 59             'Y'
            FCB     $04                      ;1FAB: 04             '.'
-M1FAC      FCB     $08,$1D,$13,$00,$1E,$1E  ;1FAC: 08 1D 13 00 1E 1E '......'
-           FCB     $1E,$1E,$1E,$1E,$00,$02  ;1FB2: 1E 1E 1E 1E 00 02 '......'
-           FCB     $0F,$0E,$15,$13,$00,$1E  ;1FB8: 0F 0E 15 13 00 1E '......'
-           FCB     $1E,$1E,$1E,$00,$13,$03  ;1FBE: 1E 1E 1E 00 13 03 '......'
-           FCB     $12,$00                  ;1FC4: 12 00          '..'
+M1FAC      FCB     $08,$1D                  ;1FAC: 08 1D          '0000100000011101
+           FCB     $13,$00                  ;1FAE: 13 00          '0001001100000000'
+           FCB     $1E,$1E                  ;1FB0: 1E 1E          '0001111000011110'
+           FCB     $1E,$1E                  ;1FB2: 1E 1E          '0001111000011110'
+           FCB     $1E,$1E                  ;1FB4: 1E 1E          '0001111000011110'
+           FCB     $00,$02                  ;1FB2: 00 02          '0000000000000010'
+           FCB     $0F,$0E                  ;1FB6: 0F 0E          '0000111100001110'
+           FCB     $15,$13                  ;1FB8: 15 13          '0001010100010011'
+           FCB     $00,$1E                  ;1FA0: 00 1E          '0000000000011110'
+           FCB     $1E,$1E                  ;1FA2: 1E 1E          '0001111000011110'
+           FCB     $1E,$00                  ;1FA4: 1E 00          '0001111000000000'
+           FCB     $13,$03                  ;1FA6: 13 03          '0001001100000011'
+           FCB     $12,$00                  ;1FC4: 12 00          '0001001000000000'
 M1FC6      FCB     $AA,$BA,$AE,$AA,$00      ;1FC6: AA BA AE AA 00 '.....'
            FCC     "0"                      ;1FCB: 30             '0'
            FCB     $0C,$00                  ;1FCC: 0C 00          '..'
@@ -306,56 +314,72 @@ M1FD6      FCB     $06,$1A,$1E              ;1FD6: 06 1A 1E       0000 0110 0001
            FCB     $C6,$06,$07              ;1FDF: C6 06 07       1100 0110 0000 0110 0000 0111
 M1FE2      FCB     $FF                      ;1FE2: FF             1111 1111
            FCC     " "                      ;1FE3: 20             ' '
-M1FE4      FCB     $FF,$E0,$00,$E0,$00      ;1FE4: FF E0 00 E0 00 '.....'
-           FCC     " "                      ;1FE9: 20             ' '
-           FCB     $FF,$FF,$FF,$FF,$00,$01  ;1FEA: FF FF FF FF 00 01 '......'
-           FCB     $00,$01,$00,$01          ;1FF0: 00 01 00 01    '....'
-           FCC     "', 'L 'l '"             ;1FF4: 27 2C 20 27 4C 20 27 6C 20 27 '', 'L 'l ''
-           FCB     $8C                      ;1FFE: 8C             '.'
-           FCC     " "                      ;1FFF: 20             ' '
-M2000      FCB     $FF,$FF,$F0,$07,$E0,$03  ;2000: FF FF F0 07 E0 03 '......'
-           FCB     $E0,$03,$EF,$FB,$D0,$05  ;2006: E0 03 EF FB D0 05 '......'
-           FCB     $A0,$02,$84,$10,$84,$10  ;200C: A0 02 84 10 84 10 '......'
-           FCB     $C2                      ;2012: C2             '.'
-           FCC     "!"                      ;2013: 21             '!'
-           FCB     $E2                      ;2014: E2             '.'
-           FCC     "#"                      ;2015: 23             '#'
-           FCB     $E4,$13,$88,$08,$80,$00  ;2016: E4 13 88 08 80 00 '......'
-M201C      FCB     $FF,$FF,$F0,$07,$E0,$03  ;201C: FF FF F0 07 E0 03 '......'
-           FCB     $E6                      ;2022: E6             '.'
-           FCC     "3"                      ;2023: 33             '3'
-           FCB     $E7                      ;2024: E7             '.'
-           FCC     "s"                      ;2025: 73             's'
-           FCB     $D1,$C4,$96,$B4,$8D,$D8  ;2026: D1 C4 96 B4 8D D8 '......'
-           FCB     $8F                      ;202C: 8F             '.'
-           FCC     "x"                      ;202D: 78             'x'
-           FCB     $C7,$F1,$E5              ;202E: C7 F1 E5       '...'
-           FCC     "S"                      ;2031: 53             'S'
-           FCB     $E6                      ;2032: E6             '.'
-           FCC     "3"                      ;2033: 33             '3'
-           FCB     $83,$E0,$80,$00,$FF,$FF  ;2034: 83 E0 80 00 FF FF '......'
-           FCB     $F0,$0F,$E0,$07,$E6,$07  ;203A: F0 0F E0 07 E6 07 '......'
-           FCB     $EF                      ;2040: EF             '.'
-           FCC     "#"                      ;2041: 23             '#'
-           FCB     $F3                      ;2042: F3             '.'
-           FCC     "c"                      ;2043: 63             'c'
-           FCB     $EF                      ;2044: EF             '.'
-           FCC     "c"                      ;2045: 63             'c'
-           FCB     $D6                      ;2046: D6             '.'
-           FCC     "A"                      ;2047: 41             'A'
-           FCB     $BF,$E1,$DF,$C1,$D3,$83  ;2048: BF E1 DF C1 D3 83 '......'
-           FCB     $C7,$07                  ;204E: C7 07          '..'
-M2050      FCB     $DE,$01,$E0,$00,$FF,$FF  ;2050: DE 01 E0 00 FF FF '......'
-           FCB     $F8,$07,$F0,$03,$F0,$03  ;2056: F8 07 F0 03 F0 03 '......'
-           FCB     $E2                      ;205C: E2             '.'
-           FCC     "{"                      ;205D: 7B             '{'
-           FCB     $E3                      ;205E: E3             '.'
-           FCC     "g"                      ;205F: 67             'g'
-           FCB     $E3                      ;2060: E3             '.'
-           FCC     "{"                      ;2061: 7B             '{'
-           FCB     $C1                      ;2062: C1             '.'
-           FCC     ";"                      ;2063: 3B             ';'
-           FCB     $C3,$FE,$C1,$FD,$E0,$E5  ;2064: C3 FE C1 FD E0 E5 '......'
+M1FE4      FCB     $FF,$E0                  ;1FE4: FF E0          '1111 1111 1110 0000
+           FCB     $00,$E0                  ;1FE6: 00 E0          '0000 0000 1110 0000
+           FCB     $00,$20                  ;1FE8: 00 20          '0000 0000 0010 0000
+           FCB     $FF,$FF                  ;1FEA: FF FF          '1111 1111 1111 1111
+           FCB     $FF,$FF                  ;1FEC: FF FF          '1111 1111 1111 1111
+           FCB     $00,$01                  ;1FEE: 00 01          '0000 0000 0000 0001
+           FCB     $00,$01                  ;1FF0: 00 01          '0000 0000 0000 0001
+           FCB     $00,$01                  ;1FF2: 00 01          '0000 0000 0000 0001
+           FCB     $27,$2C                  ;1FF4: 27 2C          '0010 0111 0010 1100
+           FCB     $20,$27                  ;1FF6: 20 27          '0010 0000 0010 0111
+           FCB     $4C,$20                  ;1FF8: 4C 20          '0100 1100 0010 0000
+           FCB     $27,$6C                  ;1FFA: 27 6C          '0010 0111 0110 1100
+           FCB     $20,$27                  ;1FFC: 20 27          '0010 0000 0010 0111
+           FCB     $8C,$20                  ;1FFE: 8C 20          '1000 1100 0010 0000
+FMBACK     FCB     $FF,$FF                  ;2000: FF FF          '1111 1111 1111 1111
+           FCB     $F0,$07                  ;2002: F0 07          '1111 0000 0000 0111
+           FCB     $E0,$03                  ;2004: E0 03          '1110 0000 0000 0011
+           FCB     $E0,$03                  ;2006: E0 03          '1110 0000 0000 0011
+           FCB     $EF,$FB                  ;2008: EF FB          '1110 1111 1111 1011
+           FCB     $D0,$05                  ;200A: D0 05          '1101 0000 0000 0101
+           FCB     $A0,$02                  ;200C: A0 02          '1010 0000 0000 0010
+           FCB     $84,$10                  ;200E: 84 10          '1000 0100 0001 0000
+           FCB     $C2,$21                  ;2010: C2 21          '1100 0010 0010 0001
+           FCB     $E2,$23                  ;2012: E2 23          '1110 0010 0010 0011
+           FCB     $E4,$13                  ;2014: E4 13          '1110 0100 0001 0011
+           FCB     $88,$08                  ;2016: 88 08          '1000 1000 0000 1000
+           FCB     $80,$00                  ;2018: 80 00          '1000 0000 0000 0000
+FMFRNT     FCB     $FF,$FF                  ;201A: FF FF          '1111 1111 1111 1111
+           FCB     $F0,$07                  ;201C: F0 07          '1111 0000 0000 0111
+           FCB     $E0,$03                  ;201E: E0 03          '1110 0000 0000 0011
+           FCB     $E6,$33                  ;2020: E6 33          '1110 0110 0011 0011
+           FCB     $E7,$73                  ;2022: E7 73          '1110 0111 0111 0011
+           FCB     $D1,$C4                  ;2024: D1 C4          '1101 0001 1100 0100
+           FCB     $96,$B4                  ;2026: 96 B4          '1001 0110 1011 0100
+           FCB     $8D,$D8                  ;2028: 8D D8          '1000 1101 1101 1000
+           FCB     $8F,$78                  ;202A: 8F 78          '1000 1111 0111 1000
+           FCB     $C7,$F1                  ;202C: C7 F1          '1100 0111 1111 0001
+           FCB     $E5,$53                  ;202E: E5 53          '1110 0101 0101 0011
+           FCB     $E6,$33                  ;2030: E6 33          '1110 0110 0011 0011
+           FCB     $83,$E0                  ;2032: 83 E0          '1000 0011 1110 0000
+           FCB     $80,$00                  ;2034: 80 00          '1000 0000 0000 0000
+           FCB     $80,$00                  ;2036: 80 00          '1000 0000 0000 0000
+FMLEFT     FCB     $FF,$FF                  ;2038: FF FF          '1111 1111 1111 1111
+           FCB     $F0,$0F                  ;203A: F0 0F          '1111 0000 0000 1111
+           FCB     $E0,$07                  ;203C: E0 07          '1110 0000 0000 0111
+           FCB     $E6,$07                  ;203E: E6 07          '1110 0110 0000 0111
+           FCB     $EF,$23                  ;2040: EF 23          '1110 1111 0010 0011
+           FCB     $F3,$63                  ;2042: F3 63          '1111 0011 0110 0011
+           FCB     $EF,$63                  ;2044: EF 63          '1110 1111 0110 0011
+           FCB     $D6,$41                  ;2046: D6 41          '1101 0110 0100 0001
+           FCB     $BF,$E1                  ;2048: BF E1          '1011 1111 1110 0001
+           FCB     $DF,$C1                  ;204A: DF C1          '1101 1111 1100 0001
+           FCB     $D3,$83                  ;204C: D3 83          '1101 0011 1000 0011
+           FCB     $C7,$07                  ;204E: C7 07          '1100 0111 0000 0111
+M2050      FCB     $DE,$01                  ;2050: DE 01          '1101 1110 0000 0001
+           FCB     $E0,$00                  ;2052: E0 00          '1110 0000 0000 0000
+
+FMRITE     FCB     $FF,$FF                  ;2054: FF FF          '1111 1111 1111 1111
+           FCB     $F8,$07                  ;2056: F8 07          '1111 1000 0000 0111
+           FCB     $F0,$03                  ;2058: F0 03          '1111 0000 0000 0011
+           FCB     $F0,$03                  ;205A: F0 03          '1111 0000 0000 0011
+           FCB     $E2,$7B                  ;205C: E2 7B          '1110 0010 0111 1011
+           FCB     $E3,$67                  ;205E: E3 67          '1110 0011 0110 0111
+           FCB     $E3,$7B                  ;2060: E3 7B          '1110 0011 0111 1011
+           FCB     $7B,$C1                  ;2062: 7B C1          '0111 1011 1100 0001
+           FCB     $3B,$C3,$FE,$C1,$FD,$E0,$E5  ;2064: C3 FE C1 FD E0 E5 '......'
            FCB     $F0                      ;206A: F0             '.'
            FCC     "q"                      ;206B: 71             'q'
            FCB     $C0                      ;206C: C0             '.'
@@ -2129,7 +2153,7 @@ Z31D7      LDX     ,U                       ;31D7: AE C4          '..'
            ADDA    $04,U                    ;31E1: AB 44          '.D'
 Z31E3      LDB     #$1C                     ;31E3: C6 1C          '..'
            MUL                              ;31E5: 3D             '='
-           LDY     #M2000                   ;31E6: 10 8E 20 00    '.. .'
+           LDY     #FMBACK                ;31E6: 10 8E 20 00    '.. .'
            LEAY    D,Y                      ;31EA: 31 AB          '1.'
            CMPU    #M1E90                   ;31EC: 11 83 1E 90    '....'
            BNE     Z31FF                    ;31F0: 26 0D          '&.'
@@ -2207,20 +2231,20 @@ Z3281      LEAY    $02,Y                    ;3281: 31 22          '1"'
 ; Subroutine 
 ; --------------------------------------------------------------------------------
            PSHS    U,Y,X,D                  ;3299: 34 76          '4v'
-           LDX     #M06E0                   ;329B: 8E 06 E0       '...'
-           LDU     #RESET                   ;329E: CE FF FF       '...'
-Z32A1      STU     ,X++                     ;32A1: EF 81          '..'
-           STU     ,X++                     ;32A3: EF 81          '..'
-           CMPX    #M1E00                   ;32A5: 8C 1E 00       '...'
-           BLT     Z32A1                    ;32A8: 2D F7          '-.'
-           LDU     #M1FAC                   ;32AA: CE 1F AC       '...'
-           LDX     #M0600                   ;32AD: 8E 06 00       '...'
-Z32B0      LDA     #$07                     ;32B0: 86 07          '..'
-           LDB     ,U+                      ;32B2: E6 C0          '..'
-           MUL                              ;32B4: 3D             '='
-           LDY     #M24F4                   ;32B5: 10 8E 24 F4    '..$.'
-           LEAY    D,Y                      ;32B9: 31 AB          '1.'
-           LDA     #$07                     ;32BB: 86 07          '..'
+           LDX     #M06E0                   ;329B: Point to screen start
+           LDU     #$FFFF                   ;329E: Load white stripe pattern
+WPSCR2     STU     ,X++                     ;32A1: Draw to screen and move to next location
+           STU     ,X++                     ;32A3: Draw to screen and move to next location
+           CMPX    #M1E00                   ;32A5: Check for end of screen
+           BLT     WPSCR2                   ;32A8: Loop until end of screen
+           LDU     #M1FAC                   ;32AA: Load ??? data
+           LDX     #M0600                   ;32AD: Point to start of screen 
+Z32B0      LDA     #$07                     ;32B0: Load value 7 for multiplication
+           LDB     ,U+                      ;32B2: Get data byte and increment pointer
+           MUL                              ;32B4: Multiply by 7 
+           LDY     #M24F4                   ;32B5: Point to ??? data
+           LEAY    D,Y                      ;32B9: Add calculated offset to pointer
+           LDA     #$07                     ;32BB: Load value 7 for ?
 Z32BD      LDB     ,Y+                      ;32BD: E6 A0          '..'
            STB     ,X                       ;32BF: E7 84          '..'
            LEAX    $20,X                    ;32C1: 30 88 20       '0. '
@@ -2251,24 +2275,24 @@ Z32E9      LDB     ,U+                      ;32E9: E6 C0          '..'
            LEAX    $FF21,X                  ;32F3: 30 89 FF 21    '0..!'
            DEC     M0000                    ;32F7: 0A 00          '..'
            BNE     Z32DA                    ;32F9: 26 DF          '&.'
-           LDA     LIVES                    ;32FB: 96 38          '.8'
-           DECA                             ;32FD: 4A             'J'
-           BLE     Z331A                    ;32FE: 2F 1A          '/.'
-           LDX     #M1C40                   ;3300: 8E 1C 40       '..@'
-Z3303      LDY     #M201C                   ;3303: 10 8E 20 1C    '.. .'
-           LDB     #$0E                     ;3307: C6 0E          '..'
-Z3309      LDU     ,Y++                     ;3309: EE A1          '..'
-           STU     ,X                       ;330B: EF 84          '..'
-           LEAX    $20,X                    ;330D: 30 88 20       '0. '
-           DECB                             ;3310: 5A             'Z'
-           BNE     Z3309                    ;3311: 26 F6          '&.'
-           LEAX    $FE42,X                  ;3313: 30 89 FE 42    '0..B'
-           DECA                             ;3317: 4A             'J'
-           BNE     Z3303                    ;3318: 26 E9          '&.'
-Z331A      PULS    U,Y,X,D                  ;331A: 35 76          '5v'
-           JSR     [Z1F26]                  ;331C: AD 9F 1F 26    '...&'
-           JSR     [Z1F32]                  ;3320: AD 9F 1F 32    '...2'
-           RTS                              ;3324: 39             '9'
+           LDA     LIVES                    ;32FB: Get number of lives remaining
+           DECA                             ;32FD: Subtract 1 from lives count for ???
+           BLE     Z331A                    ;32FE: Jump to ??? if no lives remain
+           LDX     #M1C40                   ;3300: Point to screen location for first life sprite
+DRWLIVES   LDY     #FMFRNT                  ;3303: Point to fangman front sprite data
+           LDB     #$0E                     ;3307: Load sprite height in lines 
+DRWLIFE    LDU     ,Y++                     ;3309: Get data for current sprite line
+           STU     ,X                       ;330B: Draw to screen location
+           LEAX    $20,X                    ;330D: Move to next line of sprite
+           DECB                             ;3310: Decrement line counter
+           BNE     DRWLIFE                  ;3311: Loop until done
+           LEAX    $FE42,X                  ;3313: Move to next life sprite location
+           DECA                             ;3317: Decrement lives counter
+           BNE     DRWLIVES                 ;3318: Loop until all lives are drawn
+Z331A      PULS    U,Y,X,D                  ;331A: Restore registers
+           JSR     [Z1F26]                  ;331C: Jump to subroutine at 2F0B
+           JSR     [Z1F32]                  ;3320: Jump to subroutine at 3214
+           RTS                              ;3324: 
 ; --------------------------------------------------------------------------------
 ; Subroutine 1: Set up ???
 ; --------------------------------------------------------------------------------
@@ -3718,7 +3742,7 @@ Z3EC4      DECB                             ;3EC4: 5A             'Z'
 ; --------------------------------------------------------------------------------
            PSHS    Y,X,D                    ;3ED4: 34 36          '46'
            LDX     M0090                    ;3ED6: 9E 90          '..'
-           LDY     #M201C                   ;3ED8: 10 8E 20 1C    '.. .'
+           LDY     #FMFRNT                  ;3ED8: 10 8E 20 1C    '.. .'
            JSR     [Z1F82]                  ;3EDC: AD 9F 1F 82    '....'
            LDX     #M2B15                   ;3EE0: 8E 2B 15       '.+.'
            LDB     #$06                     ;3EE3: C6 06          '..'
