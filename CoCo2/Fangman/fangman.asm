@@ -887,8 +887,8 @@ M2214      FCB     $00,$00                  ;2214: 00 00          '0000000000000
            FCC     " ?"                     ;24E7: 20 3F          ' ?'
            FCB     $FF,$FF,$F8,$00,$00,$00  ;24E9: FF FF F8 00 00 00 '......'
            FCB     $00,$00,$00,$00,$00      ;24EF: 00 00 00 00 00 '.....'
-M24F4      FCB     $FF,$FF,$FF,$FF,$FF,$FF  ;24F4: FF FF FF FF FF FF '......'
-           FCB     $FF,$E7,$C3,$99,$99,$81  ;24FA: FF E7 C3 99 99 81 '......'
+M24F4      FCB     $FF,$FF,$FF,$FF,$FF,$FF  ;24F4: FF FF FF FF FF FF '......' This might be the text on the "Fangman" title screen, but it's not clear how the characters are encoded. 
+           FCB     $FF,$E7,$C3,$99,$99,$81  ;24FA: FF E7 C3 99 99 81 '......' 
            FCB     $99,$99,$83,$99,$99,$83  ;2500: 99 99 83 99 99 83 '......'
            FCB     $99,$99,$83,$C3,$99,$9F  ;2506: 99 99 83 C3 99 9F '......'
            FCB     $9F,$9F,$99,$C3,$83,$C9  ;250C: 9F 9F 99 C3 83 C9 '......'
@@ -903,9 +903,9 @@ M24F4      FCB     $FF,$FF,$FF,$FF,$FF,$FF  ;24F4: FF FF FF FF FF FF '......'
            FCB     $99,$93,$87,$93,$99,$99  ;2542: 99 93 87 93 99 99 '......'
            FCB     $9F,$9F,$9F,$9F,$9F,$9F  ;2548: 9F 9F 9F 9F 9F 9F '......'
            FCB     $81                      ;254E: 81             '.'
-           FCC     "<"                      ;254F: 3C             '<'
+           FCB     $3C                      ;254F: 3C             '<'
            FCB     $18,$00                  ;2550: 18 00          '..'
-           FCC     "$$<<"                   ;2552: 24 24 3C 3C    '$$<<'
+           FCB     $24,$24,$3C,$3C          ;2552: 24 24 3C 3C    '$$<<'
            FCB     $99,$89,$89,$81,$91,$91  ;2556: 99 89 89 81 91 91 '......'
            FCB     $99,$C3,$99,$99,$99,$99  ;255C: 99 C3 99 99 99 99 '......'
            FCB     $99,$C3,$83,$99,$99,$83  ;2562: 99 C3 83 99 99 83 '......'
@@ -917,7 +917,7 @@ M24F4      FCB     $FF,$FF,$FF,$FF,$FF,$FF  ;24F4: FF FF FF FF FF FF '......'
            FCB     $E7,$99,$99,$99,$99,$99  ;2586: E7 99 99 99 99 99 '......'
            FCB     $99,$C3,$99,$99,$99,$99  ;258C: 99 C3 99 99 99 99 '......'
            FCB     $99,$C3,$E7              ;2592: 99 C3 E7       '...'
-           FCC     "$$$$"                   ;2595: 24 24 24 24    '$$$$'
+           FCB     $24,$24,$24,$24          ;2595: 24 24 24 24    '$$$$'
            FCB     $00,$00,$99,$99,$99,$C3  ;2599: 00 00 99 99 99 C3 '......'
            FCB     $E7,$C3,$99,$99,$99,$99  ;259F: E7 C3 99 99 99 99 '......'
            FCB     $C3,$E7,$E7,$E7,$E7,$81  ;25A5: C3 E7 E7 E7 E7 81 '......'
@@ -3269,17 +3269,17 @@ INIT       NOP                              ;3A04: Placeholder
            STX     M010D                    ;3A2E: IRQ Secondary vector LSB -> $7EA9 ???
            JSR     [VTITLE]                 ;3A31: Jump to title screen 
            ; Clear top of text screen ($0600-$06FF) -------------------------------------------
-           LDX     #$0600                   ;3A35: 8E 06 00       ' 
-WPTXT1     CLR     ,X                       ;3A38: 6F 84          ' 
-           DEC     ,X+                      ;3A3A: 6A 80          ' 
-           CMPX    #M0700                   ;3A3C: 8C 07 00       ' 
-           BLT     WPTXT1                   ;3A3F: 2D F7          ' 
+           LDX     #$0600                   ;3A35: Point to start of text screen
+WPTXT1     CLR     ,X                       ;3A38: Clear byte at address X
+           DEC     ,X+                      ;3A3A: Decrement X and clear next byte
+           CMPX    #M0700                   ;3A3C: Check for end of text screen
+           BLT     WPTXT1                   ;3A3F: Loop until end of text screen 
            ; Clear PMODE 4 video page ($1E00-$1EFF) -----------------------------------
-           LDX     #M1E00                   ;3A41: 8E 1E 00       ' 
-WPSCR1     CLR     ,X+                      ;3A44: 6F 80          ' 
-           CLR     ,X+                      ;3A46: 6F 80          ' 
-           CMPX    #M1F00                   ;3A48: 8C 1F 00       ' 
-           BLT     WPSCR1                    ;3A4B: 2D F7          ' 
+           LDX     #M1E00                   ;3A41: Point to start of video page
+WPSCR1     CLR     ,X+                      ;3A44: Clear byte at address X and increment
+           CLR     ,X+                      ;3A46: Clear next byte and increment
+           CMPX    #M1F00                   ;3A48: Check for end of video page
+           BLT     WPSCR1                   ;3A4B: Loop until end of video page
            ; ??? ---------------------------------------------
            JSR     [Z1F20]                  ;3A4D: Jump to subroutine at 2E86
            LDA     #$12                     ;3A51: Load value 18  
@@ -3707,8 +3707,8 @@ Z3DDE      BSR     DRWTEETH                 ;3DDE: Jump to "Draw teeth rows" sub
            ;  -----------------------------------------------
            LDX     #M0AC5                   ;3DE7: Point to screen location (?)
            LDY     #M2845                   ;3DEA: Point to data (?)
-           LDA     #$16                     ;3DEE: Load counter value = 16
-           BSR     Z3E2E                    ;3DF0: 8D 3C          '.<'
+           LDA     #$16                     ;3DEE: Load counter value = 22
+           BSR     Z3E2E                    ;3DF0: 
            LDX     #M10CA                   ;3DF2: Point to screen location (?)
            LDA     #$0A                     ;3DF5: 86 0A          '..'
            BSR     Z3E2E                    ;3DF7: 8D 35          '.5'
@@ -3736,12 +3736,12 @@ Z3E24      DECA                             ;3E24: 4A             'J'
            ; ??? -------------------------------------------------
 Z3E2E      STA     M0000                    ;3E2E: Save counter value 
 Z3E30      LDB     ,Y+                      ;3E30: Get data byte 
-           ANDB    #$3F                     ;3E32: 
-           LDA     #$07                     ;3E34: 
-           MUL                              ;3E36: 
-           LDU     #M24F4                   ;3E37: CE 24 F4       '.$.'
-           LEAU    D,U                      ;3E3A: 33 CB          '3.'
-           LDA     #$07                     ;3E3C: 86 07          '..'
+           ANDB    #$3F                     ;3E32: Mask with 0011 1111 to get value 0-63
+           LDA     #$07                     ;3E34: Load value 7 
+           MUL                              ;3E36: Multiply 
+           LDU     #M24F4                   ;3E37: Load base address of data table 
+           LEAU    D,U                      ;3E3A: 
+           LDA     #$07                     ;3E3C: 
 Z3E3E      LDB     ,U+                      ;3E3E: E6 C0          '..'
            COMB                             ;3E40: 53             'S'
            STB     ,X                       ;3E41: E7 84          '..'
