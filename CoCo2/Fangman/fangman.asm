@@ -3706,7 +3706,7 @@ Z3DDE      BSR     DRWTEETH                 ;3DDE: Jump to "Draw teeth rows" sub
 Z3E23      CLRA                             ;3E23: 1 cycle
 Z3E24      DECA                             ;3E24: 1 cycle
            BNE     Z3E24                    ;3E25: 2 cycles 
-           LEAX    #$1F,X                   ;3E27: 4 cycles 
+           LEAX    -$01,X                   ;3E27: 4 cycles 
            BNE     Z3E23                    ;3E29: 2 cycles 
            PULS    U,Y,X,D                  ;3E2B: 
            RTS                              ;3E2D: Return to menu 
