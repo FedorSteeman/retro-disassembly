@@ -1820,7 +1820,7 @@ Z2EB3      STX     M003E                    ;2EB3: 9F 3E          '.>'
            PULS    X,A                      ;2EBC: 35 12          '5.'
            RTS                              ;2EBE: 39             '9'
 ; --------------------------------------------------------------------------------
-; Subroutine 
+; Subroutine involved in sound production somehow ?
 ; --------------------------------------------------------------------------------           
 S2EBF      LDA     #$F7                     ;2EBF: 86 F7          '..'
            BSR     Z2ECC                    ;2EC1: 8D 09          '..'
@@ -3326,7 +3326,7 @@ LOOP03     CLR     ,X+                      ;3AE3: 6F 80          'o.'
            CLR     M0012                    ;3AF0: 0F 12          '..'
            JMP     [Z1F46]                  ;3AF2: 6E 9F 1F 46    'n..F'
            LDS     #M3FFE                   ;3AF6: 10 CE 3F FE    '..?.'
-LOOP04     JSR     [Z1F24]                  ;3AFA: Jump to 2EBF
+LOOP04     JSR     [Z1F24]                  ;3AFA: Jump to subroutine at 2EBF
            JSR     [Z1F62]                  ;3AFE: Jump to 3C09
            JSR     [Z1F5E]                  ;3B02: Jump to 3B80
            JSR     [Z1F2A]                  ;3B06: Jump to 306A
@@ -3347,7 +3347,7 @@ LOOP04     JSR     [Z1F24]                  ;3AFA: Jump to 2EBF
 SKIP03     LDU     M0039                    ;3B2E: DE 39          '.9'
            LDY     #M0000                   ;3B30: 10 8E 00 00    '....'
            JSR     [Z1F1E]                  ;3B34: AD 9F 1F 1E    '....'
-           JSR     [Z1F72]                  ;3B38: AD 9F 1F 72    '...r'
+           JSR     [Z1F72]                  ;3B38: "New Man earned" song ? 
            LDA     M0036                    ;3B3C: 96 36          '.6'
            INCA                             ;3B3E: 4C             'L'
            CMPA    #$08                     ;3B3F: 81 08          '..'
@@ -3609,7 +3609,7 @@ Z3D5D      LEAX    -$01,X                              ;3D5D: 30 1F          '0.
 Z3D61      PULS    U,Y,X,D                  ;3D61: 35 76          '5v'
            RTS                              ;3D63: 39             '9'
 ; --------------------------------------------------------------------------------
-; Subroutine 
+; Subroutine involved in sound somehow ? 
 ; --------------------------------------------------------------------------------
 S3D64      PSHS    Y,X,DP,D                 ;3D64: 
            ANDCC   #$AF                     ;3D66: Enable interrupts (Clear F&I bits)
@@ -3629,19 +3629,19 @@ Z3D6F      LDD     ,X++                     ;3D6F: EC 81          '..'
            PULS    Y,X,DP,D                 ;3D82: 35 3E          '5>'
            RTS                              ;3D84: 39             '9'
 ; --------------------------------------------------------------------------------
-; Subroutine 
+; Subroutine to play song?
 ; --------------------------------------------------------------------------------
 S3D85      PSHS    X,B                      ;3D85: 34 14          '4.'
            LDX     #M281E                   ;3D87: 8E 28 1E       '.(.'
            LDB     #$0C                     ;3D8A: C6 0C          '..'
-           JSR     [Z1F78]                  ;3D8C: AD 9F 1F 78    '...x'
+           JSR     [Z1F78]                  ;3D8C: Jump to subroutine at 3D64
            LDX     #M0000                   ;3D90: 8E 00 00       '...'
 Z3D93      LEAX    -$01,X                              ;3D93: 30 1F          '0.'
            BNE     Z3D93                    ;3D95: 26 FC          '&.'
            PULS    X,B                      ;3D97: 35 14          '5.'
            RTS                              ;3D99: 39             '9'
            PSHS    X,D                      ;3D9A: 34 16          '4.'
-           JSR     [Z1F24]                  ;3D9C: AD 9F 1F 24    '...$'
+           JSR     [Z1F24]                  ;3D9C: Jump to subroutine at 2EBF
            LDA     M0047                    ;3DA0: 96 47          '.G'
            ANDA    #$03                     ;3DA2: 84 03          '..'
            LDB     #$03                     ;3DA4: C6 03          '..'
@@ -3650,7 +3650,7 @@ Z3D93      LEAX    -$01,X                              ;3D93: 30 1F          '0.
            LEAX    D,X                      ;3DAA: 30 8B          '0.'
            LDB     $02,X                    ;3DAC: E6 02          '..'
            LDX     ,X                       ;3DAE: AE 84          '..'
-           JSR     [Z1F78]                  ;3DB0: AD 9F 1F 78    '...x'
+           JSR     [Z1F78]                  ;3DB0: Jump to subroutine at 3D64
            PULS    X,D                      ;3DB4: 35 16          '5.'
            RTS                              ;3DB6: 39             '9'
 ; --------------------------------------------------------------------------------
@@ -3659,7 +3659,7 @@ Z3D93      LEAX    -$01,X                              ;3D93: 30 1F          '0.
            PSHS    X,B                      ;3DB7: 34 14          '4.'
            LDX     #M2831                   ;3DB9: 8E 28 31       '.(1'
            LDB     #$14                     ;3DBC: C6 14          '..'
-           JSR     [Z1F78]                  ;3DBE: AD 9F 1F 78    '...x'
+           JSR     [Z1F78]                  ;3DBE: Jump to subroutine at 3D64
            LDX     #RESET                   ;3DC2: 8E FF FF       '...'
 Z3DC5      LEAX    -$01,X                    ;3DC5: 30 1F          '0.'
            BNE     Z3DC5                    ;3DC7: 26 FC          '&.'
@@ -3700,15 +3700,15 @@ Z3DDE      BSR     DRWTEETH                 ;3DDE: Jump to "Draw teeth rows" sub
            STA     $00C0,X                  ;3E10: Draw full stop (first half)
            STA     $00E0,X                  ;3E14: Draw full stop (second half)
            JSR     [VPMODE4]                ;3E18: Switch to graphics mode PMODE 4 
-           JSR     [Z1F72]                  ;3E1C: Jump to subroutine at 3D85
-           ; Pause ? -----------------------------------------------------------------------
+           JSR     [Z1F72]                  ;3E1C: Jump to subroutine at 3D85 (Play song?)
+           ; Pause of 4.7 seconds -----------------------------------------------------------------------
            LDX     #M0400                   ;3E20: 
 Z3E23      CLRA                             ;3E23: 1 cycle
 Z3E24      DECA                             ;3E24: 1 cycle
            BNE     Z3E24                    ;3E25: 2 cycles 
            LEAX    -$01,X                   ;3E27: 4 cycles 
            BNE     Z3E23                    ;3E29: 2 cycles 
-           PULS    U,Y,X,D                  ;3E2B: 
+           PULS    U,Y,X,D                  ;3E2B: 10 cycles in total * $0400 * $FF = 4.177.920 cycles ~ 4.7 seconds at 0.89MHz 
            RTS                              ;3E2D: Return to menu 
            ; Draw text line subroutine -------------------------------------------------
 DRWTXT1    STA     M0000                    ;3E2E: Save counter value
@@ -3795,7 +3795,7 @@ Z3EC4      DECB                             ;3EC4: 5A             'Z'
            JSR     [Z1F82]                  ;3EDC: AD 9F 1F 82    '....'
            LDX     #M2B15                   ;3EE0: 8E 2B 15       '.+.'
            LDB     #$06                     ;3EE3: C6 06          '..'
-           JSR     [Z1F78]                  ;3EE5: AD 9F 1F 78    '...x'
+           JSR     [Z1F78]                  ;3EE5: Jump to subroutine at 3D64
            PULS    Y,X,D                    ;3EE9: 35 36          '56'
            RTS                              ;3EEB: 39             '9'
            LDA     #$0E                     ;3EEC: 86 0E          '..'
