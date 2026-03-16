@@ -250,7 +250,7 @@ Z1F6A      FDB     $3CE6
 Z1F6C      FDB     $3C63
 Z1F6E      FDB     $3325
 Z1F70      FDB     $3C27
-Z1F72      FDB     $3D85
+VPLAYT1    FDB     $3D85
 Z1F74      FDB     $3CF7
 Z1F76      FDB     $3D03
 Z1F78      FDB     $3D64
@@ -1001,57 +1001,59 @@ M27BC      FCB     $F0,$FF,$EF,$7F,$D9,$BF  ;27BC: F0 FF EF 7F D9 BF '......'
            FCB     $83,$96,$C0,$EC,$F0      ;27CC: 83 96 C0 EC F0 '.....'
            FCC     "8"                      ;27D1: 38             '8'
            FCB     $FC,$01,$FF,$03,$FF,$FF  ;27D2: FC 01 FF 03 FF FF '......'
-M27D8      FCB     $FD                      ;27D8: FD             '.'
-           FCC     "_"                      ;27D9: 5F             '_'
-           FCB     $FD                      ;27DA: FD             '.'
-           FCC     "_"                      ;27DB: 5F             '_'
-           FCB     $FD                      ;27DC: FD             '.'
-           FCC     "_"                      ;27DD: 5F             '_'
-           FCB     $FD                      ;27DE: FD             '.'
-           FCC     "_"                      ;27DF: 5F             '_'
-           FCB     $D5                      ;27E0: D5             '.'
-           FCC     "U"                      ;27E1: 55             'U'
-           FCB     $D5                      ;27E2: D5             '.'
-           FCC     "U"                      ;27E3: 55             'U'
-           FCB     $D5                      ;27E4: D5             '.'
-           FCC     "U"                      ;27E5: 55             'U'
-           FCB     $D5                      ;27E6: D5             '.'
-           FCC     "U"                      ;27E7: 55             'U'
-           FCB     $D5                      ;27E8: D5             '.'
-           FCC     "U"                      ;27E9: 55             'U'
-           FCB     $FD                      ;27EA: FD             '.'
-           FCC     "_"                      ;27EB: 5F             '_'
-           FCB     $FD                      ;27EC: FD             '.'
-           FCC     "_"                      ;27ED: 5F             '_'
-           FCB     $FD                      ;27EE: FD             '.'
-           FCC     "_"                      ;27EF: 5F             '_'
-           FCB     $FD                      ;27F0: FD             '.'
-           FCC     "_"                      ;27F1: 5F             '_'
-           FCB     $FF,$FF                  ;27F2: FF FF          '..'
+M27D8      FCB     $FD,$5F                  ;27D8: FD 5F
+           FCB     $FD,$5F                  ;27DA: FD 5F
+           FCB     $FD,$5F                  ;27DC: FD 5F
+           FCB     $FD,$5F                  ;27DE: FD 5F
+           FCB     $D5,$55                  ;27E0: D5 55
+           FCB     $D5,$55                  ;27E2: D5 55
+           FCB     $D5,$55                  ;27E4: D5 55
+           FCB     $D5,$55                  ;27E6: D5 55
+           FCB     $D5,$55                  ;27E8: D5 55
+           FCB     $FD,$5F                  ;27EA: FD 5F
+           FCB     $FD,$5F                  ;27EC: FD 5F
+           FCB     $FD,$5F                  ;27EE: FD 5F
+           FCB     $FD,$5F                  ;27F0: FD 5F
+           FCB     $FF,$FF                  ;27F2: FF FF
 M27F4      FCB     $12,$0F,$15,$0E,$04,$80  ;27F4: 12 0F 15 0E 04 80 '......'
 M27FA      FCB     $10,$F0,$10,$F0,$10,$F0  ;27FA: 10 F0 10 F0 10 F0 '......'
            FCB     $10                      ;2800: 10             '.'
-M2801      FCB     $F0,$10,$F0,$10,$F0,$10  ;2801: F0 10 F0 10 F0 10 '......'
-           FCB     $F0,$10,$F0,$10,$F0,$10  ;2807: F0 10 F0 10 F0 10 '......'
-           FCB     $F0,$10,$F0,$10,$F0,$10  ;280D: F0 10 F0 10 F0 10 '......'
-           FCB     $F0,$10,$F0,$10,$F0,$10  ;2813: F0 10 F0 10 F0 10 '......'
-           FCB     $F0,$10,$F0,$10,$F0      ;2819: F0 10 F0 10 F0 '.....'
-M281E      FCB     $05,$03                  ;281E: 05 03          '..'
-           FCC     ":"                      ;2820: 3A             ':'
-           FCB     $03                      ;2821: 03             '.'
-           FCC     "Y"                      ;2822: 59             'Y'
-           FCB     $03,$85,$03              ;2823: 03 85 03       '...'
-           FCC     "c"                      ;2826: 63             'c'
-           FCB     $06                      ;2827: 06             '.'
-           FCC     "Y"                      ;2828: 59             'Y'
-           FCB     $03                      ;2829: 03             '.'
+M2801      FCB     $F0,$10
+           FCB     $F0,$10
+           FCB     $F0,$10
+           FCB     $F0,$10
+           FCB     $F0,$10
+           FCB     $F0,$10
+           FCB     $F0,$10
+           FCB     $F0,$10
+           FCB     $F0,$10
+           FCB     $F0,$10
+           FCB     $F0,$10
+           FCB     $F0,$10
+           FCB     $F0,$10
+           FCB     $F0,$10
+           FCB     $F0
+           ; Tune 1 -------------------------------------------------------
+TUNE01     FCB     $05,$03                  ;281A: SOUND 5,3
+           FCB     $05,$03                  ;281C: SOUND 5,3
+           FCB     $3A,$03                  ;281E: SOUND 58,3
+           FCB     $59,$03                  ;2820: SOUND 89,3
+           FCB     $85,$03                  ;2822: SOUND 133,3
+           FCB     $63,$06                  ;2824: SOUND 99,6
+           FCB     $59,$03                  ;2826: SOUND 89,3
            ; "Time up" text -------------------------------------------
 M282A      FCB     $14,$09,$0D,$05,$00,$15,$10  ;282A: T I M E   U P
-           ; ??? -------------------------------------------------------
-M2831      FCB     $4E,$06,$4E,$06,$4E,$06  ;2836: 
-           FCB     $6C,$03,$63,$03,$63,$03  ;283C:
-           FCB     $4E,$03,$4E,$03,$45,$03  ;2842:
-           FCB     $4E,$06                  ;2844:
+           ; Tune 2 -------------------------------------------------------
+TUNE02     FCB     $4E,$06                 ;2831: SOUND 78,6
+           FCB     $4E,$06                 ;2833: SOUND 78,6
+           FCB     $4E,$06                 ;2835: SOUND 78,6
+           FCB     $6C,$03                 ;2837: SOUND 108,3
+           FCB     $63,$03                 ;2839: SOUND 99,3
+           FCB     $63,$03                 ;283B: SOUND 99,3
+           FCB     $4E,$03                 ;283D: SOUND 78,3
+           FCB     $4E,$03                 ;283F: SOUND 78,3
+           FCB     $45,$03                 ;2841: SOUND 69,3
+           FCB     $4E,$06                 ;2843: SOUND 78,6
            ; Title screen text -------------------------------------------
 TITLE01    FCB     $06,$01,$0E,$07,$0D,$01  ;2845: ' F A N G M A 
            FCB     $0E,$80,$03,$0F,$10,$19  ;284B: ' N   C O P Y
@@ -3347,7 +3349,7 @@ LOOP04     JSR     [Z1F24]                  ;3AFA: Jump to subroutine at 2EBF
 SKIP03     LDU     M0039                    ;3B2E: DE 39          '.9'
            LDY     #M0000                   ;3B30: 10 8E 00 00    '....'
            JSR     [Z1F1E]                  ;3B34: AD 9F 1F 1E    '....'
-           JSR     [Z1F72]                  ;3B38: "New Man earned" song ? 
+           JSR     [VPLAYT1]                ;3B38: Play "New Man Earned" tune 
            LDA     M0036                    ;3B3C: 96 36          '.6'
            INCA                             ;3B3E: 4C             'L'
            CMPA    #$08                     ;3B3F: 81 08          '..'
@@ -3452,7 +3454,7 @@ SKIP13     CLR     M002E                    ;3C06: 0F 2E          '..'
            LEAX    $2200,X                  ;3C14: 30 89 22 00    '0.".'
            LDD     M003B                    ;3C18: DC 3B          '.;'
            LEAX    D,X                      ;3C1A: 30 8B          '0.'
-LOOP10     LEAX    -$01,X                              ;3C1C: 30 1F          '0.'
+LOOP10     LEAX    -$01,X                   ;3C1C: 30 1F          '0.'
            BNE     LOOP10                   ;3C1E: 26 FC          '&.'
            CLR     M003B                    ;3C20: 0F 3B          '.;'
            CLR     M003C                    ;3C22: 0F 3C          '.<'
@@ -3470,6 +3472,9 @@ LOOP11     CLR     ,X                       ;3C36: 6F 84          'o.'
            BNE     LOOP11                   ;3C3B: 26 F9          '&.'
 SKIP14     PULS    X,A                      ;3C3D: 35 12          '5.'
            RTS                              ;3C3F: 39             '9'
+; --------------------------------------------------------------------------------
+; Subroutine 
+; --------------------------------------------------------------------------------
            PSHS    X,DP,D                   ;3C40: 34 1E          '4.'
            CLRA                             ;3C42: 4F             'O'
            TFR     A,DP                     ;3C43: 1F 8B          '..'
@@ -3482,7 +3487,7 @@ SKIP14     PULS    X,A                      ;3C3D: 35 12          '5.'
            JSR     SOUND                    ;3C54: Jump to Basic SOUND subroutine 
            ORCC    #$50                     ;3A05: Disable interrupts
            LDX     #M7FFE                   ;3C59: 8E 7F FE       '...'
-LOOP12     LEAX    -$01,X                              ;3C5C: 30 1F          '0.'
+LOOP12     LEAX    -$01,X                   ;3C5C: 30 1F          '0.'
            BNE     LOOP12                   ;3C5E: 26 FC          '&.'
            PULS    X,DP,D                   ;3C60: 35 1E          '5.'
            RTS                              ;3C62: 39             '9'
@@ -3507,6 +3512,7 @@ LOOP13     STB     SNDOUT                   ;3C75: F7 FF 20       '.. '
            NOP                              ;3C85: 12             '.'
            PULS    X,D                      ;3C86: 35 16          '5.'
            RTS                              ;3C88: 39             '9'
+           ;  ? -------------------------------------------------------------------------
 SKIP16     BRA     RPT01                    ;3C89: 20 E7          ' .'
            PSHS    X,D                      ;3C8B: 34 16          '4.'
            LDX     #MA85C                   ;3C8D: 8E A8 5C       '..\'
@@ -3519,15 +3525,15 @@ SKIP16     BRA     RPT01                    ;3C89: 20 E7          ' .'
            LDA     SNDSET                   ;3CA0: B6 FF 23       '..#'
            ORA     #$08                     ;3CA3: 8A 08          '..'
            STA     SNDSET                   ;3CA5: B7 FF 23       '..#'
-Z3CA8      LDA     ,X+                      ;3CA8: A6 80          '..'
+LOOP14     LDA     ,X+                      ;3CA8: A6 80          '..'
            ASLA                             ;3CAA: 48             'H'
            ASLA                             ;3CAB: 48             'H'
            STA     SNDOUT                   ;3CAC: B7 FF 20       '.. '
            LDB     #$16                     ;3CAF: C6 16          '..'
-Z3CB1      DECB                             ;3CB1: 5A             'Z'
-           BNE     Z3CB1                    ;3CB2: 26 FD          '&.'
+LOOP15     DECB                             ;3CB1: 5A             'Z'
+           BNE     LOOP15                   ;3CB2: 26 FD          '&.'
            CMPX    #SETCHR                  ;3CB4: 8C A8 80       '...'
-           BCS     Z3CA8                    ;3CB7: 25 EF          '%.'
+           BCS     LOOP14                   ;3CB7: 25 EF          '%.'
            LDX     #MFE80                   ;3CB9: 8E FE 80       '...'
            STX     M003B                    ;3CBC: 9F 3B          '.;'
            PULS    X,D                      ;3CBE: 35 16          '5.'
@@ -3609,32 +3615,32 @@ Z3D5D      LEAX    -$01,X                              ;3D5D: 30 1F          '0.
 Z3D61      PULS    U,Y,X,D                  ;3D61: 35 76          '5v'
            RTS                              ;3D63: 39             '9'
 ; --------------------------------------------------------------------------------
-; Subroutine involved in sound somehow ? 
+; Play notes from data table
 ; --------------------------------------------------------------------------------
 S3D64      PSHS    Y,X,DP,D                 ;3D64: Save registers
            ANDCC   #$AF                     ;3D66: Enable interrupts (Clear F&I bits)
            CLRA                             ;3D68: 
            TFR     A,DP                     ;3D69: Clear Direct Page
            LEAY    B,X                      ;3D6B: 
-           PSHY                             ;3D6D: 34 20          '4 '
-Z3D6F      LDD     ,X++                     ;3D6F: EC 81          '..'
-           STA     SNDTON                   ;3D71: 97 8C          '..'
-           PSHX                             ;3D73: 34 10          '4.'
-           JSR     SOUND                    ;3D75: Jump to Basic SOUND subroutine 
-           PULX                             ;3D78: 35 10          '5.'
-           CMPX    ,S                       ;3D7A: AC E4          '..'
-           BLT     Z3D6F                    ;3D7C: 2D F1          '-.'
+           PSHY                             ;3D6D: Save Y register
+Z3D6F      LDD     ,X++                     ;3D6F: Get tone value and duration 
+           STA     SNDTON                   ;3D71: Store tone value in SNDTON
+           PSHX                             ;3D73: Save X register
+           JSR     SOUND                    ;3D75: Jump to Basic SOUND subroutine (B register holds tone length)
+           PULX                             ;3D78: Restore X register
+           CMPX    ,S                       ;3D7A: ? 
+           BLT     Z3D6F                    ;3D7C: Loop until done 
            ORCC    #$50                     ;3A05: Disable interrupts
-           PULY                             ;3D80: 35 20          '5 '
-           PULS    Y,X,DP,D                 ;3D82: 35 3E          '5>'
-           RTS                              ;3D84: 39             '9'
+           PULY                             ;3D80: Restore Y register
+           PULS    Y,X,DP,D                 ;3D82: Restore registers
+           RTS                              ;3D84: 
 ; --------------------------------------------------------------------------------
-; Subroutine to play song?
+; Play tune 1
 ; --------------------------------------------------------------------------------
-S3D85      PSHS    X,B                      ;3D85: Save registers
-           LDX     #M281E                   ;3D87: Point to data table for song ?
+SPLAYT1    PSHS    X,B                      ;3D85: Save registers
+           LDX     #TUNE01                  ;3D87: Point to data table for tune 1
            LDB     #$0C                     ;3D8A: 
-           JSR     [Z1F78]                  ;3D8C: Jump to subroutine at 3D64 (right above this one)
+           JSR     [Z1F78]                  ;3D8C: Play notes from data table 
            LDX     #M0000                   ;3D90: Clear pointer  
 Z3D93      LEAX    -$01,X                   ;3D93: Pause loop
            BNE     Z3D93                    ;3D95: 74 ms delay 
@@ -3657,10 +3663,10 @@ Z3D93      LEAX    -$01,X                   ;3D93: Pause loop
            PULS    X,D                      ;3DB4: 35 16          '5.'
            RTS                              ;3DB6: 39             '9'
 ; --------------------------------------------------------------------------------
-; Subroutine 
+; Play tune 2 
 ; --------------------------------------------------------------------------------
            PSHS    X,B                      ;3DB7: 34 14          '4.'
-           LDX     #M2831                   ;3DB9: 8E 28 31       '.(1'
+           LDX     #TUNE02                  ;3DB9: 8E 28 31       '.(1'
            LDB     #$14                     ;3DBC: C6 14          '..'
            JSR     [Z1F78]                  ;3DBE: Jump to subroutine at 3D64
            LDX     #RESET                   ;3DC2: 8E FF FF       '...'
@@ -3703,7 +3709,7 @@ Z3DDE      BSR     DRWTEETH                 ;3DDE: Jump to "Draw teeth rows" sub
            STA     $00C0,X                  ;3E10: Draw full stop (first half)
            STA     $00E0,X                  ;3E14: Draw full stop (second half)
            JSR     [VPMODE4]                ;3E18: Switch to graphics mode PMODE 4 
-           JSR     [Z1F72]                  ;3E1C: Jump to subroutine at 3D85 (Play song?)
+           JSR     [VPLAYT1]                ;3E1C: Jump to subroutine at 3D85 (Play song?)
            ; Pause of 4.7 seconds -----------------------------------------------------------------------
            LDX     #M0400                   ;3E20: 
 Z3E23      CLRA                             ;3E23: 1 cycle
