@@ -3611,7 +3611,7 @@ Z3D61      PULS    U,Y,X,D                  ;3D61: 35 76          '5v'
 ; --------------------------------------------------------------------------------
 ; Subroutine involved in sound somehow ? 
 ; --------------------------------------------------------------------------------
-S3D64      PSHS    Y,X,DP,D                 ;3D64: 
+S3D64      PSHS    Y,X,DP,D                 ;3D64: Save registers
            ANDCC   #$AF                     ;3D66: Enable interrupts (Clear F&I bits)
            CLRA                             ;3D68: 
            TFR     A,DP                     ;3D69: Clear Direct Page
@@ -3631,16 +3631,19 @@ Z3D6F      LDD     ,X++                     ;3D6F: EC 81          '..'
 ; --------------------------------------------------------------------------------
 ; Subroutine to play song?
 ; --------------------------------------------------------------------------------
-S3D85      PSHS    X,B                      ;3D85: 34 14          '4.'
-           LDX     #M281E                   ;3D87: 8E 28 1E       '.(.'
-           LDB     #$0C                     ;3D8A: C6 0C          '..'
-           JSR     [Z1F78]                  ;3D8C: Jump to subroutine at 3D64
-           LDX     #M0000                   ;3D90: 8E 00 00       '...'
-Z3D93      LEAX    -$01,X                              ;3D93: 30 1F          '0.'
-           BNE     Z3D93                    ;3D95: 26 FC          '&.'
-           PULS    X,B                      ;3D97: 35 14          '5.'
-           RTS                              ;3D99: 39             '9'
-           PSHS    X,D                      ;3D9A: 34 16          '4.'
+S3D85      PSHS    X,B                      ;3D85: Save registers
+           LDX     #M281E                   ;3D87: Point to data table for song ?
+           LDB     #$0C                     ;3D8A: 
+           JSR     [Z1F78]                  ;3D8C: Jump to subroutine at 3D64 (right above this one)
+           LDX     #M0000                   ;3D90: Clear pointer  
+Z3D93      LEAX    -$01,X                   ;3D93: Pause loop
+           BNE     Z3D93                    ;3D95: 74 ms delay 
+           PULS    X,B                      ;3D97: Restore registers
+           RTS                              ;3D99: 
+; --------------------------------------------------------------------------------
+; Subroutine 
+; --------------------------------------------------------------------------------
+           PSHS    X,D                      ;3D9A: 
            JSR     [Z1F24]                  ;3D9C: Jump to subroutine at 2EBF
            LDA     M0047                    ;3DA0: 96 47          '.G'
            ANDA    #$03                     ;3DA2: 84 03          '..'
