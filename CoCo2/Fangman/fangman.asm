@@ -195,153 +195,130 @@ RESET      EQU     $FFFF        ;       Reset Vector Address
 
         ORG     $1F0E
 
-        JMP     [VINIT]                  ;Jump to game initialization at 3A04
+        JMP     [VINIT]                  ;1F0E: 6E 9F 1F 44  Jump to game initialization at 3A04
 
 ; -----------------------------------------------------------------------------      
 ; Vector Table 
 ; -----------------------------------------------------------------------------
-V1F12      FDB     $2B1B
-VMENU      FDB     $2C4C
-VPMODE4    FDB     $2E70
-Z1F18      FDB     $2EE0
-Z1F20      FDB     $2EF5
-Z1F22      FDB     $2DC9
-Z1F1E      FDB     $2DF2
-Z1F20      FDB     $2E86
-Z1F22      FDB     $2EA4
-Z1F24      FDB     $2EBF
-Z1F26      FDB     $2F0B
-Z1F28      FDB     $2FD1
-Z1F2A      FDB     $306A
-Z1F2C      FDB     $35A7
-Z1F2E      FDB     $34F3
-Z1F30      FDB     $362D
-Z1F32      FDB     $3214
-Z1F34      FDB     $3299
-Z1F36      FDB     $3337
-Z1F38      FDB     $3367
-Z1F3A      FDB     $3D9A
-Z1F3C      FDB     $347B
-Z1F3E      FDB     $3DB7
-VINIT      FDB     $3A04
-VMAIN      FDB     $3A5F
-Z1F44      FDB     $3A93
-Z1F46      FDB     $3AF6
-Z1F48      FDB     $3738
-Z1F4A      FDB     $3425
-Z1F4C      FDB     $399F
-Z1F4E      FDB     $36AF
-Z1F50      FDB     $36DE
-Z1F50      FDB     $36DE
-Z1F52      FDB     $3708
-Z1F54      FDB     $383E
-Z1F56      FDB     $3905
-Z1F58      FDB     $3954
-VSKULL     FDB     $38E6
-Z1F5C      FDB     $3896
-Z1F5E      FDB     $3B80
-Z1F60      FDB     $3BC2
-Z1F62      FDB     $3C09
-Z1F64      FDB     $3C40
-Z1F66      FDB     $3C8B
-Z1F68      FDB     $3CC1
-Z1F6A      FDB     $3CE6
-Z1F6C      FDB     $3C63
-Z1F6E      FDB     $3325
-Z1F70      FDB     $3C27
-VPLAYT1    FDB     $3D85
-Z1F74      FDB     $3CF7
-Z1F76      FDB     $3D03
-Z1F78      FDB     $3D64
-VTITLE     FDB     $3DCC
-Z1F7C      FDB     $3E9E
-Z1F7E      FDB     $2EFC
-Z1F80      FDB     $3ED4
-Z1F82      FDB     $3EEC
-Z1F84      FDB     $2B59
-Z1F86      FDB     $2B59
-Z1F88      FDB     $2B59
-Z1F8A      FDB     $2B59
+V1F12      FDB     $2B1B                 ;1F12: 2B 1B
+VMENU      FDB     $2C4C                 ;1F14: 2C 4C
+VPMODE4    FDB     $2E70                 ;1F16: 2E 70
+Z1F18      FDB     $2EE0                 ;1F18: 2E E0
+Z1F20      FDB     $2EF5                 ;1F20: 2E F5
+Z1F22      FDB     $2DC9                 ;1F22: 2D C9
+Z1F1E      FDB     $2DF2                 ;1F1E: 2D F2
+Z1F20      FDB     $2E86                 ;1F20: 2E 86
+Z1F22      FDB     $2EA4                 ;1F22: 2E A4
+Z1F24      FDB     $2EBF                 ;1F24: 2E BF
+Z1F26      FDB     $2F0B                 ;1F26: 2F 0B
+Z1F28      FDB     $2FD1                 ;1F28: 2F D1
+Z1F2A      FDB     $306A                 ;1F2A: 30 6A
+Z1F2C      FDB     $35A7                 ;1F2C: 35 A7
+Z1F2E      FDB     $34F3                 ;1F2E: 34 F3
+Z1F30      FDB     $362D                 ;1F30: 36 2D
+Z1F32      FDB     $3214                 ;1F32: 32 14
+Z1F34      FDB     $3299                 ;1F34: 32 99
+Z1F36      FDB     $3337                 ;1F36: 33 37
+Z1F38      FDB     $3367                 ;1F38: 33 67
+Z1F3A      FDB     $3D9A                 ;1F3A: 3D 9A
+Z1F3C      FDB     $347B                 ;1F3C: 34 7B
+Z1F3E      FDB     $3DB7                 ;1F3E: 3D B7
+VINIT      FDB     $3A04                 ;1F40: 3A 04
+VMAIN      FDB     $3A5F                 ;1F42: 3A 5F
+Z1F44      FDB     $3A93                 ;1F44: 3A 93
+Z1F46      FDB     $3AF6                 ;1F46: 3A F6
+Z1F48      FDB     $3738                 ;1F48: 37 38
+Z1F4A      FDB     $3425                 ;1F4A: 34 25
+Z1F4C      FDB     $399F                 ;1F4C: 39 9F
+Z1F4E      FDB     $36AF                 ;1F4E: 36 AF
+Z1F50      FDB     $36DE                 ;1F50: 36 DE
+Z1F50      FDB     $36DE                 ;1F50: 36 DE
+Z1F52      FDB     $3708                 ;1F52: 37 08
+Z1F54      FDB     $383E                 ;1F54: 38 3E
+Z1F56      FDB     $3905                 ;1F56: 39 05
+Z1F58      FDB     $3954                 ;1F58: 39 54
+VSKULL     FDB     $38E6                 ;1F5A: 38 E6
+Z1F5C      FDB     $3896                 ;1F5C: 38 96
+Z1F5E      FDB     $3B80                 ;1F5E: 3B 80
+Z1F60      FDB     $3BC2                 ;1F60: 3B C2
+Z1F62      FDB     $3C09                 ;1F62: 3C 09
+Z1F64      FDB     $3C40                 ;1F64: 3C 40
+Z1F66      FDB     $3C8B                 ;1F66: 3C 8B
+Z1F68      FDB     $3CC1                 ;1F68: 3C C1
+Z1F6A      FDB     $3CE6                 ;1F6A: 3C E6
+Z1F6C      FDB     $3C63                 ;1F6C: 3C 63
+Z1F6E      FDB     $3325                 ;1F6E: 33 25
+Z1F70      FDB     $3C27                 ;1F70: 3C 27
+VPLAYT1    FDB     $3D85                 ;1F72: 3D 85
+Z1F74      FDB     $3CF7                 ;1F74: 3C F7
+Z1F76      FDB     $3D03                 ;1F76: 3D 03
+Z1F78      FDB     $3D64                 ;1F78: 3D 64
+VTITLE     FDB     $3DCC                 ;1F7A: 3D CC
+Z1F7C      FDB     $3E9E                 ;1F7C: 3E 9E
+Z1F7E      FDB     $2EFC                 ;1F7E: 2E FC
+Z1F80      FDB     $3ED4                 ;1F80: 3E D4
+Z1F82      FDB     $3EEC                 ;1F82: 3E EC
+Z1F84      FDB     $2B59                 ;1F84: 2B 59
+Z1F86      FDB     $2B59                 ;1F86: 2B 59
+Z1F88      FDB     $2B59                 ;1F88: 2B 59
+Z1F8A      FDB     $2B59                 ;1F8A: 2B 59
 
-
-; -----------------------------------------------------------------------------
-; Variable spaces (Implied from code calls)
-; -----------------------------------------------------------------------------
-;         FCB      $00                      ;1E05
-;         FCB      $00                      ;1E06
-;         FCB      $00                      ;1E14
-;         FCB      $00                      ;1E39
-;         FCB      $00                      ;1E50
-;         FCB      $00                      ;1E90
-;         FCB      $00                      ;1E98
-;         FCB      $00                      ;1EA0
-;         FCB      $00                      ;1EBE
-;         FCB      $00                      ;1EC0
-;         FCB      $00                      ;1F00
 ; -----------------------------------------------------------------------------
 ; Data Tables 
 ; -----------------------------------------------------------------------------
-           FCB     $04                      ;1F8D: 04             '.'
-           FCB     $6C                      ;1F8E: 6C             'l'
-           FCB     $02                      ;1F8F: 02             '.'
-           FCB     $7D                      ;1F90: 7D             '}'
-           FCB     $02,$85,$04,$93,$04,$85  ;1F91: 02 85 04 93 04 85 '......'
-           FCB     $02                      ;1F97: 02             '.'
-           FCB     $7D                      ;1F98: 7D             '}'
-           FCB     $02                      ;1F99: 02             '.'
-           FCB     $6C                      ;1F9A: 6C             'l'
-           FCB     $08                      ;1F9B: 08             '.'
-           FCB     $6C                      ;1F9C: 6C             'l'
-           FCB     $02                      ;1F9D: 02             '.'
-           FCB     $7D                      ;1F9E: 7D             '}'
-           FCB     $02,$85,$04,$85,$04      ;1F9F: 02 85 04 85 04 '.....'
-           FCB     $20                      ;1FA4: 20             ' '
-           FCB     $02                      ;1FA5: 02             '.'
-           FCB     $3A                      ;1FA6: 3A             ':'
-           FCB     $02                      ;1FA7: 02             '.'
-           FCB     $4E                      ;1FA8: 4E             'N'
-           FCB     $04                      ;1FA9: 04             '.'
-           FCB     $59                      ;1FAA: 59             'Y'
-           FCB     $04                      ;1FAB: 04             '.'
-M1FAC      FCB     $08,$1D                  ;1FAC: 08 1D          '0000100000011101
-           FCB     $13,$00                  ;1FAE: 13 00          '0001001100000000'
-           FCB     $1E,$1E                  ;1FB0: 1E 1E          '0001111000011110'
-           FCB     $1E,$1E                  ;1FB2: 1E 1E          '0001111000011110'
-           FCB     $1E,$1E                  ;1FB4: 1E 1E          '0001111000011110'
-           FCB     $00,$02                  ;1FB2: 00 02          '0000000000000010'
-           FCB     $0F,$0E                  ;1FB6: 0F 0E          '0000111100001110'
-           FCB     $15,$13                  ;1FB8: 15 13          '0001010100010011'
-           FCB     $00,$1E                  ;1FA0: 00 1E          '0000000000011110'
-           FCB     $1E,$1E                  ;1FA2: 1E 1E          '0001111000011110'
-           FCB     $1E,$00                  ;1FA4: 1E 00          '0001111000000000'
-           FCB     $13,$03                  ;1FA6: 13 03          '0001001100000011'
-           FCB     $12,$00                  ;1FC4: 12 00          '0001001000000000'
+           ; Sound data for intermezzo tune -----------------------------------
+TUNE00     FCB     $59,$04                  ;1F8C: 59 04  ' SOUND  89,4
+           FCB     $6C,$02                  ;1F8E: 6C 02  ' SOUND 108,2
+           FCB     $7D,$02                  ;1F90: 7D 02  ' SOUND 125,2
+           FCB     $85,$04                  ;1F92: 85 04  ' SOUND 133,4
+           FCB     $93,$04                  ;1F94: 93 04  ' SOUND 147,4
+           FCB     $85,$02                  ;1F96: 85 02  ' SOUND 133,2
+           FCB     $7D,$02                  ;1F98: 7D 02  ' SOUND 125,2
+           FCB     $6C,$08                  ;1F9A: 6C 08  ' SOUND 108,8
+           FCB     $6C,$02                  ;1F9C: 6C 02  ' SOUND 108,2
+           FCB     $7D,$02                  ;1F9E: 7D 02  ' SOUND 125,2
+           FCB     $85,$04                  ;1FA0: 85 04  ' SOUND 133,4
+           FCB     $85,$04                  ;1FA2: 85 04  ' SOUND 133,4
+           FCB     $20,$02                  ;1FA4: 20 02  ' SOUND  32,2
+           FCB     $3A,$02                  ;1FA6: 3A 02  ' SOUND  58,2
+           FCB     $4E,$04                  ;1FA8: 4E 04  ' SOUND  78,4
+           FCB     $59,$04                  ;1FAA: 59 04  ' SOUND  89,4
+           ; Text data for score display --------------------------------------
+SCORTXT    FCB     $08,$1D,$13,$00,$1E,$1E  ;1FB0: H-S 00 
+           FCB     $1E,$1E,$1E,$1E,$00      ;1FB4: 0000          
+           FCB     $02,$0F,$0E,$15,$13,$00  ;1FB9: BONUS 
+           FCB     $1E,$1E,$1E,$1E,$00      ;1FBE: 0000
+           FCB     $13,$03,$12,$00          ;1FC4: SCO 
+           ; ---------------------------------------------------
 M1FC6      FCB     $AA,$BA,$AE,$AA          ;1FC6: AA BA AE AA       
            FCB     $00,$30,$0C,$00          ;1FC8: 00 30 0C 00    
            FCB     $55,$75,$5D,$55          ;1FCC: 55 75 5D 55    
            FCB     $00,$30,$0C,$00          ;1FD0: 00 30 0C 00
            FCB     $AA,$BA,$5D,$55          ;1FD2: AA BA 5D 55
+           ; ---------------------------------------------------
 M1FD6      FCB     $06,$1A,$1E              ;1FD6: 06 1A 1E       
            FCB     $21                      ;1FD9: 21             
            FCB     $06,$04,$1E              ;1FDA: 06 04 1E       
            FCB     $41,$25                  ;1FDD: 41 25          
-           FCB     $C6,$06,$07              ;1FDF: C6 06 07       
+           FCB     $C6,$06,$07              ;1FDF: C6 06 07    
+           ; ---------------------------------------------------   
 M1FE2      FCB     $FF,$20                  ;1FE2: FF 20          
-M1FE4      FCB     $FF,$E0                  ;1FE4: FF E0          '1111 1111 1110 0000
-           FCB     $00,$E0                  ;1FE6: 00 E0          '0000 0000 1110 0000
-           FCB     $00,$20                  ;1FE8: 00 20          '0000 0000 0010 0000
-           FCB     $FF,$FF                  ;1FEA: FF FF          '1111 1111 1111 1111
-           FCB     $FF,$FF                  ;1FEC: FF FF          '1111 1111 1111 1111
-           FCB     $00,$01                  ;1FEE: 00 01          '0000 0000 0000 0001
-           FCB     $00,$01                  ;1FF0: 00 01          '0000 0000 0000 0001
-           FCB     $00,$01                  ;1FF2: 00 01          '0000 0000 0000 0001
-           FCB     $27,$2C                  ;1FF4: 27 2C          '0010 0111 0010 1100
-           FCB     $20,$27                  ;1FF6: 20 27          '0010 0000 0010 0111
-           FCB     $4C,$20                  ;1FF8: 4C 20          '0100 1100 0010 0000
-           FCB     $27,$6C                  ;1FFA: 27 6C          '0010 0111 0110 1100
-           FCB     $20,$27                  ;1FFC: 20 27          '0010 0000 0010 0111
-           FCB     $8C,$20                  ;1FFE: 8C 20          '1000 1100 0010 0000
-           ; Sprite data -------------------------------------------------------------
+           ; ---------------------------------------------------
+M1FE4      FCB     $FF,$E0                  ;1FE4: FF E0          '1111111111100000
+           FCB     $00,$E0                  ;1FE6: 00 E0          '0000000011100000
+           FCB     $00,$20                  ;1FE8: 00 20          '0000000000100000
+           FCB     $FF,$FF                  ;1FEA: FF FF          '1111111111111111
+           FCB     $FF,$FF                  ;1FEC: FF FF          '1111111111111111
+           FCB     $00,$01                  ;1FEE: 00 01          '0000000000000001
+           FCB     $00,$01                  ;1FF0: 00 01          '0000000000000001
+           FCB     $00,$01                  ;1FF2: 00 01          '0000000000000001
+           FCB     $27,$2C                  ;1FF4: 27 2C          '0010011100101100
+           FCB     $20,$27                  ;1FF6: 20 27          '0010000000100111
+           FCB     $4C,$20                  ;1FF8: 4C 20          '0100110000100000
+           FCB     $27,$6C                  ;1FFA: 27 6C          '0010011101101100
+           FCB     $20,$27                  ;1FFC: 20 27          '0010000000100111
+           FCB     $8C,$20                  ;1FFE: 8C 20          '1000110000100000
+           ; Sprite data ------------------------------------------------------------
 FMBACK     FCB     $FF,$FF                  ;2000: FF FF          '1111111111111111
            FCB     $F0,$07                  ;2002: F0 07          '1111000000000111
            FCB     $E0,$03                  ;2004: E0 03          '1110000000000011
@@ -927,7 +904,7 @@ M24F4      FCB     $FF,$FF,$FF,$FF,$FF,$FF,$FF  ;24F4: ' Blank Space    $00
            FCB     $99,$99,$C3,$E7,$C3,$99,$99  ;257C: ' Letter X       $18
            FCB     $99,$99,$C3,$E7,$E7,$E7,$E7  ;2583: ' Letter Y       $19
            FCB     $81,$F9,$F3,$E7,$CF,$9F,$81  ;2588: ' Letter Z       $1A
-           FCB     $E7,$E7,$E7,$E7,$E7,$FF,$E7  ;258F: ' Exclamation Mark       $1B
+           FCB     $E7,$E7,$E7,$E7,$E7,$FF,$E7  ;258F: ' Exclamation !  $1B
            FCB     $E7,$E7,$F7,$EF,$FF,$FF,$FF  ;2596: ' Apostrophe     $1C
            FCB     $FF,$FF,$FF,$81,$FF,$FF,$FF  ;259D: ' Dash           $1D
            FCB     $C3,$99,$99,$99,$99,$99,$C3  ;25A2: ' Zero           $1E
@@ -1028,25 +1005,27 @@ M27D8      FCB     $FD,$5F                  ;27D8: FD 5F
            FCB     $FD,$5F                  ;27EE: FD 5F
            FCB     $FD,$5F                  ;27F0: FD 5F
            FCB     $FF,$FF                  ;27F2: FF FF
-M27F4      FCB     $12,$0F,$15,$0E,$04,$80  ;27F4: 12 0F 15 0E 04 80 '......'
-M27FA      FCB     $10,$F0,$10,$F0,$10,$F0  ;27FA: 10 F0 10 F0 10 F0 '......'
-           FCB     $10                      ;2800: 10             '.'
-M2801      FCB     $F0,$10
-           FCB     $F0,$10
-           FCB     $F0,$10
-           FCB     $F0,$10
-           FCB     $F0,$10
-           FCB     $F0,$10
-           FCB     $F0,$10
-           FCB     $F0,$10
-           FCB     $F0,$10
-           FCB     $F0,$10
-           FCB     $F0,$10
-           FCB     $F0,$10
-           FCB     $F0,$10
-           FCB     $F0,$10
-           FCB     $F0
-           ; Tune 1 -------------------------------------------------------
+TXTROUND   FCB     $12,$0F,$15,$0E,$04,$80  ;27F4: R O U N D   
+M27FA      FCB     $10,$F0                  ;27FA: 10 F0             ' 0001 0000 1111 0000 
+           FCB     $10,$F0                  ;27FC: 10 F0             ' 0001 0000 1111 0000 
+           FCB     $10,$F0                  ;27FE: 10 F0             ' 0001 0000 1111 0000 
+           FCB     $10,$F0                  ;2800: 10 F0             ' 0001 0000 1111 0000 
+M2801      FCB     $F0,$10                  ;2801: F0 10             ' 1111 0000 0001 0000 
+           FCB     $F0,$10                  ;2803: F0 10             ' 1111 0000 0001 0000 
+           FCB     $F0,$10                  ;2805: F0 10             ' 1111 0000 0001 0000 
+           FCB     $F0,$10                  ;2807: F0 10             ' 1111 0000 0001 0000 
+           FCB     $F0,$10                  ;2809: F0 10             ' 1111 0000 0001 0000 
+           FCB     $F0,$10                  ;280B: F0 10             ' 1111 0000 0001 0000 
+           FCB     $F0,$10                  ;280D: F0 10             ' 1111 0000 0001 0000 
+           FCB     $F0,$10                  ;280F: F0 10             ' 1111 0000 0001 0000 
+           FCB     $F0,$10                  ;2811: F0 10             ' 1111 0000 0001 0000 
+           FCB     $F0,$10                  ;2813: F0 10             ' 1111 0000 0001 0000 
+           FCB     $F0,$10                  ;2815: F0 10             ' 1111 0000 0001 0000 
+           FCB     $F0,$10                  ;2817: F0 10             ' 1111 0000 0001 0000 
+           FCB     $F0,$10                  ;2819: F0 10             ' 1111 0000 0001 0000 
+           FCB     $F0,$10                  ;281B: F0 10             ' 1111 0000 0001 0000 
+           FCB     $F0                      ;281D: F0                ' 1111 0000 
+           ; Sound data for tune 1 -------------------------------------------------------
 TUNE01     FCB     $05,$03                  ;281A: SOUND 5,3
            FCB     $05,$03                  ;281C: SOUND 5,3
            FCB     $3A,$03                  ;281E: SOUND 58,3
@@ -1055,8 +1034,8 @@ TUNE01     FCB     $05,$03                  ;281A: SOUND 5,3
            FCB     $63,$06                  ;2824: SOUND 99,6
            FCB     $59,$03                  ;2826: SOUND 89,3
            ; "Time up" text -------------------------------------------
-M282A      FCB     $14,$09,$0D,$05,$00,$15,$10  ;282A: T I M E   U P
-           ; Tune 2 -------------------------------------------------------
+TIMEUP     FCB     $14,$09,$0D,$05,$00,$15,$10  ;282A: T I M E   U P
+           ; Sound data for tune 2 -------------------------------------------------------
 TUNE02     FCB     $4E,$06                 ;2831: SOUND 78,6
            FCB     $4E,$06                 ;2833: SOUND 78,6
            FCB     $4E,$06                 ;2835: SOUND 78,6
@@ -1120,6 +1099,7 @@ M287A      FCC     "("                      ;287A: 28             '('
            FCB     $1D                      ;28AB: 1D             '.'
            FCC     ";(;1;M;a;k;t;"          ;28AC: 2A 28 2A 31 2A 4D 2A 61 2A 6B 2A 74 2A ';(;1;M;a;k;t;'
            FCB     $84                      ;28B9: 84             '.'
+           ; Between-round pun lines --------------------------------------------------------------------
            FCC     "BATTER"                 ;28BA: 42 41 54 54 45 52 'BATTER'
            FCB     $00                      ;28C0: 00             '.'
            FCC     "UP"                     ;28C1: 55 50          'UP'
@@ -1288,26 +1268,39 @@ M2A22      FCB     $00                      ;2A22: 00             '.'
            FCB     $1C                      ;2A87: 1C             '.'
            FCC     "RE"                     ;2A88: 52 45          'RE'
            FCB     $00                      ;2A8A: 00             '.'
-           FCC     "NECKST"                 ;2A8B: 4E 45 43 4B 53 54 'NECKST'
-           FCB     $9B,$05,$04              ;2A91: 9B 05 04       '...'
-           FCC     " "                      ;2A94: 20             ' '
-           FCB     $02                      ;2A95: 02             '.'
-           FCC     "-"                      ;2A96: 2D             '-'
-           FCB     $04,$05,$08,$05,$04      ;2A97: 04 05 08 05 04 '.....'
-           FCC     " "                      ;2A9C: 20             ' '
-           FCB     $02                      ;2A9D: 02             '.'
-           FCC     "-"                      ;2A9E: 2D             '-'
-           FCB     $04,$05,$04              ;2A9F: 04 05 04       '...'
-           FCC     "N"                      ;2AA2: 4E             'N'
-           FCB     $06,$AA,$03,$A5,$03,$B4  ;2AA3: 06 AA 03 A5 03 B4 
-           FCB     $03,$AA,$03,$AA,$06,$99  ;2AA9: 03 AA 03 AA 06 99 
-           FCB     $06,$AA,$03,$A5,$03,$B4  ;2AAF: 06 AA 03 A5 03 B4 
-           FCB     $03,$AA,$03,$AA,$06,$BD  ;2AB5: 03 AA 03 AA 06 BD 
-           FCB     $06,$B0,$04,$B0,$02,$B0  ;2ABB: 06 B0 04 B0 02 B0 
-           FCB     $02,$B0,$04,$9F,$04,$9F  ;2AC1: 02 B0 04 9F 04 9F 
-           FCB     $02,$9F,$02,$9F,$04,$85  ;2AC7: 02 9F 02 9F 04 85 
-           FCB     $04,$9F,$04,$85,$04,$59  ;2ACD: 04 9F 04 85 04 59 
-           FCB     $04                      ;2AD3: 04                
+           FCC     "NECKST"                 ;2A8B: 4E 45 43 4B 53 54 'NECKST'           
+           ; ??? --------------------------------------------------------------------
+           FCB     $9B,$05,$04,$20          ;2A91: 9B 05 04 20 
+           FCB     $02,$2D,$04,$05          ;2A95: 02 2D 04 05  
+           FCB     $08,$05,$04,$20          ;2A99: 08 05 04 20
+           FCB     $02,$2D,$04,$05,$04      ;2A9D: 02 2D 04 05 04
+           ; Tune ??? -------------------------------------------------------
+           FCB     $4E,$06
+           FCB     $AA,$03             
+           FCB     $A5,$03             
+           FCB     $B4,$03             
+           FCB     $AA,$03             
+           FCB     $AA,$06             
+           FCB     $99,$06             
+           FCB     $AA,$03             
+           FCB     $A5,$03             
+           FCB     $B4,$03             
+           FCB     $AA,$03             
+           FCB     $AA,$06             
+           FCB     $BD,$06             
+           FCB     $B0,$04             
+           FCB     $B0,$02             
+           FCB     $B0,$02             
+           FCB     $B0,$04             
+           FCB     $9F,$04             
+           FCB     $9F,$02             
+           FCB     $9F,$02             
+           FCB     $9F,$04             
+           FCB     $85,$04             
+           FCB     $9F,$04             
+           FCB     $85,$04             
+           FCB     $59,$04
+           ; Title screen tooth sprite data --------------------------------------------
 TOOTH1     FCB     $57,$D5                  ;2AD4: 57 D5 ' 0101 0111 1101 0101
            FCB     $57,$D5                  ;2AD6: 57 D5 ' 0101 0111 1101 0101
            FCB     $5F,$F5                  ;2AD8: 5F F5 ' 1101 0101 1111 0101 
@@ -1394,12 +1387,12 @@ Z2B76      PSHS    U,Y,X,D                  ;2B76: 34 76          '4v'
            LDB     M001F                    ;2B7B: D6 1F          '..'
 Z2B7D      LDA     M001E                    ;2B7D: 96 1E          '..'
            ASRA                             ;2B7F: 47             'G'
-           PSHY                             ;2B80: 34 20          '4 '
+           PSHS    Y                         ;2B80: 34 20          '4 '
 Z2B82      LDX     ,Y++                     ;2B82: AE A1          '..'
            STX     ,U++                     ;2B84: AF C1          '..'
            DECA                             ;2B86: 4A             'J'
            BNE     Z2B82                    ;2B87: 26 F9          '&.'
-           PULY                             ;2B89: 35 20          '5 '
+           PULS    Y                         ;2B89: 35 20          '5 '
            LEAY    $20,Y                    ;2B8B: 31 A8 20       '1. '
            DECB                             ;2B8E: 5A             'Z'
            BNE     Z2B7D                    ;2B8F: 26 EC          '&.'
@@ -1419,11 +1412,11 @@ Z2BA6      LDB     M001F                    ;2BA6: D6 1F          '..'
            LDX     #RESET                   ;2BA8: 8E FF FF       '...'
 Z2BAB      LDA     M001E                    ;2BAB: 96 1E          '..'
            ASRA                             ;2BAD: 47             'G'
-           PSHY                             ;2BAE: 34 20          '4 '
+           PSHS    Y                         ;2BAE: 34 20          '4 '
 Z2BB0      STX     ,Y++                     ;2BB0: AF A1          '..'
            DECA                             ;2BB2: 4A             'J'
            BNE     Z2BB0                    ;2BB3: 26 FB          '&.'
-           PULY                             ;2BB5: 35 20          '5 '
+           PULS    Y                         ;2BB5: 35 20          '5 '
            LEAY    $20,Y                    ;2BB7: 31 A8 20       '1. '
            DECB                             ;2BBA: 5A             'Z'
            BNE     Z2BAB                    ;2BBB: 26 EE          '&.'
@@ -1439,12 +1432,12 @@ Z2BB0      STX     ,Y++                     ;2BB0: AF A1          '..'
            LDB     M001F                    ;2BCF: D6 1F          '..'
 Z2BD1      LDA     M001E                    ;2BD1: 96 1E          '..'
            ASRA                             ;2BD3: 47             'G'
-           PSHY                             ;2BD4: 34 20          '4 '
+           PSHS    Y                         ;2BD4: 34 20          '4 '
 Z2BD6      LDX     ,U++                     ;2BD6: AE C1          '..'
            STX     ,Y++                     ;2BD8: AF A1          '..'
            DECA                             ;2BDA: 4A             'J'
            BNE     Z2BD6                    ;2BDB: 26 F9          '&.'
-           PULY                             ;2BDD: 35 20          '5 '
+           PULS    Y                         ;2BDD: 35 20          '5 '
            LEAY    $20,Y                    ;2BDF: 31 A8 20       '1. '
            DECB                             ;2BE2: 5A             'Z'
            BNE     Z2BD1                    ;2BE3: 26 EC          '&.'
@@ -1467,7 +1460,7 @@ Z2BF5      PSHS    U,Y,X,D                  ;2BF5: 34 76          '4v'
            LDB     M001E                    ;2C03: D6 1E          '..'
 Z2C05      LDX     M001C                    ;2C05: 9E 1C          '..'
            BSR     Z2C24                    ;2C07: 8D 1B          '..'
-           DEY                              ;2C09: 31 3F          '1?'
+           LEAY    -$01,Y                    ;2C09: 31 3F          '1?'
            PSHS    D                        ;2C0B: 34 06          '4.'
            LDA     #$20                     ;2C0D: 86 20          '. '
            LDB     M001F                    ;2C0F: D6 1F          '..'
@@ -1758,7 +1751,7 @@ Z2E1B      CMPB    #$90                     ;2E1B: C1 90          '..'
            LDB     M001E                    ;2E37: D6 1E          '..'
 Z2E39      LDX     M001C                    ;2E39: 9E 1C          '..'
            BSR     Z2E52                    ;2E3B: 8D 15          '..'
-           DEY                              ;2E3D: 31 3F          '1?'
+           LEAY    -$01,Y                    ;2E3D: 31 3F          '1?'
            PSHS    D                        ;2E3F: 34 06          '4.'
            LDA     #$20                     ;2E41: 86 20          '. '
            LDB     M001F                    ;2E43: D6 1F          '..'
@@ -1792,7 +1785,7 @@ Z2E61      LDA     ,X+                      ;2E61: A6 80          '..'
 ; --------------------------------------------------------------------------------
 ; Subroutine Switch to graphics mode
 ; --------------------------------------------------------------------------------
-SPMODE4    PSHA                             ;2E70: Save register A
+SPMODE4    PSHS     A                        ;2E70: Save register A
            LDA     #$F8                     ;2E72: Load bit pattern 1111 1000
            STA     VDGSET                   ;2E74: Set PMODE 4 / SCREEN 1,1   
            STA     V0CLR                    ;2E77: SAM V bits 110 
@@ -2189,9 +2182,9 @@ Z317E      LDB     #$20                     ;317E: C6 20          '. '
            LDD     #M0001                   ;31AC: CC 00 01       '...'
            BSR     Z31B5                    ;31AF: 8D 04          '..'
 Z31B1      RTS                              ;31B1: 39             '9'
-Z31B2      PULS   A                         ;31B2: 35 02          '5.'
+Z31B2      PULS    A                         ;31B2: 35 02          '5.'
            RTS                              ;31B4: 39             '9'
-Z31B5      PSHA                             ;31B5: 34 02          '4.'
+Z31B5      PSHS    A                        ;31B5: 34 02          '4.'
            LDA     ,Y                       ;31B7: A6 A4          '..'
            LDY     #M27D8                   ;31B9: 10 8E 27 D8    '..'.'
            BITA    #$10                     ;31BD: 85 10          '..'
@@ -2199,12 +2192,12 @@ Z31B5      PSHA                             ;31B5: 34 02          '4.'
            BITA    #$20                     ;31C1: 85 20          '. '
            BEQ     Z31B2                    ;31C3: 27 ED          ''.'
            LDY     #M27BC                   ;31C5: 10 8E 27 BC    '..'.'
-Z31C9      PULS   A                         ;31C9: 35 02          '5.'
-           PSHX                             ;31CB: 34 10          '4.'
+Z31C9      PULS    A                        ;31C9: 35 02          '5.'
+           PSHS    X                        ;31CB: 34 10          '4.'
            LDX     ,U                       ;31CD: AE C4          '..'
            LEAX    D,X                      ;31CF: 30 8B          '0.'
            LBSR    Z30F3                    ;31D1: 17 FF 1F       '...'
-           PULX                             ;31D4: 35 10          '5.'
+           PULS    X                        ;31D4: 35 10          '5.'
            RTS                              ;31D6: 39             '9'
 Z31D7      LDX     ,U                       ;31D7: AE C4          '..'
            LDA     $06,U                    ;31D9: A6 46          '.F'
@@ -2298,12 +2291,12 @@ WPSCR2     STU     ,X++                     ;32A1: Draw to screen and move to ne
            STU     ,X++                     ;32A3: Draw to screen and move to next location
            CMPX    #M1E00                   ;32A5: Check for end of screen
            BLT     WPSCR2                   ;32A8: Loop until end of screen
-           LDU     #M1FAC                   ;32AA: Load ??? data
+           LDU     #SCORTXT                 ;32AA: Load ??? data
            LDX     #M0600                   ;32AD: Point to start of screen 
 Z32B0      LDA     #$07                     ;32B0: Load value 7 for multiplication
            LDB     ,U+                      ;32B2: Get data byte and increment pointer
            MUL                              ;32B4: Multiply by 7 
-           LDY     #M24F4                   ;32B5: Point to ??? data
+           LDY     #M24F4                   ;32B5: Point to start of letter sprites table 
            LEAY    D,Y                      ;32B9: Add calculated offset to pointer
            LDA     #$07                     ;32BB: Load value 7 for ?
 Z32BD      LDB     ,Y+                      ;32BD: E6 A0          '..'
@@ -2357,10 +2350,10 @@ Z331A      PULS    U,Y,X,D                  ;331A: Restore registers
 ; --------------------------------------------------------------------------------
 ; Subroutine 1: Set up ???
 ; --------------------------------------------------------------------------------
-S3325      LDX     #M1E14                   ;3325: 8E 1E 14       '...'
-           LDY     #M1FD6                   ;3328: 10 8E 1F D6    '....'
-Z332C      LDU     ,Y++                     ;332C: EE A1          '..'
-           STU     ,X++                     ;332E: EF 81          '..'
+S3325      LDX     #M1E14                   ;3325: Point to screen location     
+           LDY     #M1FD6                   ;3328: 10 8E 1F D6    ' Point to start of data table
+Z332C      LDU     ,Y++                     ;332C: EE A1          ' Get data word 
+           STU     ,X++                     ;332E: EF 81          ' Write to screen 
            CMPY    #M1FE2                   ;3330: Check for end of data         ' 10 8C 1F E2    
            BLT     Z332C                    ;3334: 2D F6          '-.'
            RTS                              ;3336: 39             '9'
@@ -2410,7 +2403,7 @@ Z3369      JSR     [Z1F22]                  ;3369: Jump to subroutine at 2DC9 (P
            STY     M0028                    ;3382: 10 9F 28       '..('
            LDX     ,Y                       ;3385: AE A4          '..'
            CLRB                             ;3387: 5F             '_'
-           PSHX                             ;3388: 34 10          '4.'
+           PSHS     X                         ;3388: 34 10          '4.'
 Z338A      LDA     ,X+                      ;338A: A6 80          '..'
            INCB                             ;338C: 5C             '\'
            BITA    #$80                     ;338D: 85 80          '..'
@@ -2449,7 +2442,7 @@ Z33BC      STA     ,X+                      ;33BC: A7 80          '..'
            DEC     M0002                    ;33CE: 0A 02          '..'
            BNE     Z33BC                    ;33D0: 26 EA          '&.'
            ;   ? ------------------------------
-           LDX     #M27F4                   ;33D2: 8E 27 F4       '.'.'
+           LDX     #TXTROUND                ;33D2: 8E 27 F4       '.'.'
            LDY     #M0F2C                   ;33D5: 10 8E 0F 2C    '...,'
            BSR     Z3402                    ;33D9: 8D 27          '.''
            LDA     M0047                    ;33DB: 96 47          '.G'
@@ -2460,7 +2453,7 @@ Z33BC      STA     ,X+                      ;33BC: A7 80          '..'
            LDY     #M1100                   ;33E6: 10 8E 11 00    '....'
            LDB     M0001                    ;33EA: D6 01          '..'
            LEAY    B,Y                      ;33EC: 31 A5          '1.'
-           PULX                             ;33EE: 35 10          '5.'
+           PULS    X                        ;33EE: 35 10          '5.'
            BSR     Z3402                    ;33F0: 8D 10          '..'
            JSR     [Z1F3A]                  ;33F2: AD 9F 1F 3A    '...:'
            LDX     #M7FFE                   ;33F6: 8E 7F FE       '...'
@@ -2646,14 +2639,14 @@ Z3556      LDY     #M1E98                   ;3556: 10 8E 1E 98    '....'
 Z3560      PULS    U,Y,X,D                  ;3560: 35 76          '5v'
            RTS                              ;3562: 39             '9'
 Z3563      TFR     Y,X                      ;3563: 1F 21          '.!'
-           PSHA                             ;3565: 34 02          '4.'
+           PSHS     A                        ;3565: 34 02          '4.'
            LDA     #$17                     ;3567: 86 17          '..'
            STA     M000E                    ;3569: 97 0E          '..'
            PULS   A                         ;356B: 35 02          '5.'
 Z356D      DEC     M000E                    ;356D: 0A 0E          '..'
            BEQ     Z35A0                    ;356F: 27 2F          ''/'
            LEAX    B,X                      ;3571: 30 85          '0.'
-           PSHA                             ;3573: 34 02          '4.'
+           PSHS     A                        ;3573: 34 02          '4.'
            LDA     ,X                       ;3575: A6 84          '..'
            BEQ     Z359E                    ;3577: 27 25          ''%'
            PULS   A                         ;3579: 35 02          '5.'
@@ -2950,7 +2943,7 @@ Z37BA      TST     ,U                       ;37BA: 6D C4          'm.'
            BNE     Z37DD                    ;37C6: 26 15          '&.'
            CMPA    $04,Y                    ;37C8: A1 24          '.$'
            BNE     Z37DB                    ;37CA: 26 0F          '&.'
-           PSHY                             ;37CC: 34 20          '4 '
+           PSHS    Y                         ;37CC: 34 20          '4 '
            CMPU    ,S++                     ;37CE: 11 A3 E1       '...'
            BEQ     Z37DB                    ;37D1: 27 08          ''.'
            ADDA    #$02                     ;37D3: 8B 02          '..'
@@ -3578,10 +3571,10 @@ Z3CE0      LDX     #MF840                   ;3CE0: 8E F8 40       '..@'
            STX     M003B                    ;3CF2: 9F 3B          '.;'
            PULS    X,D                      ;3CF4: 35 16          '5.'
            RTS                              ;3CF6: 39             '9'
-           PSHX                             ;3CF7: 34 10          '4.'
+           PSHS     X                         ;3CF7: 34 10          '4.'
            LDX     #M27FA                   ;3CF9: 8E 27 FA       '.'.'
            JSR     [Z1F1C]                  ;3CFC: AD 9F 1F 1C    '....'
-           PULX                             ;3D00: 35 10          '5.'
+           PULS    X                        ;3D00: 35 10          '5.'
            RTS                              ;3D02: 39             '9'
 ; --------------------------------------------------------------------------------
 ; Subroutine 
@@ -3594,7 +3587,7 @@ Z3D08      CLR     ,U+                      ;3D08: 6F C0          'o.'
            BLT     Z3D08                    ;3D10: 2D F6          '-.'
            CMPX    #M0000                   ;3D12: 8C 00 00       '...'
            BNE     Z3D22                    ;3D15: 26 0B          '&.'
-           LDY     #M282A                   ;3D17: 10 8E 28 2A    '..(;'
+           LDY     #TIMEUP                  ;3D17: 10 8E 28 2A    '..(;'
            LDA     #$07                     ;3D1B: 86 07          '..'
            LDX     #M10EC                   ;3D1D: 8E 10 EC       '...'
            BRA     Z3D2B                    ;3D20: 20 09          ' .'
@@ -3602,7 +3595,7 @@ Z3D22      LDY     #M286A                   ;3D22: 10 8E 28 6A    '..(j'
            LDA     #$10                     ;3D26: 86 10          '..'
            LDX     #M10E8                   ;3D28: 8E 10 E8       '...'
 Z3D2B      LDB     ,Y+                      ;3D2B: E6 A0          '..'
-           PSHA                             ;3D2D: 34 02          '4.'
+           PSHS     A                        ;3D2D: 34 02          '4.'
            LDA     #$07                     ;3D2F: 86 07          '..'
            MUL                              ;3D31: 3D             '='
            LDU     #M24F4                   ;3D32: CE 24 F4       '.$.'
@@ -3635,16 +3628,16 @@ S3D64      PSHS    Y,X,DP,D                 ;3D64: Save registers
            CLRA                             ;3D68: 
            TFR     A,DP                     ;3D69: Clear Direct Page
            LEAY    B,X                      ;3D6B: 
-           PSHY                             ;3D6D: Save Y register
+           PSHS    Y                         ;3D6D: Save Y register
 Z3D6F      LDD     ,X++                     ;3D6F: Get tone value and duration 
            STA     SNDTONE                  ;3D71: Store tone value in SNDTON
-           PSHX                             ;3D73: Save X register
+           PSHS     X                         ;3D73: Save X register
            JSR     SOUND                    ;3D75: Jump to Basic SOUND subroutine (B register holds tone length)
-           PULX                             ;3D78: Restore X register
+           PULS    X                        ;3D78: Restore X register
            CMPX    ,S                       ;3D7A: ? 
            BLT     Z3D6F                    ;3D7C: Loop until done 
            ORCC    #$50                     ;3A05: Disable interrupts
-           PULY                             ;3D80: Restore Y register
+           PULS    Y                         ;3D80: Restore Y register
            PULS    Y,X,DP,D                 ;3D82: Restore registers
            RTS                              ;3D84: 
 ; --------------------------------------------------------------------------------
@@ -3753,7 +3746,7 @@ Z3E3E      LDB     ,U+                      ;3E3E: Get data byte
            RTS                              ;3E51: 39             '9'
            ; Draw single set of teeth --------------------------------------------------
 DRWTEETH   LDU     #M5555                   ;3E52: Load bit pattern 0101 0101 0101 0101 
-           PSHX                             ;3E55: Save X register
+           PSHS     X                         ;3E55: Save X register
            STU     -$80,X                   ;3E57: Write row 4 (Upper gums)
            STU     -$60,X                   ;3E5A: Write row 3 (Upper gums) 
            STU     -$40,X                   ;3E5D: Write row 2 (Upper gums)
@@ -3771,15 +3764,15 @@ Z3E79      LDU     ,Y++                     ;3E79: Get data word
            BNE     Z3E79                    ;3E81: Repeat until zero 
            LDY     #TOOTH1                  ;3E83: Point to data table start 
            LDA     #$0E                     ;3E87: Load value 14 (counter)
-           PULX                             ;3E89: Restore X pointer 
-           PSHX                             ;3E8B: Save X pointer
+           PULS    X                        ;3E89: Restore X pointer 
+           PSHS     X                         ;3E8B: Save X pointer
            LEAX    $16E0,X                  ;3E8D: Jump to occluding row 
 Z3E91      LDU     ,Y++                     ;3E91: Get data word
            STU     ,X                       ;3E93: Write to screen memory
            LEAX    -$20,X                   ;3E95: Move to previous row
            DECA                             ;3E98: Decrement row counter
            BNE     Z3E91                    ;3E99: Repeat until zero
-           PULX                             ;3E9B: Restore X pointer
+           PULS    X                        ;3E9B: Restore X pointer
            RTS                              ;3E9D: Done
 ; --------------------------------------------------------------------------------
 ; Subroutine 
