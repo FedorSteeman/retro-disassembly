@@ -8,7 +8,7 @@
 
 M0000   EQU     COUNT1	* Start of RAM 
 M0002   EQU     $0002
-VALTYP  EQU     $0006	* String Flag
+VALTYP  EQU     $0006	* String Flag 
 CBUFAD  EQU     $007E	* Program End Address 1 after a Cloadm
 SW3VEC  EQU     $0100	* Software Interrupt 3 called by vector at $FFF2
 SW3VE1  EQU     $0101	* Related to interrupts, called by  vectors $FFF2

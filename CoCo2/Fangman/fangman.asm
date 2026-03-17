@@ -628,26 +628,19 @@ M2214      FCB     $00,$00                  ;2214: 00 00          '0000000000000
            FCB     $88,$88                  ;2246: 88 88          '1000100010001000
            FCB     $22,$20                  ;2248: 22 20          '0010001000000000
 
-           FCB     $00,$88
-           FCB     $22,$20
-           FCB     $00,$88,$22              ;224E: 00 88 22       '.."'
-           FCB     $20                      ;2251: 20             ' '
-           FCB     $00,$88                  ;2252: 00 88          '..'
-           FCB     $3F                      ;2254: 3F             '?'
-           FCB     $FF,$FF,$88              ;2255: FF FF 88       '...'
-           FCB     $20                      ;2258: 20             ' '
-           FCB     $00,$00,$88              ;2259: 00 00 88       '...'
-           FCB     $20                      ;225C: 20             ' '
-           FCB     $00,$00,$88              ;225D: 00 00 88       '...'
-           FCB     $20                      ;2260: 20             ' '
-           FCB     $00,$00,$88              ;2261: 00 00 88       '...'
-           FCB     $3F                      ;2264: 3F             '?'
-           FCB     $FF,$FF,$F8,$00,$00,$00  ;2265: FF FF F8 00 00 00 '......'
-           FCB     $00,$00,$00,$00,$00,$00  ;226B: 00 00 00 00 00 00 '......'
-           FCB     $00,$00,$00,$00,$00,$00  ;2271: 00 00 00 00 00 00 '......'
-           FCB     $00                      ;2277: 00             '.'
-           FCB     $3F                      ;2278: 3F             '?'
-           FCB     $FF,$FF,$F8              ;2279: FF FF F8       '...'
+           FCB     $00,$88,$22,$20          ;224A: 00 88 22 20    
+           FCB     $00,$88,$22,$20          ;224E: 00 88 22 20
+           FCB     $00,$88,$3F,$FF          ;2252: 00 88 3F FF
+           FCB     $FF,$88,$20,$00          ;2256: FF 88 20 00
+           FCB     $00,$88,$20,$00          ;225A: 00 88 20 00
+           FCB     $00,$88,$20,$00          ;225E: 00 88 20 00
+           FCB     $00,$88,$3F,$FF          ;2262: 00 88 3F FF
+           FCB     $FF,$F8,$00,$00          ;2266: FF F8 00 00
+           FCB     $00,$00,$00,$00          ;226A: 00 00 00 00
+           FCB     $00,$00,$00,$00          ;226E: 00 00 00 00
+           FCB     $00,$00,$00,$00          ;2272: 00 00 00 00
+           FCB     $00,$00,$3F,$FF          ;2276: 00 00 3F FF
+           FCB     $FF,$F8                  ;227A: FF F8          
            FCB     $20                      ;227C: 20             ' '
            FCB     $02,$00,$08              ;227D: 02 00 08       '...'
            FCB     $20                      ;2280: 20             ' '
@@ -958,21 +951,15 @@ TITLE      FCB     $80,$80,$80,$80,$80,$80  ;260C: 80 80 80 80 80 80
            FCB     $80,$80,$80,$80,$80,$80  ;26EA: 80 80 80 80 80 80 
            FCB     $80,$80,$80,$80,$80,$80  ;26F0: 80 80 80 80 80 80 
            FCB     $80,$80,$80,$80,$80,$80  ;26F6: 80 80 80 80 80 80 
-           FCB     $80,$80,$80,$80          ;26FC: 80 80 80 80    '....'
-M2700      FCB     $80,$80,$80,$80,$80,$80  ;2700: 80 80 80 80 80 80 '......'
-           FCB     $80,$80,$80,$80,$80,$80  ;2706: 80 80 80 80 80 80 '......'
-           FCB     $0D,$0F,$16,$05          ;270C: 0D 0F 16 05    '....'
-           FCC     " "                      ;2710: 20             ' '
-           FCB     $12                      ;2711: 12             '.'
-           FCC     " "                      ;2712: 20             ' '
-           FCB     $0A,$0F,$19,$13,$14,$09  ;2713: 0A 0F 19 13 14 09 '......'
-           FCB     $03,$0B                  ;2719: 03 0B          '..'
-           FCC     " "                      ;271B: 20             ' '
-           FCB     $01,$0E,$04              ;271C: 01 0E 04       '...'
-           FCC     " "                      ;271F: 20             ' '
-           FCB     $10,$12,$05,$13,$13      ;2720: 10 12 05 13 13 '.....'
-           FCC     " "                      ;2725: 20             ' '
-           FCB     $02,$15,$14,$14,$0F,$0E  ;2726: 02 15 14 14 0F 0E '......'
+           FCB     $80,$80,$80,$80          ;26FC: 80 80 80 80    
+M2700      FCB     $80,$80,$80,$80,$80,$80  ;2700: 80 80 80 80 80 80 
+           FCB     $80,$80,$80,$80,$80,$80  ;2706: 80 80 80 80 80 80 
+           FCB     $0D,$0F,$16,$05,$20,$12  ;270C: 0D 0F 16 05 20 12 
+           FCB     $20,$0A,$0F,$19,$13,$14  ;2712: 20 0A 0F 19 13 14 
+           FCB     $09,$03,$0B,$20,$01,$0E  ;2718: 09 03 0B 20 01 0E 
+           FCB     $04,$20,$10,$12,$05,$13  ;271E: 04 20 10 12 05 13 
+           FCB     $13,$20,$02,$15,$14,$14  ;2724: 13 20 02 15 14 14 
+           FCB     $0F,$0E                  ;272A: 0F 0E             
 LVLSEL     FCC     "``````````ImV`LEAGUER"  ;272C: 60 60 60 60 60 60 60 60 60 60 49 6D 56 60 4C 45 41 47 55 45 52
            FCC     "`````````````````````"  ;2741: 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60
            FCC     "NECK`PECKER``````````"  ;2756: 4E 45 43 4B 60 50 45 43 4B 45 52 60 60 60 60 60 60 60 60 60 60
@@ -980,17 +967,19 @@ LVLSEL     FCC     "``````````ImV`LEAGUER"  ;272C: 60 60 60 60 60 60 60 60 60 60
            FCC     "EAD``````````````````"  ;2780: 45 41 44 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60
            FCC     "```SUCKERa```````````"  ;2795: 60 60 60 53 55 43 4B 45 52 61 60 60 60 60 60 60 60 60 60 60 60
            FCC     "``"                     ;27AA: 60 60          '``'
-M27AC      FCB     $F0,$80,$90,$A0,$B0,$C0  ;27AC: F0 80 90 A0 B0 C0 '......'
-           FCB     $D0,$E0,$F0,$80,$90,$A0  ;27B2: D0 E0 F0 80 90 A0 '......'
-           FCB     $B0,$C0,$D0,$E0          ;27B8: B0 C0 D0 E0    '....'
-M27BC      FCB     $F0,$FF,$EF,$7F,$D9,$BF  ;27BC: F0 FF EF 7F D9 BF '......'
-           FCB     $B6,$DF,$AF              ;27C2: B6 DF AF       '...'
-           FCC     "o"                      ;27C5: 6F             'o'
-           FCB     $B7,$B7,$B9,$DB,$8E      ;27C6: B7 B7 B9 DB 8E '.....'
-           FCC     "m"                      ;27CB: 6D             'm'
-           FCB     $83,$96,$C0,$EC,$F0      ;27CC: 83 96 C0 EC F0 '.....'
-           FCC     "8"                      ;27D1: 38             '8'
-           FCB     $FC,$01,$FF,$03,$FF,$FF  ;27D2: FC 01 FF 03 FF FF '......'
+M27AC      FCB     $F0,$80                  ;27AC: F0 80             ' 1111 0000 1000 0000
+           FCB     $90,$A0                  ;27AE: 90 A0             ' 1001 0000 1010 0000
+           FCB     $B0,$C0                  ;27B0: B0 C0             ' 1011 0000 1100 0000  
+           FCB     $D0,$E0                  ;27B2: D0 E0             ' 1101 0000 1110 0000
+           FCB     $F0,$80                  ;27B4: F0 80             ' 1111 0000 1000 0000
+           FCB     $90,$A0                  ;27B6: 90 A0             ' 1001 0000 1010 0000   
+           FCB     $B0,$C0                  ;27B8: B0 C0             ' 1011 0000 1100 0000
+           FCB     $D0,$E0                  ;27BA: D0 E0             ' 1101 0000 1110 0000
+M27BC      FCB     $F0,$FF,$EF,$7F,$D9,$BF  ;27BC: F0 FF EF 7F D9 BF 
+           FCB     $B6,$DF,$AF,$6F,$B7,$B7  ;27C2: B6 DF AF 6F B7 B7
+           FCB     $B9,$DB,$8E,$6D,$83,$96  ;27C8: B9 DB 8E 6D 83 96
+           FCB     $C0,$EC,$F0,$38,$FC,$01  ;27CE: C0 EC F0 38 FC 01
+           FCB     $FF,$03,$FF,$FF          ;27D4: FF 03 FF FF
 M27D8      FCB     $FD,$5F                  ;27D8: FD 5F
            FCB     $FD,$5F                  ;27DA: FD 5F
            FCB     $FD,$5F                  ;27DC: FD 5F
@@ -1274,32 +1263,33 @@ M2A22      FCB     $00                      ;2A22: 00             '.'
            FCB     $02,$2D,$04,$05          ;2A95: 02 2D 04 05  
            FCB     $08,$05,$04,$20          ;2A99: 08 05 04 20
            FCB     $02,$2D,$04,$05,$04      ;2A9D: 02 2D 04 05 04
-           ; Tune ??? -------------------------------------------------------
            FCB     $4E,$06
-           FCB     $AA,$03             
-           FCB     $A5,$03             
-           FCB     $B4,$03             
-           FCB     $AA,$03             
-           FCB     $AA,$06             
-           FCB     $99,$06             
-           FCB     $AA,$03             
-           FCB     $A5,$03             
-           FCB     $B4,$03             
-           FCB     $AA,$03             
-           FCB     $AA,$06             
-           FCB     $BD,$06             
-           FCB     $B0,$04             
-           FCB     $B0,$02             
-           FCB     $B0,$02             
-           FCB     $B0,$04             
-           FCB     $9F,$04             
-           FCB     $9F,$02             
-           FCB     $9F,$02             
-           FCB     $9F,$04             
-           FCB     $85,$04             
-           FCB     $9F,$04             
-           FCB     $85,$04             
-           FCB     $59,$04
+           ; Tune 4 -------------------------------------------------------
+TUNE04     FCB     $AA,$03                  ;2AA3: SOUND 170,3             
+           FCB     $A5,$03                  ;2AA5: SOUND 165,3
+           FCB     $B4,$03                  ;2AA7: SOUND 180,3
+           FCB     $AA,$03                  ;2AA9: SOUND 170,3
+           FCB     $AA,$06                  ;2AAB: SOUND 170,6
+           FCB     $99,$06                  ;2AAD: SOUND 153,6
+           FCB     $AA,$03                  ;2AAF: SOUND 170,3
+           FCB     $A5,$03                  ;2AB1: SOUND 165,3
+           FCB     $B4,$03                  ;2AB3: SOUND 180,3
+           FCB     $AA,$03                  ;2AB5: SOUND 170,3
+           FCB     $AA,$06                  ;2AB7: SOUND 170,6
+           FCB     $BD,$06                  ;2AB9: SOUND 189,6
+           ; Tune 5 -------------------------------------------------------
+TUNE05     FCB     $B0,$04                  ;2ABB: SOUND 176,4             
+           FCB     $B0,$02                  ;2ABD: SOUND 176,2             
+           FCB     $B0,$02                  ;2ABF: SOUND 176,2
+           FCB     $B0,$04                  ;2AC1: SOUND 176,4
+           FCB     $9F,$04                  ;2AC3: SOUND 159,4
+           FCB     $9F,$02                  ;2AC5: SOUND 159,2
+           FCB     $9F,$02                  ;2AC7: SOUND 159,2
+           FCB     $9F,$04                  ;2AC9: SOUND 159,4
+           FCB     $85,$04                  ;2ACB: SOUND 133,4
+           FCB     $9F,$04                  ;2ACD: SOUND 159,4
+           FCB     $85,$04                  ;2ACF: SOUND 133,4
+           FCB     $59,$04                  ;2AD1: SOUND 89,4
            ; Title screen tooth sprite data --------------------------------------------
 TOOTH1     FCB     $57,$D5                  ;2AD4: 57 D5 ' 0101 0111 1101 0101
            FCB     $57,$D5                  ;2AD6: 57 D5 ' 0101 0111 1101 0101
@@ -1337,7 +1327,7 @@ M2B15      FCB     $C5,$04,$B9,$02,$C5,$06  ;2B15: C5 04 B9 02 C5 06 '......'
 ; -----------------------------------------------------------------------------------------------------------------------------------
 ; Subroutine 
 ; -----------------------------------------------------------------------------
-           PSHS    Y,X,D                    ;2B1B: 34 36          '46'
+S1F12      PSHS    Y,X,D                    ;2B1B: 34 36          '46'
            BSR     Z2B41                    ;2B1D: 8D 22          '."'
 Z2B1F      LDX     M001A                    ;2B1F: 9E 1A          '..'
            LBSR    Z2B5A                    ;2B21: 17 00 36       '..6'
@@ -1500,7 +1490,7 @@ Z2C47      JSR     [Z1F1A]                  ;2C47: AD 9F 1F 1A    '....'
 ; --------------------------------------------------------------------------------
 ; Subroutine 2 (Main menu screen?)
 ; --------------------------------------------------------------------------------
-MMENU      PSHS    U,Y,X,D                  ;2C4C: Save registers on stack 
+SMENU      PSHS    U,Y,X,D                  ;2C4C: Save registers on stack 
            ; Clear text screen ---------------------------------------------------
            LDX     #M0800                   ;2C4E: Point to text screen start (?) 
            LDY     #M0200                   ;2C51: Load screen size (32x16=512)
@@ -1627,47 +1617,47 @@ Z2D42      STU     ,X++                     ;2D42: Wipe screen location with dat
            PULS    U,Y,X,D                  ;2D4F: 
            RTS                              ;2D51: 
 ; --------------------------------------------------------------------------------
-; Game start
+; Game start ?
 ; --------------------------------------------------------------------------------
 GMSTRT     PSHS    U,X,D                    ;2D52: 
-           LDA     M0001                    ;2D54: 96 01          '..'
-           LDU     #M27AC                   ;2D56: CE 27 AC       '.'.'
-           ANDA    #$07                     ;2D59: 84 07          '..'
-           INC     M0001                    ;2D5B: 0C 01          '..'
-           LEAU    A,U                      ;2D5D: 33 C6          '3.'
-           LDX     #M0600                   ;2D5F: 8E 06 00       '...'
-           LDB     #$1F                     ;2D62: C6 1F          '..'
-           LDA     #$08                     ;2D64: 86 08          '..'
-           STA     M0002                    ;2D66: 97 02          '..'
-Z2D68      LDA     #$06                     ;2D68: 86 06          '..'
-           STA     M0003                    ;2D6A: 97 03          '..'
-Z2D6C      LDA     ,X                       ;2D6C: A6 84          '..'
-           ANDA    #$0F                     ;2D6E: 84 0F          '..'
-           ORA     ,U                       ;2D70: AA C4          '..'
-           STA     ,X                       ;2D72: A7 84          '..'
-           LDA     $08,X                    ;2D74: A6 08          '..'
-           ANDA    #$0F                     ;2D76: 84 0F          '..'
-           ORA     ,U                       ;2D78: AA C4          '..'
-           STA     $08,X                    ;2D7A: A7 08          '..'
-           LDA     B,X                      ;2D7C: A6 85          '..'
-           ANDA    #$0F                     ;2D7E: 84 0F          '..'
-           ORA     ,U                       ;2D80: AA C4          '..'
-           STA     B,X                      ;2D82: A7 85          '..'
-           LEAX    -$08,X                   ;2D84: 30 18          '0.'
-           LDA     B,X                      ;2D86: A6 85          '..'
-           ANDA    #$0F                     ;2D88: 84 0F          '..'
-           ORA     ,U                       ;2D8A: AA C4          '..'
-           STA     B,X                      ;2D8C: A7 85          '..'
-           LEAX    $28,X                    ;2D8E: 30 88 28       '0.('
-           DEC     M0003                    ;2D91: 0A 03          '..'
-           BNE     Z2D6C                    ;2D93: 26 D7          '&.'
-           LEAU    $01,U                    ;2D95: 33 41          '3A'
-           SUBB    #$02                     ;2D97: C0 02          '..'
-           LEAX    $FF41,X                  ;2D99: 30 89 FF 41    '0..A'
-           DEC     M0002                    ;2D9D: 0A 02          '..'
-           BNE     Z2D68                    ;2D9F: 26 C7          '&.'
-           LDX     #M3000                   ;2DA1: 8E 30 00       '.0.'
-Z2DA4      LEAX    -$01,X                              ;2DA4: 30 1F          '0.'
+           LDA     M0001                    ;2D54: Load ?? variable 1
+           LDU     #M27AC                   ;2D56: Point to data table 
+           ANDA    #$07                     ;2D59: Mask lower 3 bits of variable 1
+           INC     M0001                    ;2D5B: Increment ?? variable 1
+           LEAU    A,U                      ;2D5D: Use variable value to index into data table and load value into U
+           LDX     #M0600                   ;2D5F: Point to screen start
+           LDB     #$1F                     ;2D62: Load ?? value 31 into B
+           LDA     #$08                     ;2D64: Load value 8 into A
+           STA     M0002                    ;2D66: Store value 8 in loop counter 2
+LOOP16     LDA     #$06                     ;2D68: Load value 6 into A
+           STA     M0003                    ;2D6A: Store value 6 in loop counter 3
+LOOP17     LDA     ,X                       ;2D6C: Load value at screen pointer into A
+           ANDA    #$0F                     ;2D6E: Mask lower 4 bits of screen value
+           ORA     ,U                       ;2D70: OR with value from data table
+           STA     ,X                       ;2D72: Store result back to screen pointer
+           LDA     $08,X                    ;2D74: Load value at screen pointer + 8 into A 
+           ANDA    #$0F                     ;2D76: Mask lower 4 bits of screen value
+           ORA     ,U                       ;2D78: OR with value from data table
+           STA     $08,X                    ;2D7A: Store result back to screen pointer and move 8 bytes forward 
+           LDA     B,X                      ;2D7C: 
+           ANDA    #$0F                     ;2D7E: 
+           ORA     ,U                       ;2D80: 
+           STA     B,X                      ;2D82: 
+           LEAX    -$08,X                   ;2D84: 
+           LDA     B,X                      ;2D86: 
+           ANDA    #$0F                     ;2D88: 
+           ORA     ,U                       ;2D8A: 
+           STA     B,X                      ;2D8C: 
+           LEAX    $28,X                    ;2D8E: Move screen pointer forward by 40 bytes 
+           DEC     M0003                    ;2D91: Decrement loop counter 3     
+           BNE     LOOP17                   ;2D93: Loop 6 times
+           LEAU    $01,U                    ;2D95: Move to next value in data table
+           SUBB    #$02                     ;2D97: Decrement value in B by 2
+           LEAX    $FF41,X                  ;2D99: Move pointer back by 191 bytes 
+           DEC     M0002                    ;2D9D: Decrement loop counter 2
+           BNE     LOOP16                   ;2D9F: Loop 8 times
+           LDX     #M3000                   ;2DA1: 8E 30 00    
+Z2DA4      LEAX    -$01,X                   ;2DA4: 30 1F          '0.'
            BNE     Z2DA4                    ;2DA6: 26 FC          '&.'
            PULS    U,X,D                    ;2DA8: 35 56          '5V'
            RTS                              ;2DAA: 39             '9'
