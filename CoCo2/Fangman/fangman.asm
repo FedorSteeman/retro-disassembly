@@ -60,7 +60,7 @@ M0072      EQU     $0072
 M0080      EQU     $0080
 CURPOS     EQU     $0088
 ZERO       EQU     $008A
-SNDTON     EQU     $008C
+SNDTONE    EQU     $008C
 SNDDUR     EQU     $008D
 M0090      EQU     $0090
 M0092      EQU     $0092
@@ -196,10 +196,9 @@ RESET      EQU     $FFFF        ;       Reset Vector Address
         ORG     $1F0E
 
         JMP     [VINIT]                  ;Jump to game initialization at 3A04
-; -----------------------------------------------------------------------------------------------------------------------------------
-; Start Data Block
-; -----------------------------------------------------------------------------------------------------------------------------------        
-; 1. Vector Table 
+
+; -----------------------------------------------------------------------------      
+; Vector Table 
 ; -----------------------------------------------------------------------------
 V1F12      FDB     $2B1B
 VMENU      FDB     $2C4C
@@ -238,7 +237,7 @@ Z1F52      FDB     $3708
 Z1F54      FDB     $383E
 Z1F56      FDB     $3905
 Z1F58      FDB     $3954
-VSKULL      FDB     $38E6
+VSKULL     FDB     $38E6
 Z1F5C      FDB     $3896
 Z1F5E      FDB     $3B80
 Z1F60      FDB     $3BC2
@@ -263,8 +262,24 @@ Z1F84      FDB     $2B59
 Z1F86      FDB     $2B59
 Z1F88      FDB     $2B59
 Z1F8A      FDB     $2B59
+
+
 ; -----------------------------------------------------------------------------
-; 2. Data Tables 
+; Variable spaces (Implied from code calls)
+; -----------------------------------------------------------------------------
+;         FCB      $00                      ;1E05
+;         FCB      $00                      ;1E06
+;         FCB      $00                      ;1E14
+;         FCB      $00                      ;1E39
+;         FCB      $00                      ;1E50
+;         FCB      $00                      ;1E90
+;         FCB      $00                      ;1E98
+;         FCB      $00                      ;1EA0
+;         FCB      $00                      ;1EBE
+;         FCB      $00                      ;1EC0
+;         FCB      $00                      ;1F00
+; -----------------------------------------------------------------------------
+; Data Tables 
 ; -----------------------------------------------------------------------------
            FCB     $04                      ;1F8D: 04             '.'
            FCB     $6C                      ;1F8E: 6C             'l'
@@ -1453,21 +1468,21 @@ Z2BF5      PSHS    U,Y,X,D                  ;2BF5: 34 76          '4v'
 Z2C05      LDX     M001C                    ;2C05: 9E 1C          '..'
            BSR     Z2C24                    ;2C07: 8D 1B          '..'
            DEY                              ;2C09: 31 3F          '1?'
-           PSHD                             ;2C0B: 34 06          '4.'
+           PSHS    D                        ;2C0B: 34 06          '4.'
            LDA     #$20                     ;2C0D: 86 20          '. '
            LDB     M001F                    ;2C0F: D6 1F          '..'
            MUL                              ;2C11: 3D             '='
            COMA                             ;2C12: 43             'C'
            COMB                             ;2C13: 53             'S'
            LEAU    D,U                      ;2C14: 33 CB          '3.'
-           PULD                             ;2C16: 35 06          '5.'
+           PULS   D                         ;2C16: 35 06          '5.'
            DECB                             ;2C18: 5A             'Z'
            BNE     Z2C05                    ;2C19: 26 EA          '&.'
            LDY     M0018                    ;2C1B: 10 9E 18       '...'
            LBSR    Z2B76                    ;2C1E: 17 FF 55       '..U'
            PULS    U,Y,X,D                  ;2C21: 35 76          '5v'
            RTS                              ;2C23: 39             '9'
-Z2C24      PSHB                             ;2C24: 34 04          '4.'
+Z2C24      PSHS    B                             ;2C24: 34 04          '4.'
            LDB     ,Y                       ;2C26: E6 A4          '..'
            LSRB                             ;2C28: 54             'T'
            LSRB                             ;2C29: 54             'T'
@@ -1483,7 +1498,7 @@ Z2C33      LDA     ,X+                      ;2C33: A6 80          '..'
            LEAU    $20,U                    ;2C39: 33 C8 20       '3. '
            DECB                             ;2C3C: 5A             'Z'
            BNE     Z2C33                    ;2C3D: 26 F4          '&.'
-           PULB                             ;2C3F: 35 04          '5.'
+           PULS   B                         ;2C3F: 35 04          '5.'
            RTS                              ;2C41: 39             '9'
 Z2C42      JSR     [Z1F18]                  ;2C42: AD 9F 1F 18    '....'
            RTS                              ;2C46: 39             '9'
@@ -1653,7 +1668,7 @@ Z2D6C      LDA     ,X                       ;2D6C: A6 84          '..'
            LEAX    $28,X                    ;2D8E: 30 88 28       '0.('
            DEC     M0003                    ;2D91: 0A 03          '..'
            BNE     Z2D6C                    ;2D93: 26 D7          '&.'
-           INU                              ;2D95: 33 41          '3A'
+           LEAU    $01,U                    ;2D95: 33 41          '3A'
            SUBB    #$02                     ;2D97: C0 02          '..'
            LEAX    $FF41,X                  ;2D99: 30 89 FF 41    '0..A'
            DEC     M0002                    ;2D9D: 0A 02          '..'
@@ -1744,19 +1759,19 @@ Z2E1B      CMPB    #$90                     ;2E1B: C1 90          '..'
 Z2E39      LDX     M001C                    ;2E39: 9E 1C          '..'
            BSR     Z2E52                    ;2E3B: 8D 15          '..'
            DEY                              ;2E3D: 31 3F          '1?'
-           PSHD                             ;2E3F: 34 06          '4.'
+           PSHS    D                        ;2E3F: 34 06          '4.'
            LDA     #$20                     ;2E41: 86 20          '. '
            LDB     M001F                    ;2E43: D6 1F          '..'
            MUL                              ;2E45: 3D             '='
            COMA                             ;2E46: 43             'C'
            COMB                             ;2E47: 53             'S'
            LEAU    D,U                      ;2E48: 33 CB          '3.'
-           PULD                             ;2E4A: 35 06          '5.'
+           PULS   D                         ;2E4A: 35 06          '5.'
            DECB                             ;2E4C: 5A             'Z'
            BNE     Z2E39                    ;2E4D: 26 EA          '&.'
            PULS    U,Y,X,D                  ;2E4F: 35 76          '5v'
            RTS                              ;2E51: 39             '9'
-Z2E52      PSHB                             ;2E52: 34 04          '4.'
+Z2E52      PSHS    B                             ;2E52: 34 04          '4.'
            LDB     ,Y                       ;2E54: E6 A4          '..'
            LSRB                             ;2E56: 54             'T'
            LSRB                             ;2E57: 54             'T'
@@ -1772,7 +1787,7 @@ Z2E61      LDA     ,X+                      ;2E61: A6 80          '..'
            LEAU    $20,U                    ;2E67: 33 C8 20       '3. '
            DECB                             ;2E6A: 5A             'Z'
            BNE     Z2E61                    ;2E6B: 26 F4          '&.'
-           PULB                             ;2E6D: 35 04          '5.'
+           PULS   B                         ;2E6D: 35 04          '5.'
            RTS                              ;2E6F: 39             '9'
 ; --------------------------------------------------------------------------------
 ; Subroutine Switch to graphics mode
@@ -1784,7 +1799,7 @@ SPMODE4    PSHA                             ;2E70: Save register A
            STA     V1SET                    ;2E7A: = Full graphic 6-C
            STA     V2SET                    ;2E7D: 
            STA     F0SET                    ;2E80: Add $200 to video offset 
-           PULA                             ;2E83: Restore register A
+           PULS   A                         ;2E83: Restore register A
            RTS                              ;2E85: 
 ; --------------------------------------------------------------------------------
 ; Subroutine 
@@ -1840,7 +1855,7 @@ Z2ED9      LDA     #$DF                     ;2ED9: 86 DF          '..'
            RTS                              ;2EDF: 39             '9'
            PSHS    X,DP,D                   ;2EE0: 34 1E          '4.'
            LDD     #DDJ_WRITE               ;2EE2: CC DE 03       '...'
-Z2EE5      STA     >SNDTON                   ;2EE5: B7 00 8C       '...'
+Z2EE5      STA     >SNDTONE                  ;2EE5: B7 00 8C       '...'
            CLRA                             ;2EE8: 4F             'O'
            TFR     A,DP                     ;2EE9: 1F 8B          '..'
            ANDCC   #$AF                     ;3D66: Enable interrupts (Clear F&I bits)
@@ -1943,12 +1958,12 @@ Z2FA8      LSRA                             ;2FA8: 44             'D'
 Z2FB0      STB     ,X                       ;2FB0: E7 84          '..'
            LSR     M0006                    ;2FB2: 04 06          '..'
            LDX     M0004                    ;2FB4: 9E 04          '..'
-           INX                              ;2FB6: 30 01          '0.'
+           LEAX    $01,X                    ;2FB6: 30 01          ' LEAX    $01,X ?
            STX     M0004                    ;2FB8: 9F 04          '..'
            DEC     M0007                    ;2FBA: 0A 07          '..'
            BNE     Z2F5D                    ;2FBC: 26 9F          '&.'
            LDY     M0002                    ;2FBE: 10 9E 02       '...'
-           INY                              ;2FC1: 31 21          '1!'
+           LEAY    $01,Y                    ;2FC1: 31 21          ' LEAY    $21,Y ? 
            STY     M0002                    ;2FC3: 10 9F 02       '...'
            DEC     M0001                    ;2FC6: 0A 01          '..'
            BNE     Z2F55                    ;2FC8: 26 8B          '&.'
@@ -2174,7 +2189,7 @@ Z317E      LDB     #$20                     ;317E: C6 20          '. '
            LDD     #M0001                   ;31AC: CC 00 01       '...'
            BSR     Z31B5                    ;31AF: 8D 04          '..'
 Z31B1      RTS                              ;31B1: 39             '9'
-Z31B2      PULA                             ;31B2: 35 02          '5.'
+Z31B2      PULS   A                         ;31B2: 35 02          '5.'
            RTS                              ;31B4: 39             '9'
 Z31B5      PSHA                             ;31B5: 34 02          '4.'
            LDA     ,Y                       ;31B7: A6 A4          '..'
@@ -2184,7 +2199,7 @@ Z31B5      PSHA                             ;31B5: 34 02          '4.'
            BITA    #$20                     ;31C1: 85 20          '. '
            BEQ     Z31B2                    ;31C3: 27 ED          ''.'
            LDY     #M27BC                   ;31C5: 10 8E 27 BC    '..'.'
-Z31C9      PULA                             ;31C9: 35 02          '5.'
+Z31C9      PULS   A                         ;31C9: 35 02          '5.'
            PSHX                             ;31CB: 34 10          '4.'
            LDX     ,U                       ;31CD: AE C4          '..'
            LEAX    D,X                      ;31CF: 30 8B          '0.'
@@ -2477,9 +2492,9 @@ Z3410      LDA     ,U+                      ;3410: A6 C0          '..'
 ; Subroutine 
 ; --------------------------------------------------------------------------------
            PSHS    U,Y,X,D                  ;3425: 34 76          '4v'
-           LDX     #M1E50                   ;3427: 8E 1E 50       '..P'
-           LDY     #M08F0                   ;342A: 10 8E 08 F0    '....'
-           LDU     #M0350                   ;342E: CE 03 50       '..P'
+           LDX     #M1E50                   ;3427: Point to data table (outside of data block range?)
+           LDY     #M08F0                   ;342A: Point to screen location
+           LDU     #M0350                   ;342E: Load bit pattern 0000 0011 0101 0000
            LDD     #M0401                   ;3431: CC 04 01       '...'
 Z3434      STY     ,X                       ;3434: 10 AF 84       '...'
            STU     $02,X                    ;3437: EF 02          '..'
@@ -2575,7 +2590,7 @@ Z34E8      BITA    #$40                     ;34E8: 85 40          '.@'
            BEQ     Z34EE                    ;34EA: 27 02          ''.'
            ORB     #$04                     ;34EC: CA 04          '..'
 Z34EE      STB     ,U                       ;34EE: E7 C4          '..'
-Z34F0      INU                              ;34F0: 33 41          '3A'
+Z34F0      LEAU   $01,U                     ;34F0: 33 41          ' NOTE: This instruction used to be INU .... 
            RTS                              ;34F2: 39             '9'
 ; --------------------------------------------------------------------------------
 ; Subroutine 
@@ -2634,14 +2649,14 @@ Z3563      TFR     Y,X                      ;3563: 1F 21          '.!'
            PSHA                             ;3565: 34 02          '4.'
            LDA     #$17                     ;3567: 86 17          '..'
            STA     M000E                    ;3569: 97 0E          '..'
-           PULA                             ;356B: 35 02          '5.'
+           PULS   A                         ;356B: 35 02          '5.'
 Z356D      DEC     M000E                    ;356D: 0A 0E          '..'
            BEQ     Z35A0                    ;356F: 27 2F          ''/'
            LEAX    B,X                      ;3571: 30 85          '0.'
            PSHA                             ;3573: 34 02          '4.'
            LDA     ,X                       ;3575: A6 84          '..'
            BEQ     Z359E                    ;3577: 27 25          ''%'
-           PULA                             ;3579: 35 02          '5.'
+           PULS   A                         ;3579: 35 02          '5.'
            CMPX    M0092                    ;357B: 9C 92          '..'
            BEQ     Z35A2                    ;357D: 27 23          ''#'
            LEAX    -$01,X                              ;357F: 30 1F          '0.'
@@ -2658,7 +2673,7 @@ Z356D      DEC     M000E                    ;356D: 0A 0E          '..'
            BEQ     Z35A2                    ;3597: 27 09          ''.'
            LEAX    -$20,X                   ;3599: 30 88 E0       '0..'
            BRA     Z356D                    ;359C: 20 CF          ' .'
-Z359E      PULA                             ;359E: 35 02          '5.'
+Z359E      PULS   A                         ;359E: 35 02          '5.'
 Z35A0      CLRB                             ;35A0: 5F             '_'
            RTS                              ;35A1: 39             '9'
 Z35A2      INC     M0031                    ;35A2: 0C 31          '.1'
@@ -2796,9 +2811,9 @@ Z36AE      RTS                              ;36AE: 39             '9'
 ; Subroutine 
 ; --------------------------------------------------------------------------------
            PSHS    U,X,D                    ;36AF: 34 56          '4V'
-           PSHB                             ;36B1: 34 04          '4.'
+           PSHS    B                             ;36B1: 34 04          '4.'
            COMB                             ;36B3: 53             'S'
-           PSHB                             ;36B4: 34 04          '4.'
+           PSHS    B                             ;36B4: 34 04          '4.'
            LDA     $04,Y                    ;36B6: A6 24          '.$'
            ASLA                             ;36B8: 48             'H'
            ASLA                             ;36B9: 48             'H'
@@ -3459,7 +3474,7 @@ LOOP10     LEAX    -$01,X                   ;3C1C: 30 1F          '0.'
            PULS    X,D                      ;3C24: 35 16          '5.'
            RTS                              ;3C26: 39             '9'
            PSHS    X,A                      ;3C27: 34 12          '4.'
-           JSR     [Z1F4A]                  ;3C29: AD 9F 1F 4A    '...J'
+           JSR     [Z1F4A]                  ;3C29: Jump to subroutine at 3425
            LDX     #M1E50                   ;3C2D: 8E 1E 50       '..P'
            LDA     #$08                     ;3C30: 86 08          '..'
            SUBA    M0036                    ;3C32: 90 36          '.6'
@@ -3477,11 +3492,11 @@ SKIP14     PULS    X,A                      ;3C3D: 35 12          '5.'
            CLRA                             ;3C42: 4F             'O'
            TFR     A,DP                     ;3C43: 1F 8B          '..'
            LDD     #M3C04                   ;3C45: CC 3C 04       '.<.'
-           STA     SNDTON                   ;3C48: 97 8C          '..'
+           STA     SNDTONE                  ;3C48: 97 8C          '..'
            ANDCC   #$AF                     ;3D66: Enable interrupts (Clear F&I bits)
            JSR     SOUND                    ;3C4C: Jump to Basic SOUND subroutine 
            LDD     #M0A04                   ;3C4F: CC 0A 04       '...'
-           STA     SNDTON                   ;3C52: 97 8C          '..'
+           STA     SNDTONE                  ;3C52: 97 8C          '..'
            JSR     SOUND                    ;3C54: Jump to Basic SOUND subroutine 
            ORCC    #$50                     ;3A05: Disable interrupts
            LDX     #M7FFE                   ;3C59: 8E 7F FE       '...'
@@ -3600,7 +3615,7 @@ Z3D39      LDB     ,U+                      ;3D39: E6 C0          '..'
            DECA                             ;3D41: 4A             'J'
            BNE     Z3D39                    ;3D42: 26 F5          '&.'
            LEAX    $FF21,X                  ;3D44: 30 89 FF 21    '0..!'
-           PULA                             ;3D48: 35 02          '5.'
+           PULS   A                         ;3D48: 35 02          '5.'
            DECA                             ;3D4A: 4A             'J'
            BNE     Z3D2B                    ;3D4B: 26 DE          '&.'
            CMPY    #M2870                   ;3D4D: 10 8C 28 70    '..(p'
@@ -3622,7 +3637,7 @@ S3D64      PSHS    Y,X,DP,D                 ;3D64: Save registers
            LEAY    B,X                      ;3D6B: 
            PSHY                             ;3D6D: Save Y register
 Z3D6F      LDD     ,X++                     ;3D6F: Get tone value and duration 
-           STA     SNDTON                   ;3D71: Store tone value in SNDTON
+           STA     SNDTONE                  ;3D71: Store tone value in SNDTON
            PSHX                             ;3D73: Save X register
            JSR     SOUND                    ;3D75: Jump to Basic SOUND subroutine (B register holds tone length)
            PULX                             ;3D78: Restore X register
