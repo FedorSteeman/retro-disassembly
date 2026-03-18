@@ -1532,9 +1532,9 @@ SMENU      PSHS    U,Y,X,D                  ;2C4C: Save registers on stack
            BSR     FILLSCR1                 ;2CAE: Call fill screen routine 
            ;  ------------------------------------
            CLR     M0001                    ;2CB0: Clear variable 1 
-           LBSR    GMSTRT                   ;2CB2: Start game
+           LBSR    MNANIM                   ;2CB2: Animate menu title
            ; Switch to text screen mode ------------------------------------------
-           CLRA                             ;2CB5: Back from game 
+           CLRA                             ;2CB5: Back from game ?
            STA     VDGSET                   ;2CB6: Clear VDG mode register (text mode)
            STA     F2CLR                    ;2CB9: Display offset - Subtract $0800
            STA     F0SET                    ;2CBC: Display offset - Add $0200
@@ -1548,41 +1548,40 @@ Z2CC2      LDB     RBUTTN                   ;2CC2: Get joystick button value
 Z2CCD      TFR     A,B                      ;2CCD: 1F 89          '..'
            ASLB                             ;2CCF: 58             'X'
            ANDB    #$E0                     ;2CD0: C4 E0          '..'
-           LDX     #M0760                   ;2CD2: 8E 07 60       '..`'
-           LEAX    B,X                      ;2CD5: 30 85          '0.'
-           LDU     #LVLSEL                  ;2CD7: CE 27 2C       '.','
-           LEAU    B,U                      ;2CDA: 33 C5          '3.'
-           ASRA                             ;2CDC: 47             'G'
-           ASRA                             ;2CDD: 47             'G'
-           ASRA                             ;2CDE: 47             'G'
-           ASRA                             ;2CDF: 47             'G'
-           STA     M0000                    ;2CE0: 97 00          '..'
-           LDA     #$03                     ;2CE2: 86 03          '..'
-           SUBA    M0000                    ;2CE4: 90 00          '..'
-           ASLA                             ;2CE6: 48             'H'
-           STA     M0047                    ;2CE7: 97 47          '.G'
-           LBSR    Z2DAB                    ;2CE9: 17 00 BF       '...'
-           JSR     [Z1F7E]                  ;2CEC: AD 9F 1F 7E    '...~'
-           BRA     Z2CF5                    ;2CF0: 20 03          ' .'
+           LDX     #M0760                   ;2CD2: 8E 07 60       Point to text row 12 (level select menu start)
+           LEAX    B,X                      ;2CD5: 30 85          Move to row of currently selected level   
+           LDU     #LVLSEL                  ;2CD7: CE 27 2C       Get currently selected level value
+           LEAU    B,U                      ;2CDA: 33 C5          Move to selected level data
+           ASRA                             ;2CDC: 47             Divide ? pos by four
+           ASRA                             ;2CDD: 47               "
+           ASRA                             ;2CDE: 47               "
+           ASRA                             ;2CDF: 47               "
+           STA     M0000                    ;2CE0: 97 00          Store ? value
+           LDA     #$03                     ;2CE2: 86 03          Load value 3 
+           SUBA    M0000                    ;2CE4: 90 00          Subtract 3 from ? variable value 
+           ASLA                             ;2CE6: 48             
+           STA     M0047                    ;2CE7: 97 47          Store result in variable 47 (skill level factor ?)
+           LBSR    MNHILITE                 ;2CE9: 17 00 BF       Highlight selected level item in menu
+           JSR     [Z1F7E]                  ;2CEC: AD 9F 1F 7E    Jump to subroutine at address $2EFC
+           BRA     Z2CF5                    ;2CF0: 20 03          
+           ; Joystick input loop ---------------------------------------------------------------
 Z2CF2      LBSR    POLJOY1                  ;2CF2: 17 00 C6       '...'
-Z2CF5      LDB     RBUTTN                   ;2CF5: F6 FF 00       '...'
-           BITB    #$01                     ;2CF8: C5 01          '..'
-           BEQ     SCRINIT                  ;2CFA: 27 2C          '','
-           ; Button pressed ---------------------------------------------------------------
-           LDA     RJOYUD                   ;2CFC: Read joystick y position
-           ASRA                             ;2CFF: Divide y pos by four
-           ASRA                             ;2D00:  |
-           ASRA                             ;2D01:  |
-           ASRA                             ;2D02:  |
-           BSR     GMSTRT                   ;2D03: Branch to game start
-           ; Back from game ---------------------------------------------------------------
-           CMPA    M0000                    ;2D05: Check lives
-           LBEQ    Z2CF2                    ;2D07: 10 27 FF E7    '.'..'
+Z2CF5      LDB     RBUTTN                   ;2CF5: F6 FF 00       Read joystick button value
+           BITB    #$01                     ;2CF8: C5 01          Test whether pressed
+           BEQ     SCRINIT                  ;2CFA: 27 2C          Start game if pressed
+           LDA     RJOYUD                   ;2CFC:                Read joystick y position
+           ASRA                             ;2CFF:                Divide y pos by four
+           ASRA                             ;2D00:                 "
+           ASRA                             ;2D01:                 "  
+           ASRA                             ;2D02:                 "  
+           BSR     MNANIM                   ;2D03: Animate menu title
+           CMPA    M0000                    ;2D05: Check ?
+           LBEQ    Z2CF2                    ;2D07: 
            LEAX    -$20,X                   ;2D0B: 30 88 E0       '0..'
            TFR     X,U                      ;2D0E: 1F 13          '..'
-           LBSR    Z2DAB                    ;2D10: 17 00 98       '...'
+           LBSR    MNHILITE                 ;2D10: 17 00 98       '...'
            LDA     RJOYUD                   ;2D13: B6 01 5B       '..['
-           BRA     Z2CCD                    ;2D16: 20 B5          ' .'
+           BRA     Z2CCD                    ;2D16: 20 B5          Repeat joystick input loop
            ; Wipe screen routine--------------------------------------------------
 WIPESCR1   STU     ,X++                     ;2D18: EF 81          Wipe screen location with data word and move pointer 
            LEAY    -$02,Y                   ;2D1A: 31 3E          Decrement counter by 2
@@ -1617,9 +1616,9 @@ Z2D42      STU     ,X++                     ;2D42: Wipe screen location with dat
            PULS    U,Y,X,D                  ;2D4F: 
            RTS                              ;2D51: 
 ; --------------------------------------------------------------------------------
-; Game start ?
+; Menu title animation routine
 ; --------------------------------------------------------------------------------
-GMSTRT     PSHS    U,X,D                    ;2D52: 
+MNANIM     PSHS    U,X,D                    ;2D52: Save registers on stack
            LDA     M0001                    ;2D54: Load ?? variable 1
            LDU     #M27AC                   ;2D56: Point to data table 
            ANDA    #$07                     ;2D59: Mask lower 3 bits of variable 1
@@ -1661,15 +1660,19 @@ Z2DA4      LEAX    -$01,X                   ;2DA4: 30 1F          '0.'
            BNE     Z2DA4                    ;2DA6: 26 FC          '&.'
            PULS    U,X,D                    ;2DA8: 35 56          '5V'
            RTS                              ;2DAA: 39             '9'
-Z2DAB      LDA     #$20                     ;2DAB: New game? 
-Z2DAD      LDB     ,U+                      ;2DAD: E6 C0          '..'
+           ; Highlight selected menu item ? ---------------------------------------------------
+MNHILITE   LDA     #$20                     ;2DAB: 86 20          Load screen line width
+Z2DAD      LDB     ,U+                      ;2DAD: E6 C0          Get 
            CMPB    #$60                     ;2DAF: C1 60          '.`'
            BEQ     Z2DB5                    ;2DB1: 27 02          ''.'
            EORB    #$40                     ;2DB3: C8 40          '.@'
 Z2DB5      STB     ,X+                      ;2DB5: E7 80          '..'
            DECA                             ;2DB7: 4A             'J'
            BNE     Z2DAD                    ;2DB8: 26 F3          '&.'
-           RTS                              ;2DBA: 39             '9'
+           RTS                              ;2DBA: 39
+; --------------------------------------------------------------------------------
+; Subroutine for polling joystick input 
+; --------------------------------------------------------------------------------
 POLJOY1    PSHS    U,Y,X,DP,D,CC            ;2DBB: 
            JSR     [JOYIN]                  ;2DBD: Poll joystick
            PULS    U,Y,X,DP,D,CC            ;2DC1: 
@@ -1852,7 +1855,10 @@ Z2EE5      STA     >SNDTONE                  ;2EE5: B7 00 8C       '...'
            PSHS    X,DP,D                   ;2EF5: 34 1E          '4.'
            LDD     #ME603                   ;2EF7: CC E6 03       '...'
            BRA     Z2EE5                    ;2EFA: 20 E9          ' .'
-           PSHS    X,DP,D                   ;2EFC: 34 1E          '4.'
+; --------------------------------------------------------------------------------
+; Subroutine 
+; --------------------------------------------------------------------------------
+S1F7E      PSHS    X,DP,D                   ;2EFC: 34 1E          '4.'
            LDA     M0047                    ;2EFE: 96 47          '.G'
            LSRA                             ;2F00: 44             'D'
            INCA                             ;2F01: 4C             'L'
