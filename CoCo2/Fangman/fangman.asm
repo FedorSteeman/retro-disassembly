@@ -189,9 +189,9 @@ F2CLR      EQU     $FFCA        ; Clear SAM F2 bit: Display offset - Subtract $0
 F2SET      EQU     $FFCB        ; Set SAM F2 bit: Display offset - Add $0800    
 RESET      EQU     $FFFF        ;       Reset Vector Address
 
-;----------------------------------------------------
-; Program Code / Data Areas                          
-;----------------------------------------------------
+;------------------------------------------------------------------------------
+; Program Code & Data Areas                          
+;------------------------------------------------------------------------------
 
         ORG     $1F0E
 
@@ -203,9 +203,9 @@ RESET      EQU     $FFFF        ;       Reset Vector Address
 V1F12      FDB     $2B1B                 ;1F12: 2B 1B
 VMENU      FDB     $2C4C                 ;1F14: 2C 4C
 VPMODE4    FDB     $2E70                 ;1F16: 2E 70
-Z1F18      FDB     $2EE0                 ;1F18: 2E E0
-Z1F20      FDB     $2EF5                 ;1F20: 2E F5
-Z1F22      FDB     $2DC9                 ;1F22: 2D C9
+VPLSND     FDB     $2EE0                 ;1F18: 2E E0
+Z1F1A      FDB     $2EF5                 ;1F20: 2E F5
+Z1F1C      FDB     $2DC9                 ;1F22: 2D C9
 Z1F1E      FDB     $2DF2                 ;1F1E: 2D F2
 Z1F20      FDB     $2E86                 ;1F20: 2E 86
 Z1F22      FDB     $2EA4                 ;1F22: 2E A4
@@ -1483,7 +1483,7 @@ Z2C33      LDA     ,X+                      ;2C33: A6 80          '..'
            BNE     Z2C33                    ;2C3D: 26 F4          '&.'
            PULS   B                         ;2C3F: 35 04          '5.'
            RTS                              ;2C41: 39             '9'
-Z2C42      JSR     [Z1F18]                  ;2C42: AD 9F 1F 18    '....'
+Z2C42      JSR     [VPLSND]                 ;2C42: AD 9F 1F 18   Play high pitched sound (SOUND 222,3)
            RTS                              ;2C46: 39             '9'
 Z2C47      JSR     [Z1F1A]                  ;2C47: AD 9F 1F 1A    '....'
            RTS                              ;2C4B: 39             '9'
@@ -1561,9 +1561,9 @@ Z2CCD      TFR     A,B                      ;2CCD: 1F 89          '..'
            SUBA    M0000                    ;2CE4: 90 00          Subtract 3 from ? variable value 
            ASLA                             ;2CE6: 48             
            STA     M0047                    ;2CE7: 97 47          Store result in variable 47 (skill level factor ?)
-           LBSR    MNHILITE                 ;2CE9: 17 00 BF       Highlight selected level item in menu
+           LBSR    MNHILITE                 ;2CE9: 17 00 BF       Highlight selected level item in menu ? 
            JSR     [Z1F7E]                  ;2CEC: AD 9F 1F 7E    Jump to subroutine at address $2EFC
-           BRA     Z2CF5                    ;2CF0: 20 03          
+           BRA     Z2CF5                    ;2CF0: 20 03          Read joystick input 
            ; Joystick input loop ---------------------------------------------------------------
 Z2CF2      LBSR    POLJOY1                  ;2CF2: 17 00 C6       '...'
 Z2CF5      LDB     RBUTTN                   ;2CF5: F6 FF 00       Read joystick button value
@@ -1839,35 +1839,39 @@ Z2ED9      LDA     #$DF                     ;2ED9: 86 DF          '..'
            BSR     Z2ECC                    ;2EDB: 8D EF          '..'
            BNE     Z2ED9                    ;2EDD: 26 FA          '&.'
            RTS                              ;2EDF: 39             '9'
-           PSHS    X,DP,D                   ;2EE0: 34 1E          '4.'
-           LDD     #DDJ_WRITE               ;2EE2: CC DE 03       '...'
-Z2EE5      STA     >SNDTONE                  ;2EE5: B7 00 8C       '...'
-           CLRA                             ;2EE8: 4F             'O'
-           TFR     A,DP                     ;2EE9: 1F 8B          '..'
-           ANDCC   #$AF                     ;3D66: Enable interrupts (Clear F&I bits)
-           JSR     SOUND                    ;2EED: Jump to Basic SOUND subroutine 
-           ORCC    #$50                     ;3A05: Disable interrupts
-           PULS    X,DP,D                   ;2EF2: 35 1E          '5.'
+; --------------------------------------------------------------------------------
+; Play new high score sound
+; --------------------------------------------------------------------------------
+SPLSND     PSHS    X,DP,D                   ;2EE0: 34 1E          Save registers on stack
+           LDD     #$DE03                   ;2EE2: CC DE 03       Load SOUND 222,3
+PLSOUND    STA     >SNDTONE                 ;2EE5: B7 00 8C       Store tone value for sound
+           CLRA                             ;2EE8: 4F             Clear A (not sure why)
+           TFR     A,DP                     ;2EE9: 1F 8B          Clear DP register (point to zero page)
+           ANDCC   #$AF                     ;3D66:                Enable interrupts (Clear F&I bits)
+           JSR     SOUND                    ;2EED:                Jump to Basic SOUND subroutine 
+           ORCC    #$50                     ;3A05:                Disable interrupts
+           PULS    X,DP,D                   ;2EF2: 35 1E          Restore registers
            RTS                              ;2EF4: 39             '9'
-; --------------------------------------------------------------------------------
-; Subroutine 
-; --------------------------------------------------------------------------------
+           ; --------------------------------------------------------------------------------
            PSHS    X,DP,D                   ;2EF5: 34 1E          '4.'
-           LDD     #ME603                   ;2EF7: CC E6 03       '...'
-           BRA     Z2EE5                    ;2EFA: 20 E9          ' .'
+           LDD     #ME603                   ;2EF7: CC E6 03       Load SOUND 230,3
+           BRA     PLSOUND                  ;2EFA: 20 E9          ' .'
+; --------------------------------------------------------------------------------
+; ... level selection pointer (including playing sound)
+; --------------------------------------------------------------------------------
+S1F7E      PSHS    X,DP,D                   ;2EFC: 34 1E          Save registers on stack
+           LDA     M0047                    ;2EFE: 96 47          Load skill level factor value
+           LSRA                             ;2F00: 44             Divide skill level factor by two (shift right)
+           INCA                             ;2F01: 4C             Increment result by one to get current level number (1-4)
+           LDB     #$32                     ;2F02: C6 32          Load value 50 
+           MUL                              ;2F04: 3D             Multiply to get current level sound tone value
+           TFR     B,A                      ;2F05: 1F 98          Transfer tone value to A register
+           LDB     #$04                     ;2F07: C6 04          Set tone duration 4
+           BRA     PLSOUND                  ;2F09: 20 DA          Play selected sound
 ; --------------------------------------------------------------------------------
 ; Subroutine 
 ; --------------------------------------------------------------------------------
-S1F7E      PSHS    X,DP,D                   ;2EFC: 34 1E          '4.'
-           LDA     M0047                    ;2EFE: 96 47          '.G'
-           LSRA                             ;2F00: 44             'D'
-           INCA                             ;2F01: 4C             'L'
-           LDB     #$32                     ;2F02: C6 32          '.2'
-           MUL                              ;2F04: 3D             '='
-           TFR     B,A                      ;2F05: 1F 98          '..'
-           LDB     #$04                     ;2F07: C6 04          '..'
-           BRA     Z2EE5                    ;2F09: 20 DA          ' .'
-           PSHS    U,Y,X,D                  ;2F0B: 34 76          '4v'
+S1F26      PSHS    U,Y,X,D                  ;2F0B: 34 76          '4v'
            LDA     #$5C                     ;2F0D: 86 5C          '.\'
            LDB     M0047                    ;2F0F: D6 47          '.G'
            MUL                              ;2F11: 3D             '='
@@ -2280,14 +2284,14 @@ Z3281      LEAY    $02,Y                    ;3281: 31 22          '1"'
 ; --------------------------------------------------------------------------------
 ; Subroutine 
 ; --------------------------------------------------------------------------------
-           PSHS    U,Y,X,D                  ;3299: 34 76          '4v'
+           PSHS    U,Y,X,D                  ;3299: 34 76 
            LDX     #M06E0                   ;329B: Point to screen start
            LDU     #$FFFF                   ;329E: Load white stripe pattern
 WPSCR2     STU     ,X++                     ;32A1: Draw to screen and move to next location
            STU     ,X++                     ;32A3: Draw to screen and move to next location
            CMPX    #M1E00                   ;32A5: Check for end of screen
            BLT     WPSCR2                   ;32A8: Loop until end of screen
-           LDU     #SCORTXT                 ;32AA: Load ??? data
+           LDU     #SCORTXT                 ;32AA: Point to score text data
            LDX     #M0600                   ;32AD: Point to start of screen 
 Z32B0      LDA     #$07                     ;32B0: Load value 7 for multiplication
            LDB     ,U+                      ;32B2: Get data byte and increment pointer
@@ -2328,6 +2332,7 @@ Z32E9      LDB     ,U+                      ;32E9: E6 C0          '..'
            LDA     LIVES                    ;32FB: Get number of lives remaining
            DECA                             ;32FD: Subtract 1 from lives count for ???
            BLE     Z331A                    ;32FE: Jump to ??? if no lives remain
+           ; Draw remaining lives on screen ------------------------------------------------------
            LDX     #M1C40                   ;3300: Point to screen location for first life sprite
 DRWLIVES   LDY     #FMFRNT                  ;3303: Point to fangman front sprite data
            LDB     #$0E                     ;3307: Load sprite height in lines 
@@ -2339,6 +2344,7 @@ DRWLIFE    LDU     ,Y++                     ;3309: Get data for current sprite l
            LEAX    $FE42,X                  ;3313: Move to next life sprite location
            DECA                             ;3317: Decrement lives counter
            BNE     DRWLIVES                 ;3318: Loop until all lives are drawn
+           ; ---------------------------------------------------------------------------------
 Z331A      PULS    U,Y,X,D                  ;331A: Restore registers
            JSR     [Z1F26]                  ;331C: Jump to subroutine at 2F0B
            JSR     [Z1F32]                  ;3320: Jump to subroutine at 3214
@@ -2347,12 +2353,12 @@ Z331A      PULS    U,Y,X,D                  ;331A: Restore registers
 ; Subroutine 1: Set up ???
 ; --------------------------------------------------------------------------------
 S3325      LDX     #M1E14                   ;3325: Point to screen location     
-           LDY     #M1FD6                   ;3328: 10 8E 1F D6    ' Point to start of data table
-Z332C      LDU     ,Y++                     ;332C: EE A1          ' Get data word 
-           STU     ,X++                     ;332E: EF 81          ' Write to screen 
-           CMPY    #M1FE2                   ;3330: Check for end of data         ' 10 8C 1F E2    
-           BLT     Z332C                    ;3334: 2D F6          '-.'
-           RTS                              ;3336: 39             '9'
+           LDY     #M1FD6                   ;3328: 10 8E 1F D6    Point to start of data table
+Z332C      LDU     ,Y++                     ;332C: EE A1          Get data word 
+           STU     ,X++                     ;332E: EF 81          Write to screen 
+           CMPY    #M1FE2                   ;3330: 10 8C 1F E2    Check for end of data          
+           BLT     Z332C                    ;3334: 2D F6          Loop until done
+           RTS                              ;3336: 39             Return from subroutine
 ; --------------------------------------------------------------------------------
 ; Subroutine 
 ; --------------------------------------------------------------------------------
