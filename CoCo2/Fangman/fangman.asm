@@ -216,8 +216,8 @@ Z1F2A      FDB     $306A                 ;1F2A: 30 6A
 Z1F2C      FDB     $35A7                 ;1F2C: 35 A7
 Z1F2E      FDB     $34F3                 ;1F2E: 34 F3
 Z1F30      FDB     $362D                 ;1F30: 36 2D
-Z1F32      FDB     $3214                 ;1F32: 32 14
-Z1F34      FDB     $3299                 ;1F34: 32 99
+VPLAYA     FDB     $3214                 ;1F32: 32 14
+VBLDGM      FDB     $3299                 ;1F34: 32 99
 Z1F36      FDB     $3337                 ;1F36: 33 37
 Z1F38      FDB     $3367                 ;1F38: 33 67
 Z1F3A      FDB     $3D9A                 ;1F3A: 3D 9A
@@ -290,17 +290,21 @@ SCORTXT    FCB     $08,$1D,$13,$00,$1E,$1E  ;1FB0: H-S 00
            FCB     $1E,$1E,$1E,$1E,$00      ;1FBE: 0000
            FCB     $13,$03,$12,$00          ;1FC4: SCO 
            ; ---------------------------------------------------
-M1FC6      FCB     $AA,$BA,$AE,$AA          ;1FC6: AA BA AE AA       
-           FCB     $00,$30,$0C,$00          ;1FC8: 00 30 0C 00    
-           FCB     $55,$75,$5D,$55          ;1FCC: 55 75 5D 55    
-           FCB     $00,$30,$0C,$00          ;1FD0: 00 30 0C 00
-           FCB     $AA,$BA,$5D,$55          ;1FD2: AA BA 5D 55
+M1FC6      FCB     $AA,$BA                  ;1FC6: AA BA        '1010101011101010
+           FCB     $AE,$AA                  ;1FC8: AE AA        '1010111010101010
+           FCB     $00,$30                  ;1FCA: 00 30        '0000000000110000
+           FCB     $0C,$00                  ;1FCC: 0C 00        '0000110000000000
+           FCB     $55,$75                  ;1FCE: 55 75        '0101010101110101
+           FCB     $0C,$00                  ;1FD0: 0C 00        '0000110000000000
+           FCB     $AA,$BA                  ;1FD2: AA BA        '1010101011101010
+           FCB     $5D,$55                  ;1FD4: 5D 55        '0101110101010101
            ; ---------------------------------------------------
-M1FD6      FCB     $06,$1A,$1E              ;1FD6: 06 1A 1E       
-           FCB     $21                      ;1FD9: 21             
-           FCB     $06,$04,$1E              ;1FDA: 06 04 1E       
-           FCB     $41,$25                  ;1FDD: 41 25          
-           FCB     $C6,$06,$07              ;1FDF: C6 06 07    
+M1FD6      FCB     $06,$1A
+           FCB     $1E,$21
+           FCB     $06,$04
+           FCB     $1E,$41
+           FCB     $25,$C6
+           FCB     $06,$07
            ; ---------------------------------------------------   
 M1FE2      FCB     $FF,$20                  ;1FE2: FF 20          
            ; ---------------------------------------------------
@@ -2229,60 +2233,60 @@ Z3201      LDB     ,Y+                      ;3201: E6 A0          '..'
            BNE     Z3201                    ;3211: 26 EE          '&.'
            RTS                              ;3213: 39             '9'
 ; --------------------------------------------------------------------------------
-; Subroutine 
+; Subroutine for drawing the play area
 ; --------------------------------------------------------------------------------
-           PSHS    U,Y,X,D                  ;3214: 34 76          '4v'
-           LDX     #M0720                   ;3216: 8E 07 20       '.. '
-           LDY     #M0300                   ;3219: 10 8E 03 00    '....'
-           LDA     #$0C                     ;321D: 86 0C          '..'
-           STA     M0000                    ;321F: 97 00          '..'
-Z3221      LDA     #$10                     ;3221: 86 10          '..'
-           STA     M0001                    ;3223: 97 01          '..'
-Z3225      LDA     ,Y                       ;3225: A6 A4          '..'
-           BNE     Z3270                    ;3227: 26 47          '&G'
-           LDU     #M1FC6                   ;3229: CE 1F C6       '...'
-           LDB     M0047                    ;322C: D6 47          '.G'
-           ANDB    #$03                     ;322E: C4 03          '..'
-           ASLB                             ;3230: 58             'X'
-           ASLB                             ;3231: 58             'X'
-           LEAU    B,U                      ;3232: 33 C5          '3.'
-           LDD     ,U                       ;3234: EC C4          '..'
-           STD     ,X                       ;3236: ED 84          '..'
-           STD     $20,X                    ;3238: ED 88 20       '.. '
-           STD     $40,X                    ;323B: ED 88 40       '..@'
-           STD     $60,X                    ;323E: ED 88 60       '..`'
-           STD     $0080,X                  ;3241: ED 89 00 80    '....'
-           STD     $00A0,X                  ;3245: ED 89 00 A0    '....'
-           LDD     $02,U                    ;3249: EC 42          '.B'
-           STD     $00E0,X                  ;324B: ED 89 00 E0    '....'
-           STD     $0100,X                  ;324F: ED 89 01 00    '....'
-           STD     $0120,X                  ;3253: ED 89 01 20    '... '
-           STD     $0140,X                  ;3257: ED 89 01 40    '...@'
-           STD     $0160,X                  ;325B: ED 89 01 60    '...`'
-           STD     $0180,X                  ;325F: ED 89 01 80    '....'
-           LDD     #RESET                   ;3263: CC FF FF       '...'
-           STD     $00C0,X                  ;3266: ED 89 00 C0    '....'
-           STD     $01A0,X                  ;326A: ED 89 01 A0    '....'
-           BRA     Z3281                    ;326E: 20 11          ' .'
-Z3270      LDA     #$0E                     ;3270: 86 0E          '..'
-           LDU     #RESET                   ;3272: CE FF FF       '...'
-Z3275      STU     ,X                       ;3275: EF 84          '..'
-           LEAX    $20,X                    ;3277: 30 88 20       '0. '
-           DECA                             ;327A: 4A             'J'
-           BNE     Z3275                    ;327B: 26 F8          '&.'
-           LEAX    $FE40,X                  ;327D: 30 89 FE 40    '0..@'
-Z3281      LEAY    $02,Y                    ;3281: 31 22          '1"'
-           LEAX    $02,X                    ;3283: 30 02          '0.'
-           DEC     M0001                    ;3285: 0A 01          '..'
-           BNE     Z3225                    ;3287: 26 9C          '&.'
-           LEAY    $20,Y                    ;3289: 31 A8 20       '1. '
-           LEAX    $01A0,X                  ;328C: 30 89 01 A0    '0...'
-           DEC     M0000                    ;3290: 0A 00          '..'
-           LBNE    Z3221                    ;3292: 10 26 FF 8B    '.&..'
-           PULS    U,Y,X,D                  ;3296: 35 76          '5v'
-           RTS                              ;3298: 39             '9'
+SPLAYA     PSHS    U,Y,X,D                  ;3214: 34 76          Save registers
+           LDX     #M0720                   ;3216: 8E 07 20       Point to start of game screen
+           LDY     #M0300                   ;3219: 10 8E 03 00    Point to ??? USR FUNCTION Vector? 
+           LDA     #$0C                     ;321D: 86 0C          Load row count value 12 
+           STA     M0000                    ;321F: 97 00          Store in variable 0
+ROWLOOP    LDA     #$10                     ;3221: 86 10          Load column count value 16
+           STA     M0001                    ;3223: 97 01          Store in variable 1
+COLLOOP    LDA     ,Y                       ;3225: A6 A4          Get ???
+           BNE     CLRBLK                   ;3227: 26 47          Clear block if empty space 
+           LDU     #M1FC6                   ;3229: CE 1F C6       Point to ??? data table
+           LDB     M0047                    ;322C: D6 47          Get value for ???
+           ANDB    #$03                     ;322E: C4 03          Mask to get lower 2 bits (0-3)
+           ASLB                             ;3230: 58             Multiply by 2 (shift left)
+           ASLB                             ;3231: 58             Multiply by 2 again (shift left)
+           LEAU    B,U                      ;3232: 33 C5          Move pointer to data table location + offset
+           LDD     ,U                       ;3234: EC C4          Get sprite line pattern 
+           STD     ,X                       ;3236: ED 84          Draw first line to screen
+           STD     $20,X                    ;3238: ED 88 20       Draw next line to screen
+           STD     $40,X                    ;323B: ED 88 40       Draw next line to screen
+           STD     $60,X                    ;323E: ED 88 60       Draw next line to screen
+           STD     $0080,X                  ;3241: ED 89 00 80    Draw next line to screen
+           STD     $00A0,X                  ;3245: ED 89 00 A0    Draw next line to screen
+           LDD     $02,U                    ;3249: EC 42          Get next sprite line pattern
+           STD     $00E0,X                  ;324B: ED 89 00 E0    Draw first line to screen
+           STD     $0100,X                  ;324F: ED 89 01 00    Draw next line to screen
+           STD     $0120,X                  ;3253: ED 89 01 20    Draw next line to screen
+           STD     $0140,X                  ;3257: ED 89 01 40    Draw next line to screen
+           STD     $0160,X                  ;325B: ED 89 01 60    Draw next line to screen
+           STD     $0180,X                  ;325F: ED 89 01 80    Draw next line to screen
+           LDD     #RESET                   ;3263: CC FF FF       Load reset pattern (white block)
+           STD     $00C0,X                  ;3266: ED 89 00 C0    Draw reset line to screen
+           STD     $01A0,X                  ;326A: ED 89 01 A0    Draw next reset line to screen
+           BRA     NEXTCOL                  ;326E: 20 11          Next column
+CLRBLK     LDA     #$0E                     ;3270: 86 0E          Set line counter to 14 (sprite height)
+           LDU     #$FFFF                   ;3272: CE FF FF       Load white block pattern (clear area)
+CLRBLK1    STU     ,X                       ;3275: EF 84          Clear line
+           LEAX    $20,X                    ;3277: 30 88 20       Jump to next row
+           DECA                             ;327A: 4A             Decrement row counter
+           BNE     CLRBLK1                  ;327B: 26 F8          Loop until all lines cleared
+           LEAX    $FE40,X                  ;327D: 30 89 FE 40    Jump back 447 bytes (?)
+NEXTCOL    LEAY    $02,Y                    ;3281: 31 22          Next two bytes
+           LEAX    $02,X                    ;3283: 30 02          Next location
+           DEC     M0001                    ;3285: 0A 01          Decrease column counter
+           BNE     COLLOOP                  ;3287: 26 9C          Loop until all columns processed
+           LEAY    $20,Y                    ;3289: 31 A8 20       Jump 32 bytes ahead in data table 
+           LEAX    $01A0,X                  ;328C: 30 89 01 A0    Jump 416 bytes ahead in screen memory
+           DEC     M0000                    ;3290: 0A 00          Decrement row counter
+           LBNE    ROWLOOP                  ;3292: 10 26 FF 8B    Loop until all rows processed
+           PULS    U,Y,X,D                  ;3296: 35 76          Restore registers
+           RTS                              ;3298: 39             
 ; --------------------------------------------------------------------------------
-; Subroutine 
+; Subroutine for building the full game window: Score, lives and play area
 ; --------------------------------------------------------------------------------
            PSHS    U,Y,X,D                  ;3299: 34 76 
            LDX     #M06E0                   ;329B: Point to screen start
@@ -2347,7 +2351,7 @@ DRWLIFE    LDU     ,Y++                     ;3309: Get data for current sprite l
            ; ---------------------------------------------------------------------------------
 Z331A      PULS    U,Y,X,D                  ;331A: Restore registers
            JSR     [Z1F26]                  ;331C: Jump to subroutine at 2F0B
-           JSR     [Z1F32]                  ;3320: Jump to subroutine at 3214
+           JSR     [VPLAYA]                 ;3320: Draw play area 
            RTS                              ;3324: 
 ; --------------------------------------------------------------------------------
 ; Subroutine 1: Set up ???
@@ -3304,7 +3308,7 @@ LOOP02     CLR     ,X                       ;3A9A: 6F 84          'o.'
            DEC     ,X+                      ;3A9C: 6A 80          'j.'
            CMPX    #M0700                   ;3A9E: 8C 07 00       '...'
            BLT     LOOP02                   ;3AA1: 2D F7          '-.'
-           JSR     [Z1F34]                  ;3AA3: AD 9F 1F 34    '...4'
+           JSR     [VBLDGM]                  ;3AA3: AD 9F 1F 34    Build game screen 
            LDU     #M0000                   ;3AA7: CE 00 00       '...'
            LDY     #M0000                   ;3AAA: 10 8E 00 00    '....'
            JSR     [Z1F1E]                  ;3AAE: AD 9F 1F 1E    '....'
