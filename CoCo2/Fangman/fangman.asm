@@ -376,7 +376,7 @@ FMRITE     FCB     $FF,$FF                  ;2054: FF FF          '1111111111111
            FCB     $C0,$3D                  ;206C: C0 3D          '1100000000111101
            FCB     $80,$03                  ;206E: 80 03          '1000000000000011
 
-HM0001     FCB     $FF,$FF                  ;2070: FF FF          '1111111111111111
+HUMAN1     FCB     $FF,$FF                  ;2070: FF FF          '1111111111111111
            FCB     $FE,$3F                  ;2072: FE 3F          '1111111000111111
            FCB     $FC,$1F                  ;2074: FC 1F          '1111110000011111
            FCB     $FC,$1F                  ;2076: FC 1F          '1111110000011111
@@ -391,7 +391,7 @@ HM0001     FCB     $FF,$FF                  ;2070: FF FF          '1111111111111
            FCB     $FF,$CF                  ;2088: FF CF          '1111111111001111
            FCB     $FF,$FF                  ;208A: FF FF          '1111111111111111
 
-HM0002     FCB     $FF,$FF                  ;208C: FF FF          '1111111111111111
+HUMAN2     FCB     $FF,$FF                  ;208C: FF FF          '1111111111111111
            FCB     $FE,$3F                  ;208E: FE 3F          '1111111000111111
            FCB     $FD,$5F                  ;2090: FD 5F          '1111110101011111
            FCB     $FC,$1F                  ;2092: FC 1F          '1111110000011111
@@ -402,11 +402,11 @@ HM0002     FCB     $FF,$FF                  ;208C: FF FF          '1111111111111
            FCB     $FC,$1F                  ;209C: FC 1F          '1111110000011111
            FCB     $FC,$1F                  ;209E: FC 1F          '1111110000011111
            FCB     $F9,$9F                  ;20A0: F9 9F          '1111100110011111
-           FCB     $FB,$DF                  ;20A2: FB DF          '1111101101111111   
+           FCB     $FB,$DF                  ;20A2: FB DF          '1111101111011111   
            FCB     $FF,$C7                  ;20A4: FF C7          '1111111111000111
            FCB     $FF,$FF                  ;20A6: FF FF          '1111111111111111
 
-HM0003     FCB     $FF,$FF                  ;20A8: FF FF          '1111111111111111
+HUMAN3     FCB     $FF,$FF                  ;20A8: FF FF          '1111111111111111
            FCB     $FE,$3F                  ;20AA: FE 3F          '1111111000111111
            FCB     $F9,$1F                  ;20AC: F9 1F          '1111100100011111
            FCB     $FC,$1F                  ;20AE: FC 1F          '1111110000011111
@@ -417,11 +417,11 @@ HM0003     FCB     $FF,$FF                  ;20A8: FF FF          '1111111111111
            FCB     $FE,$1F                  ;20B8: FE 1F          '1111111000011111
            FCB     $FE,$37                  ;20BA: FE 37          '1111111000110111
            FCB     $EE,$AB                  ;20BC: EE AB          '1110111010101011
-           FCB     $F5,$DD                  ;20BE: F5 DD          '1111010101011101
-           FCB     $FB,$FF                  ;20C0: FB FF          '1111101101111111
+           FCB     $F5,$DD                  ;20BE: F5 DD          '1111010111011101
+           FCB     $FB,$FF                  ;20C0: FB FF          '1111101111111111
            FCB     $FF,$FF                  ;20C2: FF FF          '1111111111111111
 
-HM0004     FCB     $FF,$FF                  ;20C4: FF FF          '1111111111111111
+HUMAN4     FCB     $FF,$FF                  ;20C4: FF FF          '1111111111111111
            FCB     $FE,$3F                  ;20C6: FE 3F          '1111111000111111
            FCB     $FC,$4F                  ;20C8: FC 4F          '1111110001001111
            FCB     $FC,$1F                  ;20CA: FC 1F          '1111110000011111
@@ -436,7 +436,7 @@ HM0004     FCB     $FF,$FF                  ;20C4: FF FF          '1111111111111
            FCB     $FF,$EF                  ;20DC: FF EF          '1111111111101111
            FCB     $FF,$FF                  ;20DE: FF FF          '1111111111111111
 
-HM0005     FCB     $FF,$FF                  ;20E0: FF FF          '1111111111111111
+HUMAN5     FCB     $FF,$FF                  ;20E0: FF FF          '1111111111111111
            FCB     $FE,$3F                  ;20E2: FE 3F          '1111111000111111
            FCB     $FC,$1F                  ;20E4: FC 1F          '1111110000011111
            FCB     $FC,$1F                  ;20E6: FC 1F          '1111110000011111
@@ -446,12 +446,12 @@ HM0005     FCB     $FF,$FF                  ;20E0: FF FF          '1111111111111
            FCB     $FC,$17                  ;20EE: FC 17          '1111110000010111
            FCB     $FC,$1F                  ;20F0: FC 1F          '1111110000011111
            FCB     $FC,$17                  ;20F2: FC 17          '1111110000010111
-           FCB     $FC,$CF                  ;20F4: FC CF          '1111110000111111
-           FCB     $F5,$FF                  ;20F6: F5 FF          '1111010101111111
+           FCB     $FC,$CF                  ;20F4: FC CF          '1111110011001111 
+           FCB     $F5,$FF                  ;20F6: F5 FF          '1111010111111111
            FCB     $F9,$FF                  ;20F8: F9 FF          '1111100111111111
            FCB     $FF,$FF                  ;20FA: FF FF          '1111111111111111
 
-HM0006     FCB     $FF,$FF                  ;20FC: FF FF          '1111111111111111
+HUMAN6     FCB     $FF,$FF                  ;20FC: FF FF          '1111111111111111
            FCB     $FE,$3F                  ;20FE: FE 3F          '1111111000111111
            FCB     $FD,$5F                  ;2100: FD 5F          '1111110101011111
            FCB     $FC,$1F                  ;2102: FC 1F          '1111110000011111
@@ -462,13 +462,13 @@ HM0006     FCB     $FF,$FF                  ;20FC: FF FF          '1111111111111
            FCB     $FC,$1F                  ;210C: FC 1F          '1111110000011111
            FCB     $FC,$1F                  ;210E: FC 1F          '1111110000011111
            FCB     $FC,$CF                  ;2110: FC CF          '1111110000111111
-           FCB     $FD,$EF                  ;2112: FD EF          '1111110111011111
-           FCB     $F1,$FF                  ;2114: F1 FF          '1111000101111111
+           FCB     $FD,$EF                  ;2112: FD EF          '1111110111101111
+           FCB     $F1,$FF                  ;2114: F1 FF          '1111000111111111
            FCB     $FF,$FF                  ;2116: FF FF          '1111111111111111
 
-HM0007     FCB     $FF,$FF                  ;2118: FF FF          '1111111111111111
+HUMAN7     FCB     $FF,$FF                  ;2118: FF FF          '1111111111111111
            FCB     $FE,$3F                  ;211A: FE 3F          '1111111000111111
-           FCB     $F9,$1F                  ;211C: F9 1F          '1111100111111111
+           FCB     $F9,$1F                  ;211C: F9 1F          '1111100100011111
            FCB     $FC,$1F                  ;211E: FC 1F          '1111110000011111
            FCB     $FE,$3F                  ;2120: FE 3F          '1111111000111111
            FCB     $FE,$1F                  ;2122: FE 1F          '1111111000011111
@@ -501,7 +501,7 @@ BAT001     FCB     $FF,$FF                  ;2150: FF FF          '1111111111111
            FCB     $DD,$EE                  ;2154: DD EE          '1101110111101110
            FCB     $CC,$CC                  ;2156: CC CC          '1100110011001100
            FCB     $C4,$08                  ;2158: C4 08          '1100010000001000
-           FCB     $C1,$20                  ;215A: C1 20          '1100000100000000
+           FCB     $C1,$20                  ;215A: C1 20          '1100000100100000
            FCB     $E0,$01                  ;215C: E0 01          '1110000000000001
            FCB     $F0,$03                  ;215E: F0 03          '1111000000000011
            FCB     $F8,$07                  ;2160: F8 07          '1111100000000111
@@ -569,7 +569,7 @@ M21CE      FCB     $0A,$40                  ;21CE: 0A 40          '0000101001000
            FCB     $05,$80                  ;21D8: 05 80          '0000010110000000
            FCB     $02,$80                  ;21DA: 02 80          '0000001010000000
 
-M21DC      FCB     $FF,$FF                  ;21DC: FF FF          '1111111111111111
+DBZERO     FCB     $FF,$FF                  ;21DC: FF FF          '1111111111111111
            FCB     $FF,$FF                  ;21DE: FF FF          '1111111111111111
            FCB     $FF,$FF                  ;21E0: FF FF          '1111111111111111
            FCB     $FF,$11                  ;21E2: FF 11          '1111111100010001
@@ -1778,14 +1778,14 @@ Z2E61      LDA     ,X+                      ;2E61: A6 80          '..'
 ; --------------------------------------------------------------------------------
 ; Subroutine Switch to graphics mode
 ; --------------------------------------------------------------------------------
-SPMODE4    PSHS     A                        ;2E70: Save register A
+SPMODE4    PSHS     A                       ;2E70: Save register A
            LDA     #$F8                     ;2E72: Load bit pattern 1111 1000
            STA     VDGSET                   ;2E74: Set PMODE 4 / SCREEN 1,1   
            STA     V0CLR                    ;2E77: SAM V bits 110 
            STA     V1SET                    ;2E7A: = Full graphic 6-C
            STA     V2SET                    ;2E7D: 
            STA     F0SET                    ;2E80: Add $200 to video offset 
-           PULS   A                         ;2E83: Restore register A
+           PULS    A                         ;2E83: Restore register A
            RTS                              ;2E85: 
 ; --------------------------------------------------------------------------------
 ; Subroutine 
@@ -2962,11 +2962,12 @@ Z37DD      LEAU    $08,U                    ;37DD: 33 48          '3H'
            LDB     $05,Y                    ;37EB: E6 25          '.%'
            CMPB    #$0C                     ;37ED: C1 0C          '..'
            BGE     Z381F                    ;37EF: 2C 2E          ',.'
-           BRA     Z37FD                    ;37F1: 20 0A          ' .'
+           BRA     Z37FD                    ;37F1: 20 0A          Caught
 Z37F3      LDA     $05,Y                    ;37F3: A6 25          '.%'
            CMPA    #$0C                     ;37F5: 81 0C          '..'
            BGE     Z381B                    ;37F7: 2C 22          ',"'
            JSR     [Z1F56]                  ;37F9: AD 9F 1F 56    '...V'
+           ; Caught human
 Z37FD      LDA     ,X                       ;37FD: A6 84          '..'
            CMPX    M0092                    ;37FF: 9C 92          '..'
            BNE     Z381F                    ;3801: 26 1C          '&.'
@@ -2977,7 +2978,7 @@ Z37FD      LDA     ,X                       ;37FD: A6 84          '..'
            DEC     M004B                    ;380B: 0A 4B          '.K'
            LDA     #$03                     ;380D: 86 03          '..'
            STA     M0032                    ;380F: 97 32          '.2'
-           JSR     [Z1F54]                  ;3811: AD 9F 1F 54    '...T'
+           JSR     [Z1F54]                  ;3811: Caught human
            JSR     [Z1F52]                  ;3815: AD 9F 1F 52    '...R'
            BRA     Z381F                    ;3819: 20 04          ' .'
 Z381B      JSR     [Z1F58]                  ;381B: AD 9F 1F 58    '...X'
@@ -2996,7 +2997,7 @@ Z381F      LEAY    $08,Y                    ;381F: 31 28          '1('
 Z383B      PULS    U,Y,X,D                  ;383B: 35 76          '5v'
            RTS                              ;383D: 39             '9'
 ; --------------------------------------------------------------------------------
-; Subroutine 
+; Subroutine caught human ? 
 ; --------------------------------------------------------------------------------
            PSHS    U,Y,X,D                  ;383E: 34 76          '4v'
            LDA     M0036                    ;3840: 96 36          '.6'
@@ -3009,14 +3010,16 @@ Z383B      PULS    U,Y,X,D                  ;383B: 35 76          '5v'
            LDX     ,Y                       ;384C: AE A4          '..'
            LDA     #$0D                     ;384E: 86 0D          '..'
            PSHS    U                        ;3850: 34 40          '4@'
-           LDU     #M21DC                   ;3852: CE 21 DC       '.!.'
-Z3855      LDB     ,U+                      ;3855: E6 C0          '..'
+           ; Draw double zero sprite at player position
+           LDU     #DBZERO                  ;3852: CE 21 DC       '.!.'
+DRZEROS    LDB     ,U+                      ;3855: E6 C0          '..'
            STB     ,X                       ;3857: E7 84          '..'
            LDB     ,U+                      ;3859: E6 C0          '..'
            STB     $01,X                    ;385B: E7 01          '..'
            LEAX    $20,X                    ;385D: 30 88 20       '0. '
            DECA                             ;3860: 4A             'J'
-           BNE     Z3855                    ;3861: 26 F2          '&.'
+           BNE     DRZEROS                  ;3861: 26 F2          '&.'
+           ; 
            LDX     ,Y                       ;3863: AE A4          '..'
            LDD     M025A                    ;3865: FC 02 5A       '..Z'
            STD     $01A0,X                  ;3868: ED 89 01 A0    '....'
@@ -3024,11 +3027,11 @@ Z3855      LDB     ,U+                      ;3855: E6 C0          '..'
            LDA     #$07                     ;386E: 86 07          '..'
            LDX     ,Y                       ;3870: AE A4          '..'
            LEAX    $60,X                    ;3872: 30 88 60       '0.`'
-Z3875      LDB     ,U+                      ;3875: E6 C0          '..'
+DRNUMBR    LDB     ,U+                      ;3875: E6 C0          '..'
            STB     ,X                       ;3877: E7 84          '..'
            LEAX    $20,X                    ;3879: 30 88 20       '0. '
            DECA                             ;387C: 4A             'J'
-           BNE     Z3875                    ;387D: 26 F6          '&.'
+           BNE     DRNUMBR                  ;387D: 26 F6          '&.'
            LDB     M0036                    ;387F: D6 36          '.6'
            DECB                             ;3881: 5A             'Z'
            SUBB    M004B                    ;3882: D0 4B          '.K'
