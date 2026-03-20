@@ -217,7 +217,7 @@ Z1F2C      FDB     $35A7                 ;1F2C: 35 A7
 Z1F2E      FDB     $34F3                 ;1F2E: 34 F3
 Z1F30      FDB     $362D                 ;1F30: 36 2D
 VPLAYA     FDB     $3214                 ;1F32: 32 14
-VBLDGM     FDB     $3299                 ;1F34: 32 99
+VBLDGM      FDB     $3299                 ;1F34: 32 99
 Z1F36      FDB     $3337                 ;1F36: 33 37
 Z1F38      FDB     $3367                 ;1F38: 33 67
 Z1F3A      FDB     $3D9A                 ;1F3A: 3D 9A
@@ -290,21 +290,21 @@ SCORTXT    FCB     $08,$1D,$13,$00,$1E,$1E  ;1FB0: H-S 00
            FCB     $1E,$1E,$1E,$1E,$00      ;1FBE: 0000
            FCB     $13,$03,$12,$00          ;1FC4: SCO 
            ; ---------------------------------------------------
-M1FC6      FCB     $AA,$BA                  ;1FC6: AA BA        
-           FCB     $AE,$AA                  ;1FC8: AE AA        
-           FCB     $00,$30                  ;1FCA: 00 30        
-           FCB     $0C,$00                  ;1FCC: 0C 00        
-           FCB     $55,$75                  ;1FCE: 55 75        
-           FCB     $0C,$00                  ;1FD0: 0C 00        
-           FCB     $AA,$BA                  ;1FD2: AA BA        
-           FCB     $5D,$55                  ;1FD4: 5D 55        
+M1FC6      FCB     $AA,$BA                  ;1FC6: AA BA        '1010101011101010
+           FCB     $AE,$AA                  ;1FC8: AE AA        '1010111010101010
+           FCB     $00,$30                  ;1FCA: 00 30        '0000000000110000
+           FCB     $0C,$00                  ;1FCC: 0C 00        '0000110000000000
+           FCB     $55,$75                  ;1FCE: 55 75        '0101010101110101
+           FCB     $0C,$00                  ;1FD0: 0C 00        '0000110000000000
+           FCB     $AA,$BA                  ;1FD2: AA BA        '1010101011101010
+           FCB     $5D,$55                  ;1FD4: 5D 55        '0101110101010101
            ; ---------------------------------------------------
-M1FD6      FCB     $06,$1A                  ;1FD6: 06 1A
-           FCB     $1E,$21                  ;1FD8: 1E 21
-           FCB     $06,$04                  ;1FDA: 06 04
-           FCB     $1E,$41                  ;1FDC: 1E 41
-           FCB     $25,$C6                  ;1FDE: 25 C6
-           FCB     $06,$07                  ;1FE0: 06 07
+M1FD6      FCB     $06,$1A
+           FCB     $1E,$21
+           FCB     $06,$04
+           FCB     $1E,$41
+           FCB     $25,$C6
+           FCB     $06,$07
            ; ---------------------------------------------------   
 M1FE2      FCB     $FF,$20                  ;1FE2: FF 20          
            ; ---------------------------------------------------
@@ -964,18 +964,21 @@ M2700      FCB     $80,$80,$80,$80,$80,$80  ;2700: 80 80 80 80 80 80
            FCB     $04,$20,$10,$12,$05,$13  ;271E: 04 20 10 12 05 13 
            FCB     $13,$20,$02,$15,$14,$14  ;2724: 13 20 02 15 14 14 
            FCB     $0F,$0E                  ;272A: 0F 0E             
-LVLSEL     FCC     "``````````ImV`LEAGUER``````````"   ;272C: 
-           FCC     "``````````NECK`PECKER``````````"   ;274C:
-           FCC     "````````LIVING`DEADHEAD````````"   ;276C:
-           FCC     "`````````````SUCKERa```````````"   ;278C:
-M27AC      FCB     $F0,$80                  ;27AC: F0 80
-           FCB     $90,$A0                  ;27AE: 90 A0
-           FCB     $B0,$C0                  ;27B0: B0 C0
-           FCB     $D0,$E0                  ;27B2: D0 E0
-           FCB     $F0,$80                  ;27B4: F0 80
-           FCB     $90,$A0                  ;27B6: 90 A0            
-           FCB     $B0,$C0                  ;27B8: B0 C0
-           FCB     $D0,$E0                  ;27BA: D0 E0
+LVLSEL     FCC     "``````````ImV`LEAGUER"  ;272C: 60 60 60 60 60 60 60 60 60 60 49 6D 56 60 4C 45 41 47 55 45 52
+           FCC     "`````````````````````"  ;2741: 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60
+           FCC     "NECK`PECKER``````````"  ;2756: 4E 45 43 4B 60 50 45 43 4B 45 52 60 60 60 60 60 60 60 60 60 60
+           FCC     "`````````LIVING`DEADH"  ;276B: 60 60 60 60 60 60 60 60 60 4C 49 56 49 4E 47 60 44 45 41 44 48
+           FCC     "EAD``````````````````"  ;2780: 45 41 44 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60 60
+           FCC     "```SUCKERa```````````"  ;2795: 60 60 60 53 55 43 4B 45 52 61 60 60 60 60 60 60 60 60 60 60 60
+           FCC     "``"                     ;27AA: 60 60          '``'
+M27AC      FCB     $F0,$80                  ;27AC: F0 80             ' 1111 0000 1000 0000
+           FCB     $90,$A0                  ;27AE: 90 A0             ' 1001 0000 1010 0000
+           FCB     $B0,$C0                  ;27B0: B0 C0             ' 1011 0000 1100 0000  
+           FCB     $D0,$E0                  ;27B2: D0 E0             ' 1101 0000 1110 0000
+           FCB     $F0,$80                  ;27B4: F0 80             ' 1111 0000 1000 0000
+           FCB     $90,$A0                  ;27B6: 90 A0             ' 1001 0000 1010 0000   
+           FCB     $B0,$C0                  ;27B8: B0 C0             ' 1011 0000 1100 0000
+           FCB     $D0,$E0                  ;27BA: D0 E0             ' 1101 0000 1110 0000
 M27BC      FCB     $F0,$FF,$EF,$7F,$D9,$BF  ;27BC: F0 FF EF 7F D9 BF 
            FCB     $B6,$DF,$AF,$6F,$B7,$B7  ;27C2: B6 DF AF 6F B7 B7
            FCB     $B9,$DB,$8E,$6D,$83,$96  ;27C8: B9 DB 8E 6D 83 96
@@ -1541,32 +1544,32 @@ SMENU      PSHS    U,Y,X,D                  ;2C4C: Save registers on stack
            STA     F0SET                    ;2CBC: Display offset - Add $0200
            STA     F1SET                    ;2CBF: Display offset - Add $0400 = $0600
            ; Check joystick button -----------------------------------------------
-Z2CC2      LDB     RBUTTN                   ;2CC2: F6 FF 00       Get joystick button value 
-           COMB                             ;2CC5: 53             Invert value 
-           BITB    #$01                     ;2CC6: C5 01          Test whether pressed 
-           BNE     Z2CC2                    ;2CC8: 26 F8          Wait until released  
-           LBSR    POLJOY1                  ;2CCA: 17 00 C6       Read joystick input 
-Z2CCD      TFR     A,B                      ;2CCD: 1F 89          
-           ASLB                             ;2CCF: 58             
-           ANDB    #$E0                     ;2CD0: C4 E0          
+Z2CC2      LDB     RBUTTN                   ;2CC2: Get joystick button value 
+           COMB                             ;2CC5: Invert value 
+           BITB    #$01                     ;2CC6: Test whether pressed 
+           BNE     Z2CC2                    ;2CC8: Wait until released  
+           LBSR    POLJOY1                  ;2CCA: Read joystick input 
+Z2CCD      TFR     A,B                      ;2CCD: 1F 89          '..'
+           ASLB                             ;2CCF: 58             'X'
+           ANDB    #$E0                     ;2CD0: C4 E0          '..'
            LDX     #M0760                   ;2CD2: 8E 07 60       Point to text row 12 (level select menu start)
            LEAX    B,X                      ;2CD5: 30 85          Move to row of currently selected level   
-           LDU     #LVLSEL                  ;2CD7: CE 27 2C       Point to level select menu data
+           LDU     #LVLSEL                  ;2CD7: CE 27 2C       Get currently selected level value
            LEAU    B,U                      ;2CDA: 33 C5          Move to selected level data
-           ASRA                             ;2CDC: 47             Divide joystick pos by four
+           ASRA                             ;2CDC: 47             Divide ? pos by four
            ASRA                             ;2CDD: 47               "
            ASRA                             ;2CDE: 47               "
            ASRA                             ;2CDF: 47               "
-           STA     M0000                    ;2CE0: 97 00          Store resulting value
+           STA     M0000                    ;2CE0: 97 00          Store ? value
            LDA     #$03                     ;2CE2: 86 03          Load value 3 
            SUBA    M0000                    ;2CE4: 90 00          Subtract 3 from ? variable value 
-           ASLA                             ;2CE6: 48             Multiply result by 2
-           STA     M0047                    ;2CE7: 97 47          Store result in variable 47 (round number ?)
+           ASLA                             ;2CE6: 48             
+           STA     M0047                    ;2CE7: 97 47          Store result in variable 47 (skill level factor ?)
            LBSR    MNHILITE                 ;2CE9: 17 00 BF       Highlight selected level item in menu ? 
            JSR     [Z1F7E]                  ;2CEC: AD 9F 1F 7E    Jump to subroutine at address $2EFC
            BRA     Z2CF5                    ;2CF0: 20 03          Read joystick input 
            ; Joystick input loop ---------------------------------------------------------------
-Z2CF2      LBSR    POLJOY1                  ;2CF2: 17 00 C6       Read joystick input 
+Z2CF2      LBSR    POLJOY1                  ;2CF2: 17 00 C6       '...'
 Z2CF5      LDB     RBUTTN                   ;2CF5: F6 FF 00       Read joystick button value
            BITB    #$01                     ;2CF8: C5 01          Test whether pressed
            BEQ     SCRINIT                  ;2CFA: 27 2C          Start game if pressed
@@ -1731,7 +1734,7 @@ Z2E13      LDA     -$01,X                   ;2E13: A6 1F          '..'
 Z2E1B      CMPB    #$90                     ;2E1B: C1 90          '..'
            BHI     Z2E13                    ;2E1D: 22 F4          '".'
            STB     ,X                       ;2E1F: E7 84          '..'
-           LEAX    -$01,X                   ;2E21: 30 1F          '0.'
+           LEAX    -$01,X                              ;2E21: 30 1F          '0.'
            CMPX    M0016                    ;2E23: 9C 16          '..'
            BGE     Z2E04                    ;2E25: 2C DD          ',.'
            LDA     #$12                     ;2E27: 86 12          '..'
@@ -1745,7 +1748,7 @@ Z2E1B      CMPB    #$90                     ;2E1B: C1 90          '..'
            LDB     M001E                    ;2E37: D6 1E          '..'
 Z2E39      LDX     M001C                    ;2E39: 9E 1C          '..'
            BSR     Z2E52                    ;2E3B: 8D 15          '..'
-           LEAY    -$01,Y                   ;2E3D: 31 3F          '1?'
+           LEAY    -$01,Y                    ;2E3D: 31 3F          '1?'
            PSHS    D                        ;2E3F: 34 06          '4.'
            LDA     #$20                     ;2E41: 86 20          '. '
            LDB     M001F                    ;2E43: D6 1F          '..'
@@ -1758,7 +1761,7 @@ Z2E39      LDX     M001C                    ;2E39: 9E 1C          '..'
            BNE     Z2E39                    ;2E4D: 26 EA          '&.'
            PULS    U,Y,X,D                  ;2E4F: 35 76          '5v'
            RTS                              ;2E51: 39             '9'
-Z2E52      PSHS    B                        ;2E52: 34 04          '4.'
+Z2E52      PSHS    B                             ;2E52: 34 04          '4.'
            LDB     ,Y                       ;2E54: E6 A4          '..'
            LSRB                             ;2E56: 54             'T'
            LSRB                             ;2E57: 54             'T'
@@ -1786,7 +1789,7 @@ SPMODE4    PSHS     A                       ;2E70: Save register A
            STA     V1SET                    ;2E7A: = Full graphic 6-C
            STA     V2SET                    ;2E7D: 
            STA     F0SET                    ;2E80: Add $200 to video offset 
-           PULS    A                        ;2E83: Restore register A
+           PULS    A                         ;2E83: Restore register A
            RTS                              ;2E85: 
 ; --------------------------------------------------------------------------------
 ; Subroutine 
@@ -1796,7 +1799,7 @@ SPMODE4    PSHS     A                       ;2E70: Save register A
            PULS    U,Y,X,DP,D,CC            ;2E8C: 35 7F          '5.'
            PSHS    X,B                      ;2E8E: 34 14          '4.'
            LDX     #RNDSD                   ;2E90: 8E A1 33       '..3'
-           LDB     RJOYUD                   ;2E93: F6 01 5B       '..['
+           LDB     RJOYUD                    ;2E93: F6 01 5B       '..['
            ABX                              ;2E96: 3A             ':'
            LDB     LJOYLR                   ;2E97: F6 01 5C       '..\'
            ABX                              ;2E9A: 3A             ':'
@@ -1861,7 +1864,7 @@ PLSOUND    STA     >SNDTONE                 ;2EE5: B7 00 8C       Store tone val
 ; ... level selection pointer (including playing sound)
 ; --------------------------------------------------------------------------------
 S1F7E      PSHS    X,DP,D                   ;2EFC: 34 1E          Save registers on stack
-           LDA     M0047                    ;2EFE: 96 47          Load round number ? 
+           LDA     M0047                    ;2EFE: 96 47          Load skill level factor value
            LSRA                             ;2F00: 44             Divide skill level factor by two (shift right)
            INCA                             ;2F01: 4C             Increment result by one to get current level number (1-4)
            LDB     #$32                     ;2F02: C6 32          Load value 50 
@@ -2243,7 +2246,7 @@ COLLOOP    LDA     ,Y                       ;3225: A6 A4          Get ???
            BNE     CLRBLK                   ;3227: 26 47          Clear block if empty space 
            LDU     #M1FC6                   ;3229: CE 1F C6       Point to ??? data table
            LDB     M0047                    ;322C: D6 47          Get value for ???
-           ANDB    #$03                     ;322E: C4 03          Mask to get lower 3 bits (0-3)
+           ANDB    #$03                     ;322E: C4 03          Mask to get lower 2 bits (0-3)
            ASLB                             ;3230: 58             Multiply by 2 (shift left)
            ASLB                             ;3231: 58             Multiply by 2 again (shift left)
            LEAU    B,U                      ;3232: 33 C5          Move pointer to data table location + offset
@@ -2285,7 +2288,7 @@ NEXTCOL    LEAY    $02,Y                    ;3281: 31 22          Next two bytes
 ; --------------------------------------------------------------------------------
 ; Subroutine for building the full game window: Score, lives and play area
 ; --------------------------------------------------------------------------------
-SBLDGM     PSHS    U,Y,X,D                  ;3299: 34 76 
+           PSHS    U,Y,X,D                  ;3299: 34 76 
            LDX     #M06E0                   ;329B: Point to screen start
            LDU     #$FFFF                   ;329E: Load white stripe pattern
 WPSCR2     STU     ,X++                     ;32A1: Draw to screen and move to next location

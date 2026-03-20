@@ -1541,6 +1541,16 @@ SMENU      PSHS    U,Y,X,D                  ;2C4C: Save registers on stack
            STA     F0SET                    ;2CBC: Display offset - Add $0200
            STA     F1SET                    ;2CBF: Display offset - Add $0400 = $0600
            ; Check joystick button -----------------------------------------------
+<<<<<<< Updated upstream
+Z2CC2      LDB     RBUTTN                   ;2CC2: Get joystick button value 
+           COMB                             ;2CC5: Invert value 
+           BITB    #$01                     ;2CC6: Test whether pressed 
+           BNE     Z2CC2                    ;2CC8: Wait until released  
+           LBSR    POLJOY1                  ;2CCA: Read joystick input 
+Z2CCD      TFR     A,B                      ;2CCD: 1F 89          Copy joystick position value from A into B 
+           ASLB                             ;2CCF: 58             Multiply joystick position value by 2 
+           ANDB    #$E0                     ;2CD0: C4 E0          Mask top three bits 
+=======
 Z2CC2      LDB     RBUTTN                   ;2CC2: F6 FF 00       Get joystick button value 
            COMB                             ;2CC5: 53             Invert value 
            BITB    #$01                     ;2CC6: C5 01          Test whether pressed 
@@ -1549,6 +1559,7 @@ Z2CC2      LDB     RBUTTN                   ;2CC2: F6 FF 00       Get joystick b
 Z2CCD      TFR     A,B                      ;2CCD: 1F 89          
            ASLB                             ;2CCF: 58             
            ANDB    #$E0                     ;2CD0: C4 E0          
+>>>>>>> Stashed changes
            LDX     #M0760                   ;2CD2: 8E 07 60       Point to text row 12 (level select menu start)
            LEAX    B,X                      ;2CD5: 30 85          Move to row of currently selected level   
            LDU     #LVLSEL                  ;2CD7: CE 27 2C       Point to level select menu data
@@ -1561,7 +1572,11 @@ Z2CCD      TFR     A,B                      ;2CCD: 1F 89
            LDA     #$03                     ;2CE2: 86 03          Load value 3 
            SUBA    M0000                    ;2CE4: 90 00          Subtract 3 from ? variable value 
            ASLA                             ;2CE6: 48             Multiply result by 2
+<<<<<<< Updated upstream
+           STA     M0047                    ;2CE7: 97 47          Store result in variable 47 (skill level factor ?)
+=======
            STA     M0047                    ;2CE7: 97 47          Store result in variable 47 (round number ?)
+>>>>>>> Stashed changes
            LBSR    MNHILITE                 ;2CE9: 17 00 BF       Highlight selected level item in menu ? 
            JSR     [Z1F7E]                  ;2CEC: AD 9F 1F 7E    Jump to subroutine at address $2EFC
            BRA     Z2CF5                    ;2CF0: 20 03          Read joystick input 
