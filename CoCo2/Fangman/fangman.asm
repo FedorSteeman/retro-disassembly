@@ -3752,7 +3752,7 @@ Z3E3E      LDB     ,U+                      ;3E3E: Get data byte
            RTS                              ;3E51: 39             '9'
            ; Draw single set of teeth --------------------------------------------------
 DRWTEETH   LDU     #M5555                   ;3E52: Load bit pattern 0101 0101 0101 0101 
-           PSHS     X                         ;3E55: Save X register
+           PSHS     X                       ;3E55: Save X register
            STU     -$80,X                   ;3E57: Write row 4 (Upper gums)
            STU     -$60,X                   ;3E5A: Write row 3 (Upper gums) 
            STU     -$40,X                   ;3E5D: Write row 2 (Upper gums)
@@ -3771,7 +3771,7 @@ Z3E79      LDU     ,Y++                     ;3E79: Get data word
            LDY     #TOOTH1                  ;3E83: Point to data table start 
            LDA     #$0E                     ;3E87: Load value 14 (counter)
            PULS    X                        ;3E89: Restore X pointer 
-           PSHS     X                         ;3E8B: Save X pointer
+           PSHS    X                        ;3E8B: Save X pointer
            LEAX    $16E0,X                  ;3E8D: Jump to occluding row 
 Z3E91      LDU     ,Y++                     ;3E91: Get data word
            STU     ,X                       ;3E93: Write to screen memory
